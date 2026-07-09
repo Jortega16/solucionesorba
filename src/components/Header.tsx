@@ -6,10 +6,30 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/Icon';
 import { ServicesMenu, ServicesMenuMobile } from '@/components/ServicesMenu';
+import { DEFAULT_LOCALE, LOCALES, type Locale } from '@/lib/i18n';
 import { MAIN_NAV, NAV_AFTER_SERVICES, SITE, type NavItem } from '@/lib/site';
+
+function localeFromPathname(pathname: string): Locale {
+  const segment = pathname.split('/')[1];
+  return (LOCALES as readonly string[]).includes(segment) ? (segment as Locale) : DEFAULT_LOCALE;
+}
+
+function stripLocale(pathname: string) {
+  const segment = pathname.split('/')[1];
+  if (!(LOCALES as readonly string[]).includes(segment)) return pathname;
+  const stripped = pathname.replace(`/${segment}`, '') || '/';
+  return stripped;
+}
+
+function withLocale(href: string, locale: Locale) {
+  if (locale === DEFAULT_LOCALE) return href;
+  return href === '/' ? `/${locale}` : `/${locale}${href}`;
+}
 
 export function Header() {
   const pathname = usePathname();
+  const locale = localeFromPathname(pathname);
+  const activePathname = stripLocale(pathname);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -32,8 +52,8 @@ export function Header() {
   }, [mobileOpen]);
 
   const isActive = (item: NavItem) =>
-    item.match?.some((m) => (m === '/' ? pathname === '/' : pathname.startsWith(m))) ??
-    pathname === item.href;
+    item.match?.some((m) => (m === '/' ? activePathname === '/' : activePathname.startsWith(m))) ??
+    activePathname === item.href;
 
   const navLinkClass = (active: boolean) =>
     `font-label-md text-label-md h-20 flex items-center transition-colors duration-200 ${
@@ -49,7 +69,7 @@ export function Header() {
       }`}
     >
       <div className="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full gap-sm">
-        <Link href="/" className="flex items-center shrink-0" aria-label={SITE.name}>
+        <Link href={withLocale('/', locale)} className="flex items-center shrink-0" aria-label={SITE.name}>
           <Image
             src={SITE.logo}
             alt={SITE.name}
@@ -62,13 +82,13 @@ export function Header() {
 
         <nav className="hidden lg:flex items-center gap-lg" aria-label="Principal">
           {MAIN_NAV.map((item) => (
-            <Link key={item.href} href={item.href} className={navLinkClass(isActive(item))}>
+            <Link key={item.href} href={withLocale(item.href, locale)} className={navLinkClass(isActive(item))}>
               {item.label}
             </Link>
           ))}
           <ServicesMenu />
           {NAV_AFTER_SERVICES.map((item) => (
-            <Link key={item.href} href={item.href} className={navLinkClass(isActive(item))}>
+            <Link key={item.href} href={withLocale(item.href, locale)} className={navLinkClass(isActive(item))}>
               {item.label}
             </Link>
           ))}
@@ -76,11 +96,22 @@ export function Header() {
 
         <div className="flex items-center gap-sm">
           <Link
-            href="/contacto"
+            href={withLocale('/contacto', locale)}
             className="bg-primary text-on-primary px-lg py-xs font-label-md text-label-md font-bold rounded-lg hover:opacity-90 active:scale-95 transition-all"
           >
             Contacto
           </Link>
+          <div className="hidden md:flex items-center gap-xs font-label-md text-label-md">
+            {LOCALES.map((item) => (
+              <Link
+                key={item}
+                href={withLocale(activePathname, item)}
+                className={item === locale ? 'text-secondary font-bold' : 'text-on-surface-variant'}
+              >
+                {item.toUpperCase()}
+              </Link>
+            ))}
+          </div>
           <button
             type="button"
             className="lg:hidden p-xs text-primary"
@@ -99,7 +130,7 @@ export function Header() {
             {MAIN_NAV.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={withLocale(item.href, locale)}
                 className={`block font-label-md text-label-md py-sm ${
                   isActive(item) ? 'text-secondary font-bold' : 'text-on-surface-variant'
                 }`}
@@ -111,7 +142,7 @@ export function Header() {
             {NAV_AFTER_SERVICES.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={withLocale(item.href, locale)}
                 className={`block font-label-md text-label-md py-sm ${
                   isActive(item) ? 'text-secondary font-bold' : 'text-on-surface-variant'
                 }`}
@@ -119,6 +150,17 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <div className="flex gap-sm py-sm font-label-md text-label-md">
+              {LOCALES.map((item) => (
+                <Link
+                  key={item}
+                  href={withLocale(activePathname, item)}
+                  className={item === locale ? 'text-secondary font-bold' : 'text-on-surface-variant'}
+                >
+                  {item.toUpperCase()}
+                </Link>
+              ))}
+            </div>
           </nav>
         </div>
       ) : null}

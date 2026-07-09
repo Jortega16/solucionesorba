@@ -4,14 +4,35 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Icon } from '@/components/Icon';
+import { DEFAULT_LOCALE, LOCALES, type Locale } from '@/lib/i18n';
 import { SERVICE_PATHS, SERVICES_MENU } from '@/lib/site';
 
+function localeFromPathname(pathname: string): Locale {
+  const segment = pathname.split('/')[1];
+  return (LOCALES as readonly string[]).includes(segment) ? (segment as Locale) : DEFAULT_LOCALE;
+}
+
+function stripLocale(pathname: string) {
+  const segment = pathname.split('/')[1];
+  return (LOCALES as readonly string[]).includes(segment)
+    ? pathname.replace(`/${segment}`, '') || '/'
+    : pathname;
+}
+
+function withLocale(href: string, locale: Locale) {
+  if (locale === DEFAULT_LOCALE) return href;
+  return href === '/' ? `/${locale}` : `/${locale}${href}`;
+}
+
 function isServicePath(pathname: string) {
-  return SERVICE_PATHS.some((path) => pathname.startsWith(path));
+  const activePathname = stripLocale(pathname);
+  return SERVICE_PATHS.some((path) => activePathname.startsWith(path));
 }
 
 export function ServicesMenu({ className = '' }: { className?: string }) {
   const pathname = usePathname();
+  const locale = localeFromPathname(pathname);
+  const activePathname = stripLocale(pathname);
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -79,10 +100,10 @@ export function ServicesMenu({ className = '' }: { className?: string }) {
                   {group.items.map((item) => (
                     <li key={item.href}>
                       <Link
-                        href={item.href}
+                        href={withLocale(item.href, locale)}
                         role="menuitem"
                         className={`block rounded-lg px-sm py-xs transition-colors hover:bg-surface-container ${
-                          pathname.startsWith(item.href)
+                          activePathname.startsWith(item.href)
                             ? 'bg-secondary-fixed text-on-secondary-fixed'
                             : 'text-on-surface'
                         }`}
@@ -104,7 +125,7 @@ export function ServicesMenu({ className = '' }: { className?: string }) {
           </div>
           <div className="border-t border-outline-variant px-md py-sm">
             <Link
-              href="/#servicios"
+              href={withLocale('/#servicios', locale)}
               role="menuitem"
               className="font-label-md text-label-md text-secondary hover:underline inline-flex items-center gap-1"
             >
@@ -126,6 +147,8 @@ export function ServicesMenuMobile({
   onNavigate?: () => void;
 }) {
   const pathname = usePathname();
+  const locale = localeFromPathname(pathname);
+  const activePathname = stripLocale(pathname);
   const [expanded, setExpanded] = useState(true);
 
   if (!open) return null;
@@ -155,10 +178,10 @@ export function ServicesMenuMobile({
                 {group.items.map((item) => (
                   <li key={item.href}>
                     <Link
-                      href={item.href}
+                      href={withLocale(item.href, locale)}
                       onClick={onNavigate}
                       className={`block py-xs font-label-md text-label-md ${
-                        pathname.startsWith(item.href)
+                        activePathname.startsWith(item.href)
                           ? 'text-secondary font-bold'
                           : 'text-on-surface-variant hover:text-primary'
                       }`}
@@ -171,7 +194,7 @@ export function ServicesMenuMobile({
             </div>
           ))}
           <Link
-            href="/#servicios"
+            href={withLocale('/#servicios', locale)}
             onClick={onNavigate}
             className="font-label-md text-label-md text-secondary inline-flex items-center gap-1"
           >

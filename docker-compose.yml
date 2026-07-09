@@ -1,4 +1,16 @@
 services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-soluciones_orba}
+      POSTGRES_USER: ${POSTGRES_USER:-soluciones_orba}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-soluciones_orba}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
   web:
     build:
       context: .
@@ -11,7 +23,16 @@ services:
     env_file:
       - .env.local
     environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://soluciones_orba:soluciones_orba@db:5432/soluciones_orba?schema=public}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@solucionesorba.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin12345}
+      ADMIN_SESSION_SECRET: ${ADMIN_SESSION_SECRET:-change-me-in-production}
       RESEND_API_KEY: ${RESEND_API_KEY:-}
       CONTACT_FROM_EMAIL: ${CONTACT_FROM_EMAIL:-onboarding@resend.dev}
       CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-jortega@solucionesorba.com}
+    depends_on:
+      - db
     restart: unless-stopped
+
+volumes:
+  postgres_data:

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
 import { ButtonLink } from '@/components/ui/ButtonLink';
+import type { PublicBlogPost } from '@/lib/cms';
+import type { Locale } from '@/lib/i18n';
 
 const PLACEHOLDER_POSTS = [
   {
@@ -20,7 +22,27 @@ const PLACEHOLDER_POSTS = [
   },
 ];
 
-export function BlogPage() {
+export function BlogPage({
+  posts = [],
+  locale = 'es',
+}: {
+  posts?: PublicBlogPost[];
+  locale?: Locale;
+}) {
+  const contactHref = locale === 'es' ? '/contacto' : `/${locale}/contacto`;
+  const blogPrefix = locale === 'es' ? '/blog' : `/${locale}/blog`;
+  const visiblePosts =
+    posts.length > 0
+      ? posts.map((post) => ({
+          title: post.title,
+          category: post.category,
+          date: post.publishedAt
+            ? new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(post.publishedAt)
+            : 'Publicado',
+          href: `${blogPrefix}/${post.slug}`,
+        }))
+      : PLACEHOLDER_POSTS.map((post) => ({ ...post, href: undefined }));
+
   return (
     <>
       <section className="py-xl md:py-32 border-b border-outline-variant bg-surface-container-low">
@@ -40,7 +62,7 @@ export function BlogPage() {
 
       <section className="py-xl">
         <Container className="space-y-md">
-          {PLACEHOLDER_POSTS.map((post) => (
+          {visiblePosts.map((post) => (
             <article
               key={post.title}
               className="border border-outline-variant rounded-xl p-lg bg-surface-container-lowest hover:border-secondary transition-colors"
@@ -48,22 +70,34 @@ export function BlogPage() {
               <span className="font-label-md text-label-md text-secondary uppercase">
                 {post.category}
               </span>
-              <h2 className="font-headline-md text-headline-md text-primary mt-sm mb-xs">
-                {post.title}
-              </h2>
+              {post.href ? (
+                <h2 className="font-headline-md text-headline-md text-primary mt-sm mb-xs">
+                  <Link href={post.href} className="hover:text-secondary transition-colors">
+                    {post.title}
+                  </Link>
+                </h2>
+              ) : (
+                <h2 className="font-headline-md text-headline-md text-primary mt-sm mb-xs">
+                  {post.title}
+                </h2>
+              )}
               <p className="font-caption text-caption text-on-surface-variant">{post.date}</p>
             </article>
           ))}
-          <p className="font-body-md text-on-surface-variant text-center pt-md">
-            Estamos preparando el primer contenido. Mientras tanto,{' '}
-            <Link href="/contacto" className="text-secondary hover:underline">
-              cuéntanos qué temas te interesan
-            </Link>
-            .
-          </p>
-          <div className="text-center pt-sm">
-            <ButtonLink href="/contacto">Suscribirme a novedades</ButtonLink>
-          </div>
+          {posts.length === 0 ? (
+            <>
+              <p className="font-body-md text-on-surface-variant text-center pt-md">
+                Estamos preparando el primer contenido. Mientras tanto,{' '}
+                <Link href={contactHref} className="text-secondary hover:underline">
+                  cuéntanos qué temas te interesan
+                </Link>
+                .
+              </p>
+              <div className="text-center pt-sm">
+                <ButtonLink href={contactHref}>Suscribirme a novedades</ButtonLink>
+              </div>
+            </>
+          ) : null}
         </Container>
       </section>
     </>

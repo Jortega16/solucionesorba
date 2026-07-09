@@ -8,10 +8,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:static": "node scripts/build-site.mjs"
+    "build:static": "node scripts/build-site.mjs",
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
     "next": "^15.5.19",
+    "prisma": "^6.19.3",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },

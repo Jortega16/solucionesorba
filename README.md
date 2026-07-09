@@ -44,6 +44,35 @@ npm run dev:reset  # si ves errores de chunks/webpack: cierra :3000, limpia y ar
 
 Abre http://localhost:3000
 
+## Backoffice y CMS
+
+El sitio incluye un backoffice propio en `/admin` para gestionar páginas y blog. Usa Postgres
+con Prisma.
+
+```bash
+docker compose up -d db
+npm run db:migrate
+npm run dev
+```
+
+Credenciales locales por defecto:
+
+```env
+ADMIN_EMAIL=admin@solucionesorba.com
+ADMIN_PASSWORD=admin12345
+```
+
+En producción cambia `ADMIN_PASSWORD` y `ADMIN_SESSION_SECRET`.
+
+Rutas principales:
+
+| Ruta | Uso |
+|------|-----|
+| `/admin` | Dashboard |
+| `/admin/pages` | Edición de páginas por idioma |
+| `/admin/blog` | Gestión de posts |
+| `/admin/blog/new` | Crear post |
+
 ## Build de producción
 
 ```bash
@@ -60,6 +89,11 @@ Copia `.env.example` a `.env.local`:
 ```env
 NEXT_PUBLIC_SITE_URL=https://tudominio.com
 NEXT_PUBLIC_CONTACT_EMAIL=jortega@solucionesorba.com
+
+DATABASE_URL=postgresql://soluciones_orba:soluciones_orba@localhost:5432/soluciones_orba?schema=public
+ADMIN_EMAIL=admin@solucionesorba.com
+ADMIN_PASSWORD=cambia-esta-clave
+ADMIN_SESSION_SECRET=cambia-este-secreto-largo
 
 # Formulario de contacto (Resend)
 RESEND_API_KEY=re_xxxxxxxx

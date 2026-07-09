@@ -23,6 +23,11 @@ export const metadata: Metadata = {
   },
   description: 'Soluciones tecnológicas para impulsar tu negocio.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
 };
 
 export default function RootLayout({

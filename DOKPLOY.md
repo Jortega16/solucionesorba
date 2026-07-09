@@ -15,6 +15,10 @@ En Dokploy:
 Variables de entorno en Dokploy (runtime):
 
 ```env
+DATABASE_URL=postgresql://usuario:clave@host:5432/soluciones_orba?schema=public
+ADMIN_EMAIL=admin@solucionesorba.com
+ADMIN_PASSWORD=...
+ADMIN_SESSION_SECRET=...
 RESEND_API_KEY=...
 CONTACT_FROM_EMAIL=contacto@solucionesorba.com
 CONTACT_TO_EMAIL=jortega@solucionesorba.com

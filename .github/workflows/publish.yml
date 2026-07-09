@@ -1,0 +1,87 @@
+# Flujo recomendado por Dokploy: construir y publicar en CI (no en el servidor).
+# https://docs.dokploy.com/docs/core/applications/going-production
+#
+# En Dokploy: Application → Source Type "Docker" → imagen p. ej.
+#   ghcr.io/jortega16/solucionesorba:latest
+#
+# Variables en Dokploy (runtime): RESEND_API_KEY, CONTACT_FROM_EMAIL, CONTACT_TO_EMAIL,
+# NEXT_PUBLIC_SITE_URL, NEXT_PUBLIC_CONTACT_EMAIL (las públicas ya van en la imagen si usas build-args).
+#
+# Secrets → Actions:
+#   DOKPLOY_URL                  → https://tu-dokploy.dominio.com (sin barra final)
+#   DOKPLOY_API_KEY              → API key de Dokploy (x-api-key)
+#   DOKPLOY_APPLICATION_ID       → ID de la app Docker en Dokploy (opcional)
+# Si faltan URL/key, el job de disparo se omite. Si falta applicationId, solo se omite el deploy.
+
+name: Build and push Docker images
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-and-push-docker-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Owner en minúsculas (GHCR)
+        id: owner
+        run: echo "lc=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=https://solucionesorba.com
+            NEXT_PUBLIC_CONTACT_EMAIL=jortega@solucionesorba.com
+          tags: |
+            ${{ env.REGISTRY }}/${{ steps.owner.outputs.lc }}/solucionesorba:latest
+            ${{ env.REGISTRY }}/${{ steps.owner.outputs.lc }}/solucionesorba:${{ github.sha }}
+          platforms: linux/amd64
+
+  trigger-dokploy:
+    needs: build-and-push-docker-images
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    steps:
+      - name: Trigger Dokploy deployment
+        env:
+          DOKPLOY_URL: ${{ secrets.DOKPLOY_URL }}
+          DOKPLOY_API_KEY: ${{ secrets.DOKPLOY_API_KEY }}
+          DOKPLOY_APPLICATION_ID: ${{ secrets.DOKPLOY_APPLICATION_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${DOKPLOY_URL:-}" ] || [ -z "${DOKPLOY_API_KEY:-}" ]; then
+            echo "DOKPLOY_URL o DOKPLOY_API_KEY no definidos; se omite POST a Dokploy."
+            exit 0
+          fi
+          if [ -z "${DOKPLOY_APPLICATION_ID:-}" ]; then
+            echo "Sin DOKPLOY_APPLICATION_ID; se omite deploy en Dokploy."
+            exit 0
+          fi
+          base="${DOKPLOY_URL%/}"
+          echo "Desplegando solucionesorba (${DOKPLOY_APPLICATION_ID})…"
+          curl -fsS -X POST "${base}/api/application.deploy" \
+            -H "accept: application/json" \
+            -H "x-api-key: ${DOKPLOY_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d "{\"applicationId\": \"${DOKPLOY_APPLICATION_ID}\"}"

@@ -22,3 +22,18 @@ export async function withDb<T>(operation: () => Promise<T>, fallback: T): Promi
     return fallback;
   }
 }
+
+export async function runDb<T>(operation: () => Promise<T>): Promise<T> {
+  if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL no está configurada en el servidor.');
+  }
+
+  try {
+    return await operation();
+  } catch (error) {
+    console.error('CMS database operation failed:', error);
+    throw new Error(
+      'No se pudo usar la base de datos. Verifica DATABASE_URL, que Postgres esté activo y que las migraciones se hayan aplicado.'
+    );
+  }
+}

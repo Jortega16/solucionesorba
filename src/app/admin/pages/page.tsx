@@ -5,11 +5,20 @@ import { syncPagesAction } from '../actions';
 import { isAdminAuthenticated } from '@/lib/admin-auth';
 import { prisma, withDb } from '@/lib/db';
 
-export default async function AdminPagesPage() {
+export default async function AdminPagesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   if (!(await isAdminAuthenticated())) redirect('/admin/login');
+  const params = await searchParams;
 
   const pages = await withDb(
-    () => prisma.contentPage.findMany({ orderBy: [{ locale: 'asc' }, { slug: 'asc' }] }),
+    () =>
+      prisma.contentPage.findMany({
+        select: { id: true, slug: true, locale: true, status: true, title: true },
+        orderBy: [{ locale: 'asc' }, { slug: 'asc' }],
+      }),
     []
   );
 
@@ -27,6 +36,21 @@ export default async function AdminPagesPage() {
             </button>
           </form>
         </div>
+
+        {params.error === 'db' ? (
+          <p className="bg-error-container text-on-error-container p-sm rounded">
+            No se pudo conectar con la base de datos. En Dokploy configura{' '}
+            <code className="font-mono text-sm">DATABASE_URL</code>, crea Postgres en la misma red
+            y asegúrate de que las migraciones estén aplicadas.
+          </p>
+        ) : null}
+
+        {!process.env.DATABASE_URL ? (
+          <p className="bg-surface-container-high text-on-surface-variant p-sm rounded">
+            <code className="font-mono text-sm">DATABASE_URL</code> no está definida. El sitio
+            público funciona, pero el CMS necesita Postgres.
+          </p>
+        ) : null}
 
         <div className="border border-outline-variant rounded-xl overflow-hidden bg-surface-container-lowest">
           {pages.length === 0 ? (

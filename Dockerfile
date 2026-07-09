@@ -34,8 +34,16 @@ RUN addgroup --system --gid 1001 nodejs \
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder /app/prisma ./prisma
+COPY docker-entrypoint.sh ./docker-entrypoint.sh
+
+# CLI de Prisma para migrate deploy al arrancar (standalone no incluye todas sus deps)
+RUN npm install --omit=dev prisma@6.19.3 \
+  && npm cache clean --force \
+  && chmod +x ./docker-entrypoint.sh
 
 USER nextjs
 EXPOSE 3000
 
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["node", "server.js"]

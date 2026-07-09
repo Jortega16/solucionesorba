@@ -15,7 +15,8 @@ En Dokploy:
 Variables de entorno en Dokploy (runtime):
 
 ```env
-DATABASE_URL=postgresql://usuario:clave@host:5432/soluciones_orba?schema=public
+# Postgres en Dokploy: usa el hostname interno del servicio, no localhost
+DATABASE_URL=postgresql://usuario:clave@nombre-servicio-postgres:5432/soluciones_orba?schema=public
 ADMIN_EMAIL=admin@solucionesorba.com
 ADMIN_PASSWORD=...
 ADMIN_SESSION_SECRET=...
@@ -25,6 +26,21 @@ CONTACT_TO_EMAIL=jortega@solucionesorba.com
 NEXT_PUBLIC_SITE_URL=https://solucionesorba.com
 NEXT_PUBLIC_CONTACT_EMAIL=jortega@solucionesorba.com
 ```
+
+### Postgres + CMS (`/admin`)
+
+1. Crea un servicio **Postgres** en Dokploy (misma red que la app).
+2. En `DATABASE_URL` usa el **hostname interno** del contenedor Postgres (ej. `solucionesorba-db`), no `localhost`.
+3. Al arrancar, el contenedor ejecuta `prisma migrate deploy` automáticamente.
+4. Entra a `/admin`, inicia sesión y pulsa **Sincronizar páginas actuales**.
+
+Si ves error 500 en `/admin/pages`, revisa los logs del contenedor: casi siempre es `DATABASE_URL` incorrecta o Postgres inaccesible.
+
+Errores frecuentes de `DATABASE_URL`:
+
+- `localhost` dentro del contenedor web → apunta al propio contenedor, no a Postgres
+- Postgres en otra red Docker → la app no puede resolver el host
+- Migraciones sin aplicar → el entrypoint las aplica al iniciar si la URL es válida
 
 Secrets en GitHub (para auto-deploy): `DOKPLOY_URL`, `DOKPLOY_API_KEY`, `DOKPLOY_APPLICATION_ID`.
 

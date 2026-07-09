@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-surface-variant": "#4c4546",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b5c4ff",
+                    "surface-variant": "#e1e3e4",
+                    "outline-variant": "#cfc4c5",
+                    "on-secondary-fixed": "#00174d",
+                    "error-container": "#ffdad6",
+                    "outline": "#7e7576",
+                    "surface-container": "#edeeef",
+                    "secondary-container": "#386bef",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#003dab",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary-container": "#fefcff",
+                    "on-tertiary-fixed-variant": "#93000a",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#410002",
+                    "secondary": "#0d50d5",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-tertiary-container": "#f83732",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#410002",
+                    "on-primary-container": "#848484",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "caption": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav {
+            border-bottom: 2px solid #0d50d5;
+            color: #0d50d5;
+            font-weight: 700;
+        }
+        .scale-98:active { transform: scale(0.98); }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-container-lowest border-b border-outline-variant dark:border-outline sticky top-0 z-50 transition-all duration-300">
+<nav class="flex justify-between items-center max-w-7xl mx-auto px-margin-desktop h-20">
+<div class="flex items-center">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-on-surface">Soluciones Orba</span>
+</div>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center space-x-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="index.html">Inicio</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="desarrollo-web.html">Desarrollo web</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="plataformas.html">Software a medida</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="inteligencia-artificial.html">IA y datos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="hosting.html">Hosting y soporte</a>
+<a class="font-label-md text-label-md active-nav transition-colors duration-200" href="nosotros.html">Nosotros</a>
+</div>
+<div class="flex items-center space-x-sm">
+<a href="contacto.html" class="bg-primary text-on-primary px-lg py-xs font-label-md text-label-md scale-98 transition-all hover:bg-opacity-90 inline-flex items-center justify-center">Contacto</a>
+</div>
+</nav>
+</header>
+<main class="min-h-screen">
+<!-- Hero Section -->
+<section class="relative py-xl md:py-64 overflow-hidden border-b border-outline-variant">
+<div class="max-w-7xl mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter relative z-10">
+<div class="md:col-span-8">
+<span class="font-label-md text-label-md text-secondary tracking-widest uppercase mb-sm block">Trayectoria</span>
+<h1 class="font-display-lg text-display-lg text-primary mb-md leading-tight">Experiencia tecnológica desde 2015</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                        Desde 2015, hemos acompañado a empresas, emprendedores y organizaciones en el desarrollo de soluciones tecnológicas orientadas a resultados.
+                    </p>
+</div>
+</div>
+<!-- Decorative Tech Background Element -->
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-5 pointer-events-none">
+<div class="grid grid-cols-6 h-full border-l border-outline">
+<div class="border-r border-outline"></div><div class="border-r border-outline"></div><div class="border-r border-outline"></div><div class="border-r border-outline"></div><div class="border-r border-outline"></div>
+</div>
+</div>
+</section>
+<!-- Narrative Bento Grid -->
+<section class="py-xl bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Expertise Card -->
+<div class="md:col-span-2 bg-surface-container-lowest p-lg border border-outline-variant rounded-lg flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-secondary text-4xl mb-md">verified_user</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Fiabilidad Industrial</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Nuestra herencia se basa en la precisión técnica. Aplicamos metodologías rigurosas para garantizar que cada línea de código contribuya a la estabilidad de su operación.</p>
+</div>
+<div class="mt-xl flex items-center gap-xs">
+<span class="font-label-md text-label-md text-primary">+8 Años de Innovación</span>
+</div>
+</div>
+<!-- Custom Design Image/Graphic -->
+<div class="md:col-span-2 relative min-h-[300px] overflow-hidden rounded-lg border border-outline-variant group">
+<img class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="A macro photograph of high-end server hardware illuminated by cool blue neon lights in a dark, sophisticated data center. The lighting reflects off sleek metallic surfaces, emphasizing industrial reliability and advanced engineering. The atmosphere is professional, ultra-modern, and clean, perfectly matching a corporate tech identity focused on stability and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsfRexXnVklZ6Spd5X-Nx2Lop_hu_qnBCYUuYHxuy5G9B-vzSLV26ehDC-MlcTU2zBAbFAb-D9IXa7eUCfjdUVzA42KBNf-1ucBqM1K-6vCfAfbZflcIgJFnmr5HcLnd1u6YCa6lpFl6MYEO8AbtBGoYpDg3yjQVyREXFVSzT4U_km5HA8Zqn84Pjohur5kTKuRX4EW9jgtfitvUKm1xzkxaW25AXpCqB7w3XLavIEf-oWO38_c8noT9ATVkCK6ew4o_1NuN8sSmM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-lg left-lg text-white">
+<h4 class="font-headline-md text-headline-md">Ingeniería a Medida</h4>
+</div>
+</div>
+<!-- Process Card -->
+<div class="md:col-span-1 bg-primary text-on-primary p-lg rounded-lg border border-primary flex flex-col items-center text-center justify-center">
+<span class="material-symbols-outlined text-4xl mb-sm" data-icon="settings_suggest">settings_suggest</span>
+<h4 class="font-headline-md text-headline-md mb-xs">Procesos</h4>
+<p class="font-label-md text-label-md opacity-80">Metodología Ágil</p>
+</div>
+<!-- Reliability Card -->
+<div class="md:col-span-1 bg-surface-container-lowest p-lg border border-outline-variant rounded-lg">
+<h4 class="font-label-md text-label-md text-secondary mb-sm">MISIÓN</h4>
+<p class="font-body-md text-body-md text-primary font-bold">Transformar la complejidad en eficiencia operativa a través del diseño sistemático.</p>
+</div>
+<!-- Partnership Card -->
+<div class="md:col-span-2 bg-surface-container-highest p-lg border border-outline-variant rounded-lg flex items-center">
+<div class="grid grid-cols-2 gap-md w-full">
+<div>
+<h5 class="font-display-lg text-headline-lg text-primary mb-base">50+</h5>
+<p class="font-label-md text-label-md text-on-surface-variant">Sistemas Desplegados</p>
+</div>
+<div>
+<h5 class="font-display-lg text-headline-lg text-primary mb-base">100%</h5>
+<p class="font-label-md text-label-md text-on-surface-variant">Disponibilidad Garantizada</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Statement Section -->
+<section class="py-xl bg-white">
+<div class="max-w-7xl mx-auto px-margin-desktop text-center">
+<div class="inline-block border-y border-outline-variant py-xl max-w-4xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-md italic">"No creemos en soluciones genéricas para problemas específicos."</h2>
+<p class="font-label-md text-label-md text-secondary tracking-[0.2em] uppercase">Filosofía Orba</p>
+</div>
+</div>
+</section>
+<!-- Values/Timeline Section -->
+<section class="py-xl">
+<div class="max-w-7xl mx-auto px-margin-desktop">
+<div class="flex flex-col md:flex-row gap-xl items-start">
+<div class="md:w-1/3">
+<h3 class="font-headline-md text-headline-md text-primary border-l-4 border-primary pl-sm">Nuestro Enfoque</h3>
+</div>
+<div class="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="space-y-sm">
+<span class="font-label-md text-label-md text-secondary">01</span>
+<h4 class="font-headline-md text-headline-md text-primary">Diagnóstico</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Analizamos la arquitectura actual y los cuellos de botella antes de proponer cualquier cambio.</p>
+</div>
+<div class="space-y-sm">
+<span class="font-label-md text-label-md text-secondary">02</span>
+<h4 class="font-headline-md text-headline-md text-primary">Ejecución</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Desarrollo modular bajo estándares industriales, asegurando escalabilidad futura.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant transition-colors duration-300">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-7xl mx-auto px-margin-desktop py-xl">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-on-surface">Soluciones Orba</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant mt-sm">© 2024 Soluciones Orba. Todos los derechos reservados. Ingeniería de confianza.</p>
+</div>
+<div class="flex flex-col space-y-xs">
+<h4 class="font-label-md text-label-md text-primary font-bold dark:text-inverse-on-surface mb-xs">Explora</h4>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors" href="index.html">Inicio</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors" href="inteligencia-artificial.html">IA y datos</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a>
+</div>
+<div class="flex flex-col space-y-xs">
+<h4 class="font-label-md text-label-md text-primary font-bold dark:text-inverse-on-surface mb-xs">Soporte</h4>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors" href="soporte.html">Soporte técnico</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors" href="#">Política de privacidad</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors" href="#">Términos de servicio</a>
+</div>
+<div class="flex flex-col space-y-sm">
+<h4 class="font-label-md text-label-md text-primary font-bold dark:text-inverse-on-surface mb-xs">Contacto</h4>
+<div class="flex items-center gap-xs text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined text-sm">mail</span>
+<span class="font-label-md text-label-md">info@solucionesorba.com</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="font-label-md text-label-md" data-location="Mexico City">CDMX, México</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll reveal effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-sm', 'h-16');
+                header.classList.remove('h-20');
+            } else {
+                header.classList.remove('shadow-sm', 'h-16');
+                header.classList.add('h-20');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Prototipado tecnológico | Soluciones Orba</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#d9dadb",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "on-surface-variant": "#4c4546",
+                      "on-background": "#191c1d",
+                      "background": "#f8f9fa",
+                      "primary": "#000000",
+                      "secondary-fixed-dim": "#b5c4ff",
+                      "surface-variant": "#e1e3e4",
+                      "outline-variant": "#cfc4c5",
+                      "on-secondary-fixed": "#00174d",
+                      "error-container": "#ffdad6",
+                      "outline": "#7e7576",
+                      "surface-container": "#edeeef",
+                      "secondary-container": "#386bef",
+                      "tertiary-fixed-dim": "#ffb4ab",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-secondary-fixed-variant": "#003dab",
+                      "primary-container": "#1b1b1b",
+                      "on-secondary-container": "#fefcff",
+                      "on-tertiary-fixed-variant": "#93000a",
+                      "inverse-primary": "#c6c6c6",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#410002",
+                      "secondary": "#0d50d5",
+                      "surface-bright": "#f8f9fa",
+                      "inverse-surface": "#2e3132",
+                      "on-primary-fixed": "#1b1b1b",
+                      "on-tertiary-container": "#f83732",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-surface": "#191c1d",
+                      "tertiary": "#000000",
+                      "on-primary-fixed-variant": "#474747",
+                      "secondary-fixed": "#dbe1ff",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#410002",
+                      "on-primary-container": "#848484",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#5e5e5e",
+                      "surface-container-low": "#f3f4f5",
+                      "surface-container-high": "#e7e8e9",
+                      "surface": "#f8f9fa",
+                      "tertiary-fixed": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xs": "8px",
+                      "base": "4px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px",
+                      "md": "24px",
+                      "lg": "32px",
+                      "xl": "48px",
+                      "sm": "16px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "caption": ["Hanken Grotesk"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "body-lg": ["Hanken Grotesk"],
+                      "body-md": ["Hanken Grotesk"],
+                      "label-md": ["JetBrains Mono"],
+                      "display-lg": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-desktop h-20">
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Soluciones Orba</span>
+</div>
+<nav class="hidden md:flex items-center gap-xl">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="index.html">Inicio</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="desarrollo-web.html">Desarrollo web</a>
+<a class="font-label-md text-label-md text-secondary font-bold border-b-2 border-secondary" href="plataformas.html">Software a medida</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="inteligencia-artificial.html">IA y datos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="hosting.html">Hosting y soporte</a>
+</nav>
+<div class="flex items-center gap-md">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="nosotros.html">Nosotros</a>
+<a href="contacto.html" class="bg-primary text-on-primary px-lg py-xs font-label-md text-label-md font-bold uppercase tracking-wider hover:opacity-90 transition-opacity active:scale-95 inline-flex items-center justify-center">Contacto</a>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-surface-container-lowest py-xl lg:py-48 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<div class="z-10">
+<div class="inline-flex items-center gap-xs px-base py-xs bg-secondary-fixed text-on-secondary-fixed rounded-lg mb-md">
+<span class="material-symbols-outlined text-sm" data-icon="rocket_launch">rocket_launch</span>
+<span class="font-label-md text-label-md uppercase tracking-widest">Centro de innovación</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary mb-md max-w-xl">Prototipado tecnológico para validar ideas</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-lg">Convertimos ideas en prototipos funcionales que permiten validar conceptos, probar tecnologías y evaluar soluciones antes de llevarlas a producción.</p>
+<div class="flex flex-wrap gap-md">
+<button class="bg-primary text-on-primary px-xl py-md font-label-md text-label-md font-bold transition-all hover:shadow-lg active:scale-95">INICIAR PROYECTO</button>
+<button class="border border-primary text-primary px-xl py-md font-label-md text-label-md font-bold transition-all hover:bg-surface-container-high active:scale-95">VER POCs</button>
+</div>
+</div>
+<div class="relative">
+<div class="aspect-square bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant shadow-sm relative group">
+<img alt="Engineering Prototype" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sophisticated industrial laboratory focused on hardware prototyping. An engineer's workbench is filled with high-precision electronics, circuit boards, and custom 3D printed components. Soft, bright white overhead lighting creates a clinical, modern atmosphere with deep blacks and sharp metallic highlights. The image captures the essence of technical innovation and engineered trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdAG0eLVhoe4UPA-Kr3U4ZL4-lZ-4KULGaxDjGPE2JYJX0hNXcDPJ0khfqcMJBQIzxoAeshz1JA3W27iVd8i3HU3R1wODUlXR-4lJlU46_3fQIahcllInO58aeFoyzUW5WXBDTv-0AvYmmOv65JYTMrpObnVk5BBPMJTxCCOV1nwikk7GnUT217qg_TYhwEv5cpWmM24sGRwz0uoBriv51P4YuQ486NUbIMG3YCmZu0tTQubiVHXDSjpoar9Wq4WqoWNp4TtMMeq4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+<div class="absolute bottom-md left-md right-md bg-white/90 backdrop-blur-md p-md border border-outline-variant flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">Laboratorio I+D 04</p>
+<p class="font-caption text-caption text-on-surface-variant">Pruebas de sistemas embebidos</p>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="memory">memory</span>
+</div>
+</div>
+<!-- Decorative Elements -->
+<div class="absolute -top-6 -right-6 w-32 h-32 border-t-2 border-r-2 border-secondary/30 hidden md:block"></div>
+<div class="absolute -bottom-6 -left-6 w-32 h-32 border-b-2 border-l-2 border-primary/30 hidden md:block"></div>
+</div>
+</div>
+</section>
+<!-- Servicios Bento Grid -->
+<section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-base">Nuestros Servicios de I+D</h2>
+<div class="w-20 h-1 bg-secondary"></div>
+</div>
+<div class="bento-grid">
+<!-- Prototipo funcionals -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest border border-outline-variant p-lg group hover:border-secondary transition-colors reveal-on-scroll">
+<div class="flex flex-col md:flex-row gap-lg">
+<div class="flex-1">
+<span class="material-symbols-outlined text-4xl text-secondary mb-md" data-icon="precision_manufacturing">precision_manufacturing</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Prototipos funcionales</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Construimos versiones operativas de su producto para validar la mecánica, electrónica y experiencia de usuario en condiciones reales.</p>
+<ul class="space-y-xs font-label-md text-label-md text-on-surface">
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-sm" data-icon="check_circle">check_circle</span> Validación de flujo crítico</li>
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-sm" data-icon="check_circle">check_circle</span> Pruebas de usabilidad</li>
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-sm" data-icon="check_circle">check_circle</span> Ajustes de diseño iterativo</li>
+</ul>
+</div>
+<div class="md:w-1/3 aspect-square overflow-hidden rounded">
+<img alt="Prototipo funcional" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A close-up high-definition shot of a mechanical prototype assembly. Delicate wires connect to a custom-designed aluminum chassis with visible 3D printed nylon components. The lighting is focused and dramatic, highlighting the textures of different engineering materials. The color palette is dominated by metallic grays and deep blacks, evoking industrial precision and technological advancement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4fcIkKooSrlcOd5pi28ZJAbipf0MbVcrvZ7tUTFTKh_ZVArs2e9JUVDn2zCHqMwzn43fQU8X7_SsfPKLR6ZVqFpTKbuy9B9meELLPrFz6wXdqoxMbd3pnOlJMwjG2mENqiub5nxHuvUBjvQgnYP0-clyzmhvr44D-VN5pNjbHYXESKl5vwc6YwrsRYDW-pj8a5yEvIlsHBuCsXAL0XXjeWW7rkxvDOA7ZvTpbWjzp5fGESl6Q8ASznAmfHapJsi66J6b4VbHKfk4"/>
+</div>
+</div>
+</div>
+<!-- POC -->
+<div class="col-span-12 md:col-span-4 bg-primary text-on-primary p-lg flex flex-col justify-between reveal-on-scroll" style="transition-delay: 100ms;">
+<div>
+<span class="material-symbols-outlined text-4xl text-secondary-fixed mb-md" data-icon="biotech">biotech</span>
+<h3 class="font-headline-md text-headline-md mb-sm">Prueba de concepto (POC)</h3>
+<p class="font-body-md text-body-md opacity-80 mb-md">Validación técnica de la viabilidad de una idea central antes de la inversión completa.</p>
+</div>
+<a class="font-label-md text-label-md flex items-center gap-xs hover:gap-md transition-all" href="#">SABER MÁS <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+<!-- IoT Modules -->
+<div class="col-span-12 md:col-span-5 bg-surface-container-low border border-outline-variant p-lg flex flex-col reveal-on-scroll" style="transition-delay: 200ms;">
+<span class="material-symbols-outlined text-4xl text-secondary mb-md" data-icon="router">router</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Módulos IoT</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Integración de sensores, conectividad y gestión de datos en tiempo real para ecosistemas industriales inteligentes.</p>
+<div class="mt-auto pt-md border-t border-outline-variant">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-primary">Protocolos: MQTT, LoRa, NB-IoT</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="sensors">sensors</span>
+</div>
+</div>
+</div>
+<!-- Embedded Systems -->
+<div class="col-span-12 md:col-span-7 bg-surface-container-lowest border border-outline-variant p-lg group reveal-on-scroll" style="transition-delay: 300ms;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="order-2 md:order-1 h-48 overflow-hidden rounded">
+<img alt="Embedded Systems" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="A macro photograph of a state-of-the-art embedded system circuit board. The intricate pathways of gold and copper are illuminated by a soft, cool blue LED light. Microchips and capacitors are neatly organized in a systematic grid. The background is a clean, dark surface that emphasizes the professional and high-performance nature of the hardware design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvnk03PwlpLaY_CE2dfvqUUW68xl7jrEBGshhKOtuHjqL4aQlUzCYWxhP5OVyOEcTUK-tURGGI7MnAJ0Jmz8GB0OJ4fWD4UPmrFnsoWdAd89yF0kl8XWqljmjCq8A11wSYJpsxCbl3o8YCLNwoJMOLoVUuthFVjvkLN9pbpyiLqFPRgT38cgZD4550A_ZTmJiudofSonWVdr7YdyUMyG2NfJeHqsha8lybBsTQ9mL9LxAakS-eFFM_LLN_pIFNOrN2PKcZnuqykFg"/>
+</div>
+<div class="order-1 md:order-2">
+<span class="material-symbols-outlined text-4xl text-secondary mb-md" data-icon="developer_board">developer_board</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Sistemas embebidos</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Diseño y desarrollo de firmware y hardware especializado para control de procesos y automatización de alta precisión.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Innovation Process -->
+<section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Nuestro Proceso de I+D</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Metodología ágil centrada en la reducción de riesgos tecnológicos y la aceleración del tiempo al mercado.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter relative">
+<!-- Connector line -->
+<div class="absolute top-1/2 left-0 right-0 h-px bg-outline-variant hidden md:block -translate-y-12"></div>
+<div class="flex flex-col items-center text-center z-10 reveal-on-scroll">
+<div class="w-16 h-16 bg-white border border-outline-variant flex items-center justify-center mb-md shadow-sm">
+<span class="font-label-md text-label-md text-secondary font-bold">01</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-xs uppercase">Análisis</h4>
+<p class="font-caption text-caption text-on-surface-variant">Definición de requerimientos y retos técnicos.</p>
+</div>
+<div class="flex flex-col items-center text-center z-10 reveal-on-scroll" style="transition-delay: 100ms;">
+<div class="w-16 h-16 bg-white border border-outline-variant flex items-center justify-center mb-md shadow-sm">
+<span class="font-label-md text-label-md text-secondary font-bold">02</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-xs uppercase">Diseño</h4>
+<p class="font-caption text-caption text-on-surface-variant">Arquitectura de hardware y lógica de software.</p>
+</div>
+<div class="flex flex-col items-center text-center z-10 reveal-on-scroll" style="transition-delay: 200ms;">
+<div class="w-16 h-16 bg-white border border-outline-variant flex items-center justify-center mb-md shadow-sm">
+<span class="font-label-md text-label-md text-secondary font-bold">03</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-xs uppercase">Fabricación</h4>
+<p class="font-caption text-caption text-on-surface-variant">Construcción física y carga de firmware inicial.</p>
+</div>
+<div class="flex flex-col items-center text-center z-10 reveal-on-scroll" style="transition-delay: 300ms;">
+<div class="w-16 h-16 bg-primary flex items-center justify-center mb-md shadow-lg">
+<span class="material-symbols-outlined text-white" data-icon="verified">verified</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-xs uppercase">Validación</h4>
+<p class="font-caption text-caption text-on-surface-variant">Pruebas intensivas y ajustes finales.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-xl px-margin-mobile md:px-margin-desktop bg-white">
+<div class="max-w-4xl mx-auto bg-surface-container border border-outline-variant p-xl text-center">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-md">¿Listo para prototipar su próxima innovación?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl">Reduzca el riesgo de su inversión tecnológica con un prototipo funcional diseñado por expertos en ingeniería.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-md">
+<button class="bg-primary text-on-primary px-xl py-md font-label-md text-label-md font-bold uppercase tracking-widest hover:opacity-90 active:scale-95">Solicitar Consultoría R&amp;D</button>
+<a href="proyectos.html" class="border border-outline text-on-surface px-xl py-md font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-surface transition-colors active:scale-95 inline-flex items-center justify-center">Ver casos de éxito</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-7xl mx-auto px-margin-desktop py-xl">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-md text-headline-md font-bold text-primary mb-md block">Soluciones Orba</span>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Ingeniería de confianza. Elevando estándares en el desarrollo de software industrial y prototipado tecnológico.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary mb-md uppercase tracking-wider">Servicios</h4>
+<ul class="flex flex-col gap-xs">
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="desarrollo-web.html">Desarrollo web</a></li>
+<li><a class="font-label-md text-label-md text-primary underline" href="inteligencia-artificial.html">IA y datos</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="plataformas.html">Software a medida</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary mb-md uppercase tracking-wider">Empresa</h4>
+<ul class="flex flex-col gap-xs">
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="nosotros.html">Nosotros</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="soporte.html">Soporte técnico</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Política de privacidad</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Términos de servicio</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary mb-md uppercase tracking-wider">Contacto</h4>
+<div class="flex flex-col gap-xs font-label-md text-label-md text-on-surface-variant">
+<p class="flex items-center gap-xs"><span class="material-symbols-outlined text-sm" data-icon="mail">mail</span> info@solucionesorba.com</p>
+<p class="flex items-center gap-xs"><span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span> Hub de Innovación Tecnológica</p>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-margin-desktop py-md border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Soluciones Orba. Todos los derechos reservados. Ingeniería de confianza.</p>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" data-icon="language">language</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" data-icon="share">share</span></a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll reveal observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        // Hover effect for TopNavBar links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('mousedown', () => {
+                link.classList.add('scale-98');
+            });
+            link.addEventListener('mouseup', () => {
+                link.classList.remove('scale-98');
+            });
+        });
+    </script>
+</body></html>

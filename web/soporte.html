@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-surface-variant": "#4c4546",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b5c4ff",
+                    "surface-variant": "#e1e3e4",
+                    "outline-variant": "#cfc4c5",
+                    "on-secondary-fixed": "#00174d",
+                    "error-container": "#ffdad6",
+                    "outline": "#7e7576",
+                    "surface-container": "#edeeef",
+                    "secondary-container": "#386bef",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#003dab",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary-container": "#fefcff",
+                    "on-tertiary-fixed-variant": "#93000a",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#410002",
+                    "secondary": "#0d50d5",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-tertiary-container": "#f83732",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#410002",
+                    "on-primary-container": "#848484",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "caption": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .active-nav-link {
+            border-bottom-width: 2px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<nav class="bg-surface sticky top-0 z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-desktop h-20">
+<div class="flex items-center gap-xs">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Soluciones Orba</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="index.html">Inicio</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="desarrollo-web.html">Desarrollo web</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="plataformas.html">Software a medida</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="inteligencia-artificial.html">IA y datos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a>
+<a class="font-label-md text-label-md text-secondary font-bold border-b-2 border-secondary transition-colors duration-200" href="hosting.html">Hosting y soporte</a>
+</div>
+<div class="flex items-center gap-sm">
+<a href="nosotros.html" class="hidden md:block font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors inline-flex items-center justify-center">Nosotros</a>
+<a href="contacto.html" class="bg-primary text-on-primary px-lg py-xs font-bold transition-transform active:scale-95 inline-flex items-center justify-center">Contacto</a>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section: High-End Industrial Technical Aesthetic -->
+<section class="relative py-xl bg-surface-container-lowest overflow-hidden">
+<div class="max-w-7xl mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-7 z-10">
+<span class="inline-block font-label-md text-label-md text-secondary bg-secondary-fixed px-sm py-base mb-sm">SOPORTE DE NIVEL EMPRESARIAL</span>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-md">Soporte técnico especializado</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-xl">
+                        Brindamos soporte técnico para sitios web, plataformas, sistemas, hosting, integraciones y soluciones digitales. Nuestra infraestructura está diseñada para garantizar la continuidad de su negocio con precisión técnica.
+                    </p>
+<div class="flex flex-wrap gap-sm">
+<button class="bg-primary text-on-primary px-xl py-md font-bold flex items-center gap-xs transition-all hover:shadow-lg">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+                            Solicitar Asistencia
+                        </button>
+<button class="border border-primary text-primary px-xl py-md font-bold hover:bg-surface-container transition-colors">
+                            Ver SLA y Planes
+                        </button>
+</div>
+</div>
+<div class="md:col-span-5 relative">
+<div class="aspect-square bg-surface-container-high relative overflow-hidden rounded-lg">
+<img alt="Soporte técnico Operations" class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A professional close-up of a server room environment with blurred blue and white diagnostic lights in the background. In the foreground, a modern tablet displays a clean technical dashboard with system health monitoring graphs. The overall aesthetic is high-tech, precise, and clean, using a palette of whites, grays, and deep blues to represent engineered trust and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiXxBbX5TBsPm2W_JIuGMd6LI11cNDsbDJggJsaakRPTwheUDF5-GzknkkYyz2EzvxiFUNYkTzRxJyW56KjOVQfHVWM4nvXGZ-lkEQt65gPd5t8opEDiVM7WHL2xjWaI9UM0-RUII5TEmX51yyOi20DJZnzW3Y0DkhvOBHhFqiIgHsuDI2oy_JPTSL0ZVliVCGJ_DW-gw59CmpNUCbNGAIOBSf6IiIhd6F2Sir6M7fV9cgN9ijKDn5LnLd6poVNt8Bsy9MXxPBbbg"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-background/40 to-transparent"></div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -bottom-xs -right-xs w-xl h-xl bg-secondary-container -z-10"></div>
+</div>
+</div>
+</section>
+<!-- Servicios Bento Grid -->
+<section class="py-xl bg-surface">
+<div class="max-w-7xl mx-auto px-margin-desktop">
+<div class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Servicios de Mantenimiento</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Gestión integral del ciclo de vida de sus activos digitales.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Service Card 1 -->
+<div class="md:col-span-2 bg-surface-container-lowest p-lg border border-outline-variant hover:border-secondary transition-all group">
+<div class="w-12 h-12 bg-surface-container-high flex items-center justify-center mb-md group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="web">web</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-xs">Soporte web y de plataformas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Optimización continua y soporte reactivo para sitios corporativos y plataformas web de alta demanda.</p>
+<ul class="space-y-xs">
+<li class="flex items-center gap-xs font-label-md text-label-md"><span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span> Monitoreo 24/7</li>
+<li class="flex items-center gap-xs font-label-md text-label-md"><span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span> Auditorías de UX/UI</li>
+</ul>
+</div>
+<!-- Service Card 2 -->
+<div class="md:col-span-1 bg-surface-container-lowest p-lg border border-outline-variant hover:border-secondary transition-all group">
+<div class="w-12 h-12 bg-surface-container-high flex items-center justify-center mb-md group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="settings_suggest">settings_suggest</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-xs">Mantenimiento</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Preventivo y correctivo para infraestructuras legacy o modernas.</p>
+</div>
+<!-- Service Card 3 -->
+<div class="md:col-span-1 bg-surface-container-lowest p-lg border border-outline-variant hover:border-secondary transition-all group">
+<div class="w-12 h-12 bg-surface-container-high flex items-center justify-center mb-md group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="system_update">system_update</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-xs">Actualizaciones</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Gestión de versiones, parches de seguridad y migraciones controladas.</p>
+</div>
+<!-- Service Card 4 -->
+<div class="md:col-span-1 bg-primary p-lg flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-primary/60">RESPUESTA DE EMERGENCIA</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-primary mb-md">Resolución de incidencias</h3>
+<p class="font-body-md text-body-md text-on-primary/80">Resolución acelerada de incidentes críticos e interrupciones de servicio.</p>
+</div>
+<button class="mt-lg flex items-center gap-xs font-bold text-on-primary border-b border-on-primary w-fit py-base">
+                            Saber más <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Service Card 5 -->
+<div class="md:col-span-3 bg-surface-container-low p-lg border border-outline-variant flex flex-col md:flex-row gap-lg items-center">
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md mb-xs">Hosting e infraestructura</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Administración de servidores, configuraciones de red e integraciones de API complejas para asegurar que sus datos fluyan sin fricción.</p>
+<div class="flex gap-md">
+<div class="bg-surface px-md py-sm border border-outline-variant rounded-lg">
+<span class="font-label-md text-label-md text-primary block">Seguridad en la nube</span>
+<span class="font-caption text-caption text-on-surface-variant">Endurecimiento y gestión SSL</span>
+</div>
+<div class="bg-surface px-md py-sm border border-outline-variant rounded-lg">
+<span class="font-label-md text-label-md text-primary block">Ecosistemas API</span>
+<span class="font-caption text-caption text-on-surface-variant">Monitoreo de webhooks</span>
+</div>
+</div>
+</div>
+<div class="hidden md:block w-48 h-48">
+<img alt="Infrastructure" class="w-full h-full object-cover rounded shadow-sm" data-alt="A clean, monochromatic photography of server racks with neatly organized blue ethernet cables. The lighting is bright and clinical, emphasizing the order and modularity of the hardware. The scene conveys a sense of professional stability, technological excellence, and meticulous maintenance standards expected in a high-tier data center." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMuUx5DR04sQcAGLWjCXMyZbf197nPWKcREPYG1GjOSkJASl_WSGtVj7efJAV9TLS_dFhGKaay-G4YLLu48J7ooXzioXPoFC9SqzchXMYiDx5qx10_Jeeqf1qoWUaolTxiEpPlTomLaSLa46nJQvX1PemdzDo_8eGIfBG11p1fBib4i_tWznMawCU2yDUSPhH-QAKN835rR7cTk6Y-KAWamzaSe0aO_hvmj5KisCU_BflL531afx4XCYd5FKnzsfcJQF6zhZhk5SQ"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Reassuring Call to Action -->
+<section class="py-xl bg-surface-container-highest border-t border-outline-variant">
+<div class="max-w-7xl mx-auto px-margin-desktop text-center">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-md">¿Necesita asistencia técnica inmediata?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto mb-xl">
+                    Nuestros ingenieros están listos para diagnosticar y resolver cualquier desafío técnico que enfrente su organización. Confíe en Soluciones Orba para mantener su operación digital impecable.
+                </p>
+<div class="inline-flex flex-col md:flex-row gap-sm bg-surface p-base border border-outline-variant">
+<div class="flex items-center gap-sm px-lg py-md border-r border-outline-variant">
+<span class="material-symbols-outlined text-secondary" data-icon="alternate_email">alternate_email</span>
+<span class="font-label-md text-label-md text-primary">soporte@orba.solutions</span>
+</div>
+<div class="flex items-center gap-sm px-lg py-md">
+<span class="material-symbols-outlined text-secondary" data-icon="call">call</span>
+<span class="font-label-md text-label-md text-primary">+54 11 0000-0000</span>
+</div>
+<button class="bg-primary text-on-primary px-xl py-md font-bold uppercase tracking-widest text-xs">
+                        Abrir Ticket
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-7xl mx-auto px-margin-desktop py-xl">
+<div class="flex flex-col gap-sm">
+<span class="font-headline-md text-headline-md font-bold text-primary">Soluciones Orba</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Ingeniería de confianza. Soluciones digitales robustas para empresas con visión de futuro.</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-md">© 2024 Soluciones Orba. Todos los derechos reservados. Ingeniería de confianza.</p>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface mb-sm">Servicios</span>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="desarrollo-web.html">Desarrollo web</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="inteligencia-artificial.html">IA y datos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface mb-sm">Soporte</span>
+<a class="font-label-md text-label-md text-primary underline" href="soporte.html">Soporte técnico</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Documentación</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Acuerdos SLA</a>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface mb-sm">Legal</span>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Política de privacidad</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Términos de servicio</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for industrial feel
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.98)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

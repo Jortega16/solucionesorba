@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Desarrollo Web - Soluciones Orba</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-surface-variant": "#4c4546",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b5c4ff",
+                    "surface-variant": "#e1e3e4",
+                    "outline-variant": "#cfc4c5",
+                    "on-secondary-fixed": "#00174d",
+                    "error-container": "#ffdad6",
+                    "outline": "#7e7576",
+                    "surface-container": "#edeeef",
+                    "secondary-container": "#386bef",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#003dab",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary-container": "#fefcff",
+                    "on-tertiary-fixed-variant": "#93000a",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#410002",
+                    "secondary": "#0d50d5",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-tertiary-container": "#f83732",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#410002",
+                    "on-primary-container": "#848484",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "caption": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .active-nav {
+        @apply text-secondary dark:text-secondary-fixed font-bold border-b-2 border-secondary;
+      }
+      .hover-scale {
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .hover-scale:active {
+        transform: scale(0.98);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-container-lowest border-b border-outline-variant dark:border-outline fixed top-0 w-full z-50">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop h-20">
+<div class="flex items-center gap-xs">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-on-surface">Soluciones Orba</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200" href="index.html">Inicio</a>
+<a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed font-bold border-b-2 border-secondary" href="desarrollo-web.html">Desarrollo web</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200" href="plataformas.html">Software a medida</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200" href="inteligencia-artificial.html">IA y datos</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200" href="hosting.html">Hosting y soporte</a>
+</nav>
+<div class="flex items-center gap-sm">
+<a href="nosotros.html" class="hidden lg:block font-label-md text-label-md text-on-surface px-md py-xs hover:text-secondary transition-colors inline-flex items-center justify-center">Nosotros</a>
+<a href="contacto.html" class="bg-primary text-on-primary font-label-md text-label-md px-md py-xs rounded hover:opacity-90 hover-scale inline-flex items-center justify-center">Contacto</a>
+<button class="md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative bg-surface-container-low py-xl overflow-hidden">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-xl items-center relative z-10">
+<div class="space-y-md">
+<div class="inline-flex items-center gap-xs bg-secondary-fixed text-on-secondary-fixed px-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-[18px]">web</span>
+<span class="font-label-md text-[12px] uppercase tracking-wider">Experiencia digital</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary leading-tight">
+                        Desarrollo de páginas web <span class="text-secondary">modernas y funcionales</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        Diseñamos y desarrollamos páginas web profesionales, rápidas, seguras y adaptadas a todo tipo de dispositivos para potenciar tu presencia digital.
+                    </p>
+<div class="flex flex-wrap gap-sm pt-base">
+<a href="contacto.html" class="bg-primary text-on-primary font-label-md text-label-md px-lg py-md rounded hover-scale flex items-center gap-xs inline-flex items-center gap-xs">Empezar proyecto <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<button class="border border-primary text-primary font-label-md text-label-md px-lg py-md rounded hover:bg-surface-container transition-colors">
+                            Ver Portafolio
+                        </button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-4 bg-secondary/10 rounded-xl blur-3xl group-hover:bg-secondary/20 transition-all duration-500"></div>
+<div class="relative rounded-xl overflow-hidden border border-outline-variant shadow-xl bg-surface-container-lowest">
+<img alt="Desarrollo Web Moderno" class="w-full h-auto object-cover" data-alt="A clean and professional workspace featuring a high-end laptop displaying complex code and a minimalist website interface. The lighting is bright and airy, reflecting a modern corporate environment with subtle blue and white accents. The composition is focused and sharp, emphasizing technical precision and industrial reliability. The aesthetic is engineered and trustworthy, mirroring a high-performance software architecture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3bdStmc0Dk-DcyBTnGtNzPkRCsrr2rOckFyJYhn9QShvxOopSVIlTrFd3mmmwPO7DECvGYHe99xyqr9LiHJPbX7wEh2AekR_g-Oc8dNC-u-GQd-WI_dD-kXHXtFnF0YmMDBOWcDmVWrLCna2FJRrMRi-bTdtbrb0HvG_d65y1ZAEE1N2eBDxBL01oBtaHBW3lPQ2QyTO-jSnM3-Ub4AJcuLP11_HiWBdvaE5v5HPpHTIJEBLceEtiuW3I8jgKQcihFxsJqQzOKtQ"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Servicios Bento Grid -->
+<section class="py-xl max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-xl space-y-base">
+<h2 class="font-headline-lg text-headline-lg text-primary">Soluciones Especializadas</h2>
+<div class="w-20 h-1 bg-secondary mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Corporate Sites -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant p-lg rounded-lg hover:border-secondary transition-all group">
+<div class="flex flex-col h-full justify-between">
+<div>
+<span class="material-symbols-outlined text-secondary text-[40px] mb-sm">business</span>
+<h3 class="font-headline-md text-headline-md mb-xs">Sitios Corporativos</h3>
+<p class="text-on-surface-variant font-body-md mb-md">Arquitecturas robustas diseñadas para representar la identidad de su empresa con profesionalismo y escalabilidad.</p>
+</div>
+<ul class="grid grid-cols-2 gap-xs font-label-md text-label-md text-on-surface-variant">
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span> Multi-idioma</li>
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span> SEO Optimizado</li>
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span> CMS Intuitivo</li>
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span> Seguridad SSL</li>
+</ul>
+</div>
+</div>
+<!-- Páginas de aterrizaje -->
+<div class="md:col-span-4 bg-primary text-on-primary p-lg rounded-lg hover:bg-opacity-90 transition-all flex flex-col justify-center text-center">
+<span class="material-symbols-outlined text-[48px] mb-md text-secondary-fixed">ads_click</span>
+<h3 class="font-headline-md text-headline-md mb-xs">Páginas de aterrizaje</h3>
+<p class="font-body-md text-on-primary-container mb-md opacity-90">Diseñadas específicamente para la conversión y el retorno de inversión publicitaria.</p>
+<a class="font-label-md text-label-md border-b border-on-primary inline-block self-center pb-base" href="#">Saber más</a>
+</div>
+<!-- Comercio electrónico -->
+<div class="md:col-span-4 bg-surface-container-high border border-outline-variant p-lg rounded-lg hover:shadow-md transition-all">
+<span class="material-symbols-outlined text-primary text-[32px] mb-sm">shopping_cart</span>
+<h3 class="font-headline-md text-headline-md mb-xs">Comercio electrónico</h3>
+<p class="text-on-surface-variant font-body-md">Tiendas online con pasarelas de pago integradas y gestión de inventario eficiente.</p>
+</div>
+<!-- Responsive Design & Integration -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant p-lg rounded-lg overflow-hidden relative group">
+<div class="relative z-10 flex flex-col md:flex-row gap-lg items-center">
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md mb-xs">Diseño Responsivo e Integración</h3>
+<p class="text-on-surface-variant font-body-md mb-md">Adaptabilidad total en smartphones, tablets y ordenadores. Integración perfecta con sus herramientas de CRM y analítica.</p>
+<div class="flex gap-sm">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">smartphone</span>
+<span class="material-symbols-outlined text-secondary" data-weight="fill">tablet</span>
+<span class="material-symbols-outlined text-secondary" data-weight="fill">laptop</span>
+</div>
+</div>
+<div class="flex-1 opacity-20 group-hover:opacity-100 transition-opacity duration-500">
+<img alt="Responsive Design Display" class="rounded shadow-lg w-full h-32 object-cover" data-alt="A sleek presentation showing a single website layout fluidly adapting across a professional smartphone, a high-resolution tablet, and a widescreen monitor. The background is a minimalist studio setting with soft lighting. The UI elements on the screens are clean, systematic, and follow a strict grid layout, showcasing technical excellence and modern design principles. The overall feel is professional, crisp, and high-tech." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7MJBr8IaVoDGjAtHxCJxoN4qKg599lSWCLQmOnhm_COW7gmwVfbMQBfWpPYhIrzpanVVPIt3DApbxCBsKMoZttwg0VwlJEy72kqpjDlYoJiFXvGIjS21mT_8ScQbsWgYP1wXyhoiUG5rJ4hvH3XDdIohyi9ERZkspxFUQLh6YWawwzfJp254Zr2bBfEPW7MyhIVjll7p1mwTsKuXbOVnfxFXPfCLCQtRPmhIu59MBJqKXWGnVmhVbCSAD8UO9RlijnQOGewA15iU"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="bg-surface-container-lowest border-y border-outline-variant py-xl">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-lg">
+<div class="max-w-2xl">
+<h2 class="font-headline-lg text-headline-lg mb-xs">¿Listo para transformar su presencia en línea?</h2>
+<p class="font-body-md text-on-surface-variant">Solicite una auditoría gratuita de su sitio actual o una cotización para su nuevo proyecto.</p>
+</div>
+<button class="bg-secondary text-on-secondary font-label-md text-label-md px-xl py-md rounded-full hover-scale flex items-center gap-xs shrink-0">
+                    Consultoría Gratuita <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+<div class="space-y-sm">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-on-surface">Soluciones Orba</span>
+<p class="font-body-md text-on-surface-variant dark:text-surface-variant">Soluciones tecnológicas de alta precisión para empresas modernas.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-md uppercase tracking-wider text-primary dark:text-inverse-on-surface">Servicios</h4>
+<ul class="space-y-xs">
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors opacity-80 hover:opacity-100" href="desarrollo-web.html">Desarrollo Web</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors opacity-80 hover:opacity-100" href="inteligencia-artificial.html">IA y datos</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors opacity-80 hover:opacity-100" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-md uppercase tracking-wider text-primary dark:text-inverse-on-surface">Empresa</h4>
+<ul class="space-y-xs">
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors opacity-80 hover:opacity-100" href="#">Sobre Nosotros</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors opacity-80 hover:opacity-100" href="soporte.html">Soporte técnico</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-white transition-colors opacity-80 hover:opacity-100" href="#">Privacidad</a></li>
+</ul>
+</div>
+<div class="space-y-md">
+<h4 class="font-label-md text-label-md font-bold uppercase tracking-wider text-primary dark:text-inverse-on-surface">Suscripción</h4>
+<div class="flex">
+<input class="bg-surface-container-low border border-outline px-sm py-xs rounded-l w-full font-label-md" placeholder="Correo electrónico" type="email"/>
+<button class="bg-primary text-on-primary px-sm py-xs rounded-r"><span class="material-symbols-outlined">send</span></button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-md border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-sm">
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant opacity-80">© 2024 Soluciones Orba. Todos los derechos reservados. Ingeniería de confianza.</p>
+<div class="flex gap-md">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">terminal</span></a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">groups</span></a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll interaction for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

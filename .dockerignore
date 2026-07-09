@@ -1,0 +1,30 @@
+# dependencies
+node_modules
+npm-debug.log*
+
+# next.js
+.next
+out
+
+# env (inyectar en runtime / build args)
+.env
+.env*.local
+
+# git / ide
+.git
+.gitignore
+.cursor
+.vscode
+
+# docs y referencias locales
+mokup
+web
+scripts/build-site.mjs
+scripts/extract-page-content.mjs
+scripts/i18n-es.mjs
+
+# misc
+.DS_Store
+*.md
+!README.md
+.vercel

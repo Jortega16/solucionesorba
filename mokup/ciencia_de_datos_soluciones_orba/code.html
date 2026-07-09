@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ciencia de Datos - Soluciones Orba</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-surface-variant": "#4c4546",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b5c4ff",
+                    "surface-variant": "#e1e3e4",
+                    "outline-variant": "#cfc4c5",
+                    "on-secondary-fixed": "#00174d",
+                    "error-container": "#ffdad6",
+                    "outline": "#7e7576",
+                    "surface-container": "#edeeef",
+                    "secondary-container": "#386bef",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#003dab",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary-container": "#fefcff",
+                    "on-tertiary-fixed-variant": "#93000a",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#410002",
+                    "secondary": "#0d50d5",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-tertiary-container": "#f83732",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#410002",
+                    "on-primary-container": "#848484",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "caption": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #f8f9fa; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-border { position: relative; }
+        .active-nav-border::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #0d50d5;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(229, 231, 235, 0.5);
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop h-20">
+<div class="flex items-center gap-xs">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Soluciones Orba</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Web Development</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Custom Software</a>
+<a class="font-label-md text-label-md text-secondary font-bold active-nav-border" href="#">AI &amp; Data</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Cyber-physical Systems</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Hosting &amp; Support</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button class="hidden lg:block font-label-md text-label-md px-md py-xs text-on-surface hover:text-primary transition-colors">About Us</button>
+<button class="bg-primary text-on-primary px-lg py-xs font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-opacity-90 active:scale-95 transition-all">Contact</button>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative overflow-hidden py-xl md:py-32">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+<div class="max-w-3xl">
+<div class="inline-flex items-center gap-xs bg-secondary-fixed text-on-secondary-fixed px-sm py-1 rounded-full mb-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">CIENCIA DE DATOS</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary mb-md leading-tight">
+                        Ciencia de datos y analítica para tomar <span class="text-secondary">mejores decisiones</span>.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">
+                        Ayudamos a las empresas a transformar sus datos en información clara, útil y accionable mediante sistemas inteligentes de procesamiento.
+                    </p>
+</div>
+</div>
+<!-- Abstract Background Graphic -->
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none hidden lg:block">
+<div class="w-full h-full" style="background-image: radial-gradient(circle at 2px 2px, #000 1px, transparent 0); background-size: 32px 32px;"></div>
+</div>
+</section>
+<!-- Bento Grid Services -->
+<section class="py-xl bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Dashboard Card (Large) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant p-md flex flex-col justify-between group hover:border-secondary transition-colors duration-300">
+<div>
+<span class="material-symbols-outlined text-secondary text-[40px] mb-sm" data-icon="dashboard">dashboard</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Dashboards en Tiempo Real</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+                                Visualización centralizada de KPIs críticos para monitorear la salud de su negocio al instante.
+                            </p>
+</div>
+<div class="mt-xl aspect-video bg-surface overflow-hidden relative border border-outline-variant">
+<img alt="Data Dashboard" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="A sophisticated dark-themed business intelligence dashboard displayed on a high-resolution monitor. The screen shows complex financial data visualizations including 3D line graphs, circular progress indicators, and heat maps in shades of electric blue and slate gray. The setting is a professional, dimly lit office environment with a focus on analytical precision and modern data science tools. The lighting is soft and tech-focused, emphasizing clarity and engineered trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_eL-Htw2zQEfH-uTSS044Bx9WTuviBukgB8AQq8yO6NikE3e8keuhqNDb-cetG1mKjTTFjhpeLSbkVgnroE9o7J_hVtGjxokCTL6JsBKXL1J-bo1YnpbEATBIDZ_VM4v3pmUxa420niHKxyuq9V53x9CjvL3hY59mGFmtLctWgx1mynLUTvbx46euSNtOQ-7azuRTHtZ3Pw8wueV_MhbLJL5_pbtbct6Ra4-lY5uUkf0X1k-Q9bCJhwH-eNRsWKpcrVeG-RarlB8"/>
+</div>
+</div>
+<!-- Predictive Models Card -->
+<div class="md:col-span-4 bg-primary text-on-primary p-md flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-secondary-fixed text-[40px] mb-sm" data-icon="query_stats" style="font-variation-settings: 'FILL' 1;">query_stats</span>
+<h3 class="font-headline-md text-headline-md mb-xs">Modelos Predictivos</h3>
+<p class="font-body-md text-body-md opacity-80">
+                                Anticipamos tendencias y comportamientos futuros utilizando algoritmos de Machine Learning avanzados.
+                            </p>
+</div>
+<div class="pt-xl">
+<ul class="space-y-sm font-label-md text-label-md">
+<li class="flex items-center gap-xs"><span class="text-secondary-fixed">01</span> Forecast de Ventas</li>
+<li class="flex items-center gap-xs"><span class="text-secondary-fixed">02</span> Detección de Anomalías</li>
+<li class="flex items-center gap-xs"><span class="text-secondary-fixed">03</span> Churn Prediction</li>
+</ul>
+</div>
+</div>
+<!-- Automated Reports -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant p-md">
+<span class="material-symbols-outlined text-primary text-[32px] mb-sm" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Reportes Automatizados</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Elimine procesos manuales con entregas programadas de información crítica directo a su bandeja.
+                        </p>
+</div>
+<!-- Data Visualization -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant p-md flex flex-col md:flex-row gap-md items-center overflow-hidden">
+<div class="flex-1">
+<span class="material-symbols-outlined text-primary text-[32px] mb-sm" data-icon="bubble_chart">bubble_chart</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Visualización de Datos</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Convertimos estructuras complejas en gráficos intuitivos que cuentan una historia clara.
+                            </p>
+</div>
+<div class="flex-1 w-full h-40 bg-surface-container flex items-end justify-center gap-base p-sm">
+<div class="w-xs bg-secondary h-[40%]"></div>
+<div class="w-xs bg-secondary h-[70%]"></div>
+<div class="w-xs bg-secondary h-[55%]"></div>
+<div class="w-xs bg-secondary h-[90%]"></div>
+<div class="w-xs bg-secondary h-[30%]"></div>
+<div class="w-xs bg-primary h-[100%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Process Section -->
+<section class="py-xl">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="flex flex-col md:flex-row items-end justify-between mb-xl gap-md">
+<div class="max-w-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Nuestro Ecosistema Analítico</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Implementamos un flujo de trabajo riguroso para asegurar que cada dato contribuya a la rentabilidad y eficiencia de su organización.
+                        </p>
+</div>
+<div class="font-label-md text-label-md text-secondary border-b border-secondary pb-1">
+                        Metodología Engineered Trust
+                    </div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="relative p-md border-l-2 border-outline-variant hover:border-primary transition-colors">
+<div class="text-surface-dim font-headline-lg absolute top-4 right-4 opacity-30">01</div>
+<h4 class="font-headline-md text-headline-md mb-xs">Recolección</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Ingesta masiva desde múltiples fuentes con limpieza automática.</p>
+</div>
+<div class="relative p-md border-l-2 border-outline-variant hover:border-primary transition-colors">
+<div class="text-surface-dim font-headline-lg absolute top-4 right-4 opacity-30">02</div>
+<h4 class="font-headline-md text-headline-md mb-xs">Procesamiento</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Transformación y modelado mediante lógica de negocio avanzada.</p>
+</div>
+<div class="relative p-md border-l-2 border-outline-variant hover:border-primary transition-colors">
+<div class="text-surface-dim font-headline-lg absolute top-4 right-4 opacity-30">03</div>
+<h4 class="font-headline-md text-headline-md mb-xs">Activación</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Entrega de insights accionables a través de interfaces intuitivas.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-xl mb-xl">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="bg-primary p-xl relative overflow-hidden">
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-xl">
+<div class="max-w-2xl text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-on-primary mb-md">¿Listo para desbloquear el poder de sus datos?</h2>
+<p class="font-body-lg text-body-lg text-primary-fixed-dim">Contacte con nuestros ingenieros para una auditoría de datos inicial.</p>
+</div>
+<button class="bg-on-primary text-primary px-xl py-md font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-secondary-fixed transition-colors whitespace-nowrap">
+                            Solicitar Demo
+                        </button>
+</div>
+<!-- Background Accent -->
+<div class="absolute -bottom-20 -right-20 w-64 h-64 bg-secondary opacity-20 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-outline-variant">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-xl">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md font-bold text-primary mb-md block">Soluciones Orba</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Ingeniería de software de alta precisión para retos industriales y corporativos.
+                    </p>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary font-bold mb-md uppercase">Servicios</h5>
+<ul class="space-y-xs">
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">AI &amp; Data</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Cyber-physical Systems</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Web Development</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary font-bold mb-md uppercase">Compañía</h5>
+<ul class="space-y-xs">
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">About Us</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Home</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Technical Support</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary font-bold mb-md uppercase">Legal</h5>
+<ul class="space-y-xs">
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-md border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Soluciones Orba. All rights reserved. Engineered Trust.</p>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="language">language</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="lock">lock</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for scrolling
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-sm');
+            } else {
+                header.classList.remove('shadow-sm');
+            }
+        });
+
+        // Hover effects for service cards
+        const cards = document.querySelectorAll('.bg-surface-container-lowest');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'transform 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

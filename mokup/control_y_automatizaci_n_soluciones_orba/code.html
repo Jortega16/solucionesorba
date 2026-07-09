@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soluciones Orba - Control y Automatización</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-surface-variant": "#4c4546",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b5c4ff",
+                    "surface-variant": "#e1e3e4",
+                    "outline-variant": "#cfc4c5",
+                    "on-secondary-fixed": "#00174d",
+                    "error-container": "#ffdad6",
+                    "outline": "#7e7576",
+                    "surface-container": "#edeeef",
+                    "secondary-container": "#386bef",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#003dab",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary-container": "#fefcff",
+                    "on-tertiary-fixed-variant": "#93000a",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#410002",
+                    "secondary": "#0d50d5",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-tertiary-container": "#f83732",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#410002",
+                    "on-primary-container": "#848484",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "caption": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrim-blur {
+            backdrop-filter: blur(8px);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .scale-98:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant fixed top-0 w-full z-50">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-desktop h-20">
+<div class="flex items-center gap-xs">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Soluciones Orba</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Web Development</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Custom Software</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">AI &amp; Data</a>
+<a class="font-label-md text-label-md text-secondary font-bold border-b-2 border-secondary" href="#">Cyber-physical Systems</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Hosting &amp; Support</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button class="font-label-md text-label-md px-md py-xs border border-primary text-primary hover:bg-surface-container transition-all scale-98">About Us</button>
+<button class="font-label-md text-label-md px-md py-xs bg-primary text-on-primary hover:bg-opacity-90 transition-all scale-98">Contact</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-xl">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-margin-desktop mt-xl">
+<div class="flex flex-col md:flex-row items-center gap-xl">
+<div class="md:w-1/2">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest block mb-xs">Industria 4.0</span>
+<h1 class="font-display-lg text-display-lg text-primary mb-md">Sistemas de control y automatización</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        Desarrollamos soluciones de control para supervisar, regular y automatizar procesos mediante software, sensores, dispositivos electrónicos y lógica programada.
+                    </p>
+</div>
+<div class="md:w-1/2 relative">
+<div class="aspect-video bg-surface-container rounded-lg overflow-hidden border border-outline-variant shadow-sm">
+<img class="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500" data-alt="A professional close-up of an industrial control panel featuring neatly organized wires, colorful modular circuit breakers, and glowing LED indicators. The lighting is crisp and cold, reflecting a modern light-mode engineering aesthetic with high-key whites and technical blacks. The composition emphasizes precision and reliability in a high-tech manufacturing environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9VANQa7Qb1dtGrSFJbAlG9OLXR7aefO3xtVJVokKHM7KXJNzvzSIaXNl5MyE1bLmzZy6A3x8M7_wog5F6A0k8aW0JASPxhaQ1hO5nDCG74McgKzE99331toJIgxWQFb5yejAsu-a0aWGieRNPb_NyqdCCHnppOrN1_tnyP5_LKI5m3lbvj9JrolX_iqbovMbo_QkwBwZQHciZksI0do00S2SpoJiTjXcH69n0FkbkQ5hykIwG6hpTctN1EG9X-OuH8df1HG18o-k"/>
+</div>
+<!-- Technical Overlay Detail -->
+<div class="absolute -bottom-xs -left-xs bg-surface-container-lowest border border-outline p-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+<span class="font-label-md text-label-md text-primary">Engineered Trust</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Services -->
+<section class="max-w-7xl mx-auto px-margin-desktop mt-xl">
+<div class="bento-grid">
+<!-- Large Feature: Automation -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest border border-outline-variant p-xl rounded-lg hover:border-secondary transition-colors duration-300">
+<div class="flex flex-col h-full">
+<div class="w-12 h-12 bg-secondary/10 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-secondary" data-icon="settings_input_component">settings_input_component</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-sm">Process Automation</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl max-w-lg">
+                            Optimización de flujos de trabajo industriales mediante lógica programable y orquestación de hardware. Reducimos el error humano y maximizamos la eficiencia operativa en tiempo real.
+                        </p>
+<div class="mt-auto grid grid-cols-2 gap-md">
+<div class="p-md bg-surface-container rounded border border-outline-variant">
+<span class="font-label-md text-label-md text-secondary block mb-base">Throughput</span>
+<span class="font-headline-md text-headline-md text-primary">+45%</span>
+</div>
+<div class="p-md bg-surface-container rounded border border-outline-variant">
+<span class="font-label-md text-label-md text-secondary block mb-base">Error Rate</span>
+<span class="font-headline-md text-headline-md text-primary">-92%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary: Variable Control -->
+<div class="col-span-12 md:col-span-4 bg-primary text-on-primary p-xl rounded-lg group">
+<div class="w-12 h-12 bg-on-primary/10 flex items-center justify-center mb-md group-hover:bg-on-primary/20 transition-colors">
+<span class="material-symbols-outlined text-on-primary" data-icon="tune">tune</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-sm">Variable Control</h3>
+<p class="font-body-md text-body-md text-surface-variant/80">
+                        Monitoreo y ajuste preciso de temperatura, presión, caudal y otras variables críticas de su proceso.
+                    </p>
+</div>
+<!-- Secondary: Remote Monitoring -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-low border border-outline-variant p-xl rounded-lg">
+<div class="w-12 h-12 bg-secondary/10 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-secondary" data-icon="sensors">sensors</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Remote Monitoring</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Acceso seguro y en tiempo real a los sensores de su planta desde cualquier lugar del mundo.
+                    </p>
+</div>
+<!-- Third Feature: Dashboards -->
+<div class="col-span-12 md:col-span-8 bg-surface border border-outline-variant p-xl rounded-lg relative overflow-hidden group">
+<div class="flex flex-col md:flex-row items-center gap-lg">
+<div class="md:w-1/2">
+<h3 class="font-headline-lg text-headline-lg text-primary mb-sm">Industrial Dashboards</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">
+                                Visualización de datos crítica con interfaces diseñadas para la toma de decisiones rápida en entornos de alta presión.
+                            </p>
+<ul class="space-y-xs">
+<li class="flex items-center gap-xs font-label-md text-label-md text-primary">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+                                    Actualización en milisegundos
+                                </li>
+<li class="flex items-center gap-xs font-label-md text-label-md text-primary">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+                                    Alertas inteligentes (HMI)
+                                </li>
+</ul>
+</div>
+<div class="md:w-1/2">
+<img class="rounded-lg shadow-lg border border-outline-variant group-hover:scale-105 transition-transform duration-700" data-alt="A clean, professional industrial data visualization dashboard displayed on a high-resolution screen. The interface shows real-time line graphs, circular progress gauges, and status indicators in a sophisticated palette of deep blues and slate grays on a light background. The environment is a modern, brightly lit control room with minimalist decor, emphasizing data clarity and advanced technical supervision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBbF9yxTKY5vdnyrwJnvUinzXyKtJOXDmUxKE8vF_ZX2ypvg_fdnVAlTOPIDscvK9Y1M0srKkZaqtCeCoSvcTqLK7kosG-Aa_ANdeiWq3RTY_QqiMJknNCsFM9OC_oTBgnhWoIqI2Ck1RzRwnDD-uxfA4zMc5BmXSyUW83qQiR5o7eYAiEAgqNN_AkOrSbi73Z11-vVvbSJ27yy_-QrBtFVPD1D30r1cSyPrdm9NeKv_Zbs9DagLiy6NQu5lm2Q5u1gvNuPQx2ZTk"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="max-w-7xl mx-auto px-margin-desktop mt-xl">
+<div class="bg-surface-container-highest p-xl text-center rounded-lg border border-outline-variant">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">¿Listo para automatizar su planta?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg max-w-2xl mx-auto">
+                    Nuestros ingenieros analizan su proceso actual para proponer la arquitectura de control más robusta y escalable del mercado.
+                </p>
+<div class="flex flex-col sm:flex-row justify-center gap-md">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-xl py-md hover:bg-opacity-90 transition-all scale-98 uppercase tracking-widest">Agendar Consultoría</button>
+<button class="border border-primary text-primary font-label-md text-label-md px-xl py-md hover:bg-surface-container transition-all scale-98 uppercase tracking-widest">Ver Casos de Éxito</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-7xl mx-auto px-margin-desktop py-xl">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-md text-headline-md font-bold text-primary block mb-md">Soluciones Orba</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Innovación tecnológica para la industria del futuro.
+                </p>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md font-bold text-primary uppercase">Servicios</span>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">AI &amp; Data</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Cyber-physical Systems</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Technical Support</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md font-bold text-primary uppercase">Empresa</span>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md font-bold text-primary uppercase">Legal</span>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80">
+                    © 2024 Soluciones Orba. All rights reserved. Engineered Trust.
+                </p>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for hover states on bento cards
+        document.querySelectorAll('.bento-grid > div').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const icon = card.querySelector('.material-symbols-outlined');
+                if (icon) {
+                    icon.style.transition = 'transform 0.3s ease';
+                    icon.style.transform = 'scale(1.1) rotate(5deg)';
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                const icon = card.querySelector('.material-symbols-outlined');
+                if (icon) {
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                }
+            });
+        });
+    </script>
+</body></html>

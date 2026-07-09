@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-surface-variant": "#4c4546",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b5c4ff",
+                    "surface-variant": "#e1e3e4",
+                    "outline-variant": "#cfc4c5",
+                    "on-secondary-fixed": "#00174d",
+                    "error-container": "#ffdad6",
+                    "outline": "#7e7576",
+                    "surface-container": "#edeeef",
+                    "secondary-container": "#386bef",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#003dab",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary-container": "#fefcff",
+                    "on-tertiary-fixed-variant": "#93000a",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#410002",
+                    "secondary": "#0d50d5",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-tertiary-container": "#f83732",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#410002",
+                    "on-primary-container": "#848484",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "caption": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        .active-filter {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .inactive-filter {
+            background-color: transparent;
+            border: 1px solid #000000;
+            color: #000000;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-desktop h-20">
+<div class="font-headline-lg text-headline-lg font-bold text-primary">Soluciones Orba</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Web Development</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Custom Software</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">AI &amp; Data</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Cyber-physical Systems</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Hosting &amp; Support</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button class="font-label-md text-label-md px-lg py-xs border border-primary text-primary hover:bg-surface-container-high transition-colors">About Us</button>
+<button class="font-label-md text-label-md px-lg py-xs bg-primary text-on-primary hover:opacity-90 transition-opacity">Contact</button>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-xl px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-xl text-center md:text-left">
+<h1 class="font-display-lg text-display-lg mb-sm tracking-tight text-primary">Proyectos y soluciones desarrolladas</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+                En esta sección se pueden mostrar algunos proyectos, casos de éxito o ejemplos de soluciones desarrolladas. Nuestra ingeniería se centra en la precisión y la escalabilidad.
+            </p>
+</section>
+<!-- Category Filters -->
+<section class="mb-lg overflow-x-auto">
+<div class="flex flex-nowrap md:flex-wrap gap-xs pb-base">
+<button class="active-filter px-lg py-xs font-label-md text-label-md rounded-lg transition-all">All Projects</button>
+<button class="inactive-filter px-lg py-xs font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-all">Web development</button>
+<button class="inactive-filter px-lg py-xs font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-all">Custom platforms</button>
+<button class="inactive-filter px-lg py-xs font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-all">WordPress</button>
+<button class="inactive-filter px-lg py-xs font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-all">SaaS</button>
+<button class="inactive-filter px-lg py-xs font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-all">AI</button>
+<button class="inactive-filter px-lg py-xs font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-all">Data Science</button>
+</div>
+</section>
+<!-- Portfolio Bento Grid -->
+<div class="bento-grid">
+<!-- Project 1: Large Feature (AI & Data) -->
+<div class="col-span-12 md:col-span-8 group relative overflow-hidden bg-white border border-outline-variant rounded-lg aspect-video md:aspect-auto md:h-[500px]">
+<img alt="AI Neural Network Project" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A clean, cinematic laboratory setting featuring advanced server racks and glowing blue neural network visualizations on floating glass panels. The lighting is cold and professional with soft high-key accents. The aesthetic is ultra-modern, emphasizing industrial reliability and engineered trust through sharp focus and a limited palette of white, steel gray, and electric blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY8bq5-tRCkddo3tqFU2H-oPVT8P7_bpDZ9_c5Sipp1Sor0EAREM6xL4Sfqr7afiDJfn6ESVydeQ3rKpE1tXoNvgFOejaENsYI3KdJy9VR1cg9ShBYbebVAJIW5PP9WCcSthmXpt-Mn8joeoTvSleZCvk9e3EbeT7t3P_SGvgDqQfDU3sbeQJncX1yFvdH7zr_t6j1pn1i_x10JvTbZ6Ol2xuoz-NtBKp0qjz243pywRI9lnV1hV-TlAxOGJ_QZ8H0b8uKhxBBLvg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-lg text-on-primary">
+<span class="font-label-md text-label-md bg-secondary px-sm py-1 mb-base inline-block uppercase">AI &amp; Data Science</span>
+<h3 class="font-headline-lg text-headline-lg mb-xs">NeuralOps Enterprise Suite</h3>
+<p class="font-body-md text-body-md max-w-xl opacity-90">Custom predictive analytics platform for industrial manufacturing optimization, processing 1.2M data points per second with real-time feedback loops.</p>
+</div>
+<a class="absolute top-lg right-lg w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary group-hover:bg-secondary group-hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">north_east</span>
+</a>
+</div>
+<!-- Project 2: Custom Platforms -->
+<div class="col-span-12 md:col-span-4 group relative overflow-hidden bg-white border border-outline-variant rounded-lg h-[400px] md:h-[500px]">
+<img alt="Custom Platform Dashboard" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A macro shot of a sleek professional dashboard displayed on a high-resolution tablet. The UI is minimalist with technical charts and clean typography, using a primary palette of black, white, and subtle corporate blue. The setting is a brightly lit, modern architectural studio with vast windows and clean wooden surfaces in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE3R_t_vc4fyrAPIXBE_bwvPdfQY7x1a9S6rRqETD8ZEjB6Q9f2588V-kDO4QUPM-H449FyA4CCj21oo32RwWhQkmuLTUXQdL58nn3jeNnFQslXbXsp1r54IZmreV2CpZ8H3sRvyinkOs97LsR-zL6lLN07NcNvenPgkeeQ9MAcO9hc9fNWCLEFDaeRuyihAhaeZ1saOXzJAJXUhaNvjyDTVvzv2WQWe40o3uBFIodn_Bk7O3XFD9CeIBQSH0Wm3aCW1ANsiMvNkU"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors"></div>
+<div class="absolute bottom-0 left-0 right-0 p-lg bg-surface border-t border-outline-variant transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<span class="font-label-md text-label-md text-secondary uppercase">Custom Software</span>
+<h3 class="font-headline-md text-headline-md text-primary mt-base">LogiTrack Pro</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">A global logistics orchestration engine for multi-modal transport management.</p>
+</div>
+</div>
+<!-- Project 3: Web Dev -->
+<div class="col-span-12 md:col-span-4 group relative overflow-hidden bg-white border border-outline-variant rounded-lg h-[400px]">
+<img alt="Web Development Project" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A clean workspace featuring a silver laptop with lines of code visible on the screen. The background is a minimalist home office with white walls and a green succulent. The lighting is natural and airy, creating a sense of clarity and modern digital craftsmanship. The focus is sharp on the keyboard and screen edges." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIp4Dw_4tVy9H2kUMr5e7McviKB8lyNdH8lnIiazfLgB0ENjwtdbBJjHpADqxJEPxZd92EWhsw1EDKmlXgE3lDpPT3ZbpzFVPIg8prm6uBfnAC2Z6IjyJqr9um3avSjM7Bhq8pN_xICLAZwvhzsGMpJg59fH5JEfkDyUN2BaQpYwXQaNbXJVSG1LCn74rq8YtImGumN5cT2Udpn8-hYOhuF-_gtPePkUenJItjdfWibBHKBBllCE0oU0deM3XcMHVjNKGXIDCHiz8"/>
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<div class="text-center p-md">
+<span class="material-symbols-outlined text-on-primary text-4xl mb-sm">language</span>
+<h4 class="font-headline-md text-headline-md text-on-primary">FinTech Portal</h4>
+<button class="mt-md px-lg py-xs bg-white text-primary font-label-md text-label-md hover:bg-secondary hover:text-white transition-colors">View Case Study</button>
+</div>
+</div>
+</div>
+<!-- Project 4: SaaS -->
+<div class="col-span-12 md:col-span-8 group relative overflow-hidden bg-white border border-outline-variant rounded-lg h-[400px]">
+<div class="flex flex-col md:flex-row h-full">
+<div class="w-full md:w-1/2 p-lg flex flex-col justify-center">
+<span class="font-label-md text-label-md text-secondary mb-base uppercase tracking-widest">SaaS Architecture</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-sm">CloudArch Systems</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">A multi-tenant cloud infrastructure management tool designed for DevOps teams at scale, featuring modular resource allocation.</p>
+<div class="flex gap-sm">
+<span class="material-symbols-outlined text-outline" title="AWS Infrastructure">cloud</span>
+<span class="material-symbols-outlined text-outline" title="Docker Containerization">inventory_2</span>
+<span class="material-symbols-outlined text-outline" title="Kubernetes Orchestration">hub</span>
+</div>
+</div>
+<div class="w-full md:w-1/2 overflow-hidden bg-surface-container-low">
+<img alt="SaaS Cloud Infrastructure" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="A detailed 3D visualization of a complex cloud network architecture shown on a vertical monitor. The data streams are represented by flowing lines of light in shades of blue and white against a dark background. The environment is a professional NOC center with dim, focused lighting, emphasizing high-performance computing and stability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdTCU-I3-v9vtLSCp6pMsSf4_ZcvvdZEh5vcaxManupynG6fp53MoCsAcgFk4vrS_rnTCfbyh8F2zT6h8sjMDkGXdSO5kxGOdBQZYczt0rWJjN3JHBcM4DqiiBf6jIP0bkL2CXAitlZHVxpRyuzbXDxk0ll85LDexblhyeJqTxIn20j3uSTLOoDokV3pr6EqSIMsj41Lg0Da9UFW9LRVd1FPvpiZw2OjTyp_QEiQBhW1qh1Ot3-jnKVrwJqcRYIp5Pmlx3MLAfe7Y"/>
+</div>
+</div>
+</div>
+<!-- Project 5: WordPress -->
+<div class="col-span-12 md:col-span-6 group relative overflow-hidden bg-white border border-outline-variant rounded-lg h-[350px]">
+<img alt="Corporate Website Project" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A collaborative meeting room with a large screen showing a high-end corporate website. Professional team members are blurred in the background, focusing the attention on the digital interface which is clean, structured, and features high-quality industrial photography. The lighting is bright and professional, highlighting the polished finish of the web design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfu27ERZw9_rkf_qdZEY13cxwJ_LLlxGDjGZw2RKpPADRmGPN2uj7FIHibqVSuYjZjsrkIbGhJ2WQ3gbYQ8Wh30iM5STZ-eohGstnTraHE3G83pYlEeJ-F9g43rK9EBYOt-aHRP-ksr4R2gpr8RV7Lqz4TYFJQ50fJVRgfBwpPDf8jGo2QloqMEVBumC0kxSKoUlM2j6tQFzUZ7V5t6xle7FUT9HdFQCmYvsp_7NP4yZf5S4_OACxYU2t_9rI64iPsLyRi3apDOpI"/>
+<div class="absolute inset-0 bg-gradient-to-r from-white to-transparent md:w-2/3 flex items-center px-lg">
+<div class="max-w-xs">
+<span class="font-label-md text-label-md text-on-surface-variant mb-xs block">WordPress / Headless</span>
+<h4 class="font-headline-md text-headline-md text-primary mb-base">Energy Corp Portal</h4>
+<p class="font-caption text-caption text-on-surface-variant mb-sm">Custom theme development for a Fortune 500 energy provider with real-time grid status integration.</p>
+<a class="font-label-md text-label-md text-secondary flex items-center gap-xs hover:underline" href="#">Read Success Story <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+</div>
+</div>
+<!-- Project 6: Cyber-Physical Systems -->
+<div class="col-span-12 md:col-span-6 group relative overflow-hidden bg-primary border border-outline-variant rounded-lg h-[350px]">
+<div class="absolute inset-0 opacity-20 overflow-hidden">
+<div class="grid grid-cols-10 gap-base h-full w-full">
+<script>
+                           for(let i=0; i<100; i++){
+                               document.write('<div class="border border-white/10 aspect-square"></div>');
+                           }
+                       </script>
+</div>
+</div>
+<div class="relative h-full p-lg flex flex-col justify-end">
+<span class="material-symbols-outlined text-on-primary text-4xl mb-md">precision_manufacturing</span>
+<h3 class="font-headline-md text-headline-md text-on-primary">Industrial IoT Gateway</h3>
+<p class="font-body-md text-body-md text-on-primary/70 mb-lg">Embedded firmware and cloud connectivity for legacy manufacturing equipment bridge.</p>
+<div class="flex gap-sm">
+<div class="px-sm py-1 border border-white/30 text-white font-label-md text-label-md rounded">C++ / Rust</div>
+<div class="px-sm py-1 border border-white/30 text-white font-label-md text-label-md rounded">MQTT</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<section class="mt-xl py-xl border-t border-outline-variant text-center">
+<h2 class="font-headline-lg text-headline-lg mb-sm">¿Tienes un proyecto en mente?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg">Transformamos requerimientos técnicos complejos en realidades operativas.</p>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-xl py-md rounded-lg hover:scale-105 transition-transform">Agendar una consulta técnica</button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-outline-variant mt-xl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-7xl mx-auto px-margin-desktop py-xl">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-md text-headline-md font-bold text-primary mb-md">Soluciones Orba</div>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Soluciones Orba. All rights reserved. Engineered Trust.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary mb-md font-bold uppercase">Services</h4>
+<ul class="space-y-sm">
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">AI &amp; Data</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Cyber-physical Systems</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Custom Software</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary mb-md font-bold uppercase">Resources</h4>
+<ul class="space-y-sm">
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Technical Support</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary mb-md font-bold uppercase">Social</h4>
+<div class="flex gap-sm">
+<a class="w-10 h-10 border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+<a class="w-10 h-10 border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple filter logic simulation
+        const filters = document.querySelectorAll('.active-filter, .inactive-filter');
+        filters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                filters.forEach(f => {
+                    f.classList.remove('active-filter');
+                    f.classList.add('inactive-filter');
+                });
+                filter.classList.add('active-filter');
+                filter.classList.remove('inactive-filter');
+                
+                // Add click ripple effect
+                filter.classList.add('scale-95');
+                setTimeout(() => filter.classList.remove('scale-95'), 100);
+            });
+        });
+
+        // Hover scale interaction for navigation links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('mousedown', () => link.style.transform = 'scale(0.98)');
+            link.addEventListener('mouseup', () => link.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>

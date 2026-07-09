@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Plataformas a la Medida | Soluciones Orba</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dadb",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-surface-variant": "#4c4546",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b5c4ff",
+                    "surface-variant": "#e1e3e4",
+                    "outline-variant": "#cfc4c5",
+                    "on-secondary-fixed": "#00174d",
+                    "error-container": "#ffdad6",
+                    "outline": "#7e7576",
+                    "surface-container": "#edeeef",
+                    "secondary-container": "#386bef",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#003dab",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary-container": "#fefcff",
+                    "on-tertiary-fixed-variant": "#93000a",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#410002",
+                    "secondary": "#0d50d5",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-tertiary-container": "#f83732",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#410002",
+                    "on-primary-container": "#848484",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "base": "4px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "caption": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["JetBrains Mono"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .active-nav-border {
+            position: relative;
+        }
+        .active-nav-border::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #0d50d5;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-desktop h-20">
+<div class="font-headline-lg text-headline-lg font-bold text-primary">Soluciones Orba</div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="index.html">Inicio</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="desarrollo-web.html">Desarrollo web</a>
+<a class="font-label-md text-label-md text-secondary font-bold active-nav-border" href="plataformas.html">Software a medida</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="inteligencia-artificial.html">IA y datos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="hosting.html">Hosting y soporte</a>
+</nav>
+<div class="flex items-center gap-sm">
+<a href="nosotros.html" class="font-label-md text-label-md text-on-surface hover:text-secondary transition-colors inline-flex items-center justify-center">Nosotros</a>
+<a href="contacto.html" class="bg-primary text-on-primary px-lg py-xs font-label-md text-label-md font-bold active:scale-95 transition-transform inline-flex items-center justify-center">Contacto</a>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative bg-surface-container-lowest py-xl overflow-hidden">
+<div class="max-w-7xl mx-auto px-margin-desktop grid md:grid-cols-2 gap-xl items-center">
+<div class="z-10">
+<span class="font-label-md text-label-md text-secondary mb-sm block">EFICIENCIA DISEÑADA</span>
+<h1 class="font-display-lg text-display-lg text-primary mb-md">Desarrollo de plataformas personalizadas para tu empresa</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-lg">
+                        Construimos plataformas digitales adaptadas a los procesos, necesidades y objetivos específicos de cada negocio. Transformamos la complejidad técnica en fluidez operativa.
+                    </p>
+<div class="flex gap-sm">
+<button class="bg-primary text-on-primary px-xl py-sm font-label-md text-label-md font-bold hover:opacity-90 transition-opacity">Iniciar Proyecto</button>
+<button class="border border-primary text-primary px-xl py-sm font-label-md text-label-md font-bold hover:bg-surface-container-low transition-colors">Casos de Éxito</button>
+</div>
+</div>
+<div class="relative">
+<div class="aspect-square bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant">
+<img alt="Software Development" class="w-full h-full object-cover grayscale-[20%]" data-alt="A sophisticated command center interface displayed on a high-resolution wide-screen monitor within a modern corporate workspace. The UI design features a minimalist dark-themed dashboard with complex data visualizations, real-time analytics graphs, and clean typography in whites and vibrant blues. Soft ambient lighting illuminates the desk area, emphasizing a productive and technologically advanced atmosphere for enterprise software development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnSmmn_UFypfJ3ErWt5mS-HF2nQ_ehQe_88NmWJNB6TzY5w66CxvPslynNdAiiTf9MmljzvuGLyTH-4Em5lZe0c1S-QMYto6KnrZLUzo6dLp_tJgp8TZOnAMWp9AO_AuYO16EBbdc9foFJk7YmLNxBgzrNQO1CSDXsWavziZvPgmke2tfcTHeFxYA7DJUVKF8L26VLmgQmQ1bU08qI71p_DMN3alIgFh8SbdDBYqvDD3gw3fJtD1mMaiYx_9VeCHLZxoSq-MOpJ-w"/>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -bottom-xs -right-xs bg-secondary w-xl h-xl -z-10"></div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Servicios -->
+<section class="py-xl bg-background">
+<div class="max-w-7xl mx-auto px-margin-desktop">
+<div class="mb-xl text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Soluciones que impulsan tu productividad</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Arquitectura robusta para desafíos empresariales reales.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Admin Systems -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant p-md flex flex-col justify-between hover:border-secondary transition-colors group">
+<div>
+<span class="material-symbols-outlined text-secondary mb-sm" style="font-size: 32px;">dashboard</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Sistemas administrativos</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Control total de tu operación centralizada en una única interfaz intuitiva y escalable.</p>
+</div>
+<div class="font-label-md text-label-md text-secondary flex items-center gap-xs">
+                            Ver detalles <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Client Portals -->
+<div class="md:col-span-4 bg-primary text-on-primary p-md flex flex-col justify-between hover:bg-opacity-90 transition-all">
+<div>
+<span class="material-symbols-outlined text-secondary mb-sm" style="font-size: 32px;">group</span>
+<h3 class="font-headline-md text-headline-md text-on-primary mb-xs">Portales de clientes</h3>
+<p class="font-body-md text-body-md text-on-primary-container mb-md">Mejora la experiencia de tus clientes con accesos personalizados y seguros.</p>
+</div>
+</div>
+<!-- Internal Tools -->
+<div class="md:col-span-4 bg-surface-container-low border border-outline-variant p-md hover:shadow-sm transition-shadow">
+<span class="material-symbols-outlined text-primary mb-sm" style="font-size: 32px;">settings_applications</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Herramientas internas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Herramientas específicas para optimizar el flujo de trabajo diario de tus equipos.</p>
+</div>
+<!-- Inventario & Facturación -->
+<div class="md:col-span-4 bg-white border border-outline-variant p-md flex flex-col gap-sm">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold">Inventario</h4>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider">Seguimiento optimizado</p>
+</div>
+</div>
+<div class="border-t border-outline-variant my-xs"></div>
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold">Facturación</h4>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider">Facturación automatizada</p>
+</div>
+</div>
+</div>
+<!-- Integraciones API -->
+<div class="md:col-span-4 bg-secondary text-white p-md flex flex-col justify-center text-center">
+<h3 class="font-headline-md text-headline-md mb-xs">Integraciones API</h3>
+<p class="font-label-md text-label-md opacity-90">Conecta tu ecosistema digital sin fricciones.</p>
+<div class="mt-md font-label-md text-label-md flex justify-center gap-xs">
+<span class="px-xs py-1 border border-white/30 bg-white/10">REST</span>
+<span class="px-xs py-1 border border-white/30 bg-white/10">GraphQL</span>
+<span class="px-xs py-1 border border-white/30 bg-white/10">Webhooks</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Focus Section -->
+<section class="py-xl bg-surface-container-high">
+<div class="max-w-7xl mx-auto px-margin-desktop grid md:grid-cols-2 gap-xl">
+<div class="flex flex-col justify-center">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-md">Enfoque en Productividad y Eficiencia</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">
+                        No solo escribimos código; diseñamos soluciones lógicas que eliminan cuellos de botella. Cada plataforma de Orba está diseñada para maximizar el retorno de inversión a través de la automatización inteligente.
+                    </p>
+<ul class="space-y-sm">
+<li class="flex items-start gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<span class="font-label-md text-label-md font-bold">Cero Deuda Técnica</span>
+<p class="text-caption text-on-surface-variant">Código limpio, modular y documentado bajo estándares internacionales.</p>
+</div>
+</li>
+<li class="flex items-start gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<span class="font-label-md text-label-md font-bold">Seguridad de Grado Bancario</span>
+<p class="text-caption text-on-surface-variant">Protección de datos y cifrado en cada nivel de la aplicación.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="bg-primary-container p-lg flex items-center justify-center relative overflow-hidden">
+<div class="z-10 text-center">
+<div class="text-[64px] font-bold text-on-secondary mb-xs">35%</div>
+<p class="font-label-md text-label-md text-secondary-fixed uppercase">Aumento promedio en eficiencia operativa</p>
+</div>
+<!-- Technical Pattern Overlay -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-outline-variant py-xl">
+<div class="max-w-7xl mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="flex flex-col gap-sm">
+<div class="font-headline-md text-headline-md font-bold text-primary">Soluciones Orba</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Ingeniería de software para empresas con visión de futuro.
+                </p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary mb-md">Ecosistema</h4>
+<div class="flex flex-col gap-xs">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors underline" href="index.html">Inicio</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="inteligencia-artificial.html">IA y datos</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="sistemas-ciberfisicos.html">Sistemas ciberfísicos</a>
+</div>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary mb-md">Soporte</h4>
+<div class="flex flex-col gap-xs">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="soporte.html">Soporte técnico</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Política de privacidad</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Términos de servicio</a>
+</div>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary mb-md">Contacto</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">info@orba.solutions</p>
+<div class="mt-md flex gap-sm">
+<div class="w-10 h-10 border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">share</span>
+</div>
+<div class="w-10 h-10 border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">alternate_email</span>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-margin-desktop mt-xl pt-md border-t border-outline-variant">
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80">
+                © 2024 Soluciones Orba. Todos los derechos reservados. Ingeniería de confianza.
+            </p>
+</div>
+</footer>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-98');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-98');
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('scale-98');
+            });
+        });
+    </script>
+</body></html>

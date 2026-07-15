@@ -31,7 +31,7 @@ export function ContactoPage() {
             <div>
               <p className="font-label-md text-label-md text-primary">Sede Central</p>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Parque Tecnológico, Edificio 4A, CDMX
+                Costa Rica, Cartago, El Guarco
               </p>
             </div>
           </div>

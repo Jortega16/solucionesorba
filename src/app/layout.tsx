@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { Hanken_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { Footer } from '@/components/Footer';
 import { SITE } from '@/lib/site';
 import './globals.css';
 
-const hanken = Hanken_Grotesk({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-hanken',
+  variable: '--font-inter',
   weight: ['400', '500', '600', '700', '800'],
 });
 
@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${hanken.variable} ${jetbrains.variable}`}
+      className={`${inter.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >
       <head>

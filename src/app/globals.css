@@ -2,44 +2,45 @@
 
 /* Paleta corporativa Soluciones Orba */
 :root {
-  --color-negro: #000000;
-  --color-rojo: #df0110;
-  --color-azul: #0031e0;
-  --color-verde: #0e9f25;
-  --color-amarillo: #feac11;
+  --color-negro: #0b1220;
+  --color-rojo: #c1121f;
+  --color-azul: #1d4ed8;
+  --color-verde: #15803d;
+  --color-amarillo: #f59e0b;
 }
 
 @theme {
-  --color-background: #f8f9fa;
+  --color-background: #f8fafc;
   --color-on-background: var(--color-negro);
-  --color-surface: #f8f9fa;
-  --color-surface-dim: #d9dadb;
-  --color-surface-bright: #f8f9fa;
+  --color-surface: #f8fafc;
+  --color-surface-dim: #dbe3ee;
+  --color-surface-bright: #ffffff;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f3f4f5;
-  --color-surface-container: #edeeef;
-  --color-surface-container-high: #e7e8e9;
-  --color-surface-container-highest: #e1e3e4;
+  --color-surface-container-low: #f1f5f9;
+  --color-surface-container: #e8eef6;
+  --color-surface-container-high: #dbe5f0;
+  --color-surface-container-highest: #cbd5e1;
   --color-on-surface: var(--color-negro);
-  --color-on-surface-variant: #3d3d3d;
+  --color-on-surface-variant: #475569;
   --color-inverse-surface: var(--color-negro);
-  --color-inverse-on-surface: #f8f9fa;
-  --color-outline: #666666;
-  --color-outline-variant: #d4d4d4;
-  --color-surface-variant: #e8e8e8;
+  --color-inverse-on-surface: #f8fafc;
+  --color-outline: #64748b;
+  --color-outline-variant: #cbd5e1;
+  --color-surface-variant: #e2e8f0;
   --color-primary: var(--color-negro);
   --color-on-primary: #ffffff;
-  --color-primary-container: #1a1a1a;
-  --color-on-primary-container: #757575;
+  --color-primary-container: #111827;
+  --color-on-primary-container: #cbd5e1;
+  --color-primary-fixed-dim: #cbd5e1;
   --color-secondary: var(--color-azul);
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #4d63e8;
+  --color-secondary-container: #dbeafe;
   --color-on-secondary-container: var(--color-azul);
-  --color-secondary-fixed: #e8edfc;
+  --color-secondary-fixed: #dbeafe;
   --color-on-secondary-fixed: var(--color-azul);
   --color-error: var(--color-rojo);
-  --color-error-container: #fde8ea;
-  --color-on-error-container: #9a0009;
+  --color-error-container: #fee2e2;
+  --color-on-error-container: #991b1b;
   --color-rojo: var(--color-rojo);
   --color-azul: var(--color-azul);
   --color-verde: var(--color-verde);
@@ -68,8 +69,8 @@
   --radius-xl: 0.5rem;
   --radius-full: 0.75rem;
 
-  --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 @utility font-body-md {
@@ -90,7 +91,7 @@
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 20px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   font-weight: 500;
 }
 
@@ -119,7 +120,7 @@
   font-family: var(--font-sans);
   font-size: 48px;
   line-height: 56px;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   font-weight: 800;
 }
 

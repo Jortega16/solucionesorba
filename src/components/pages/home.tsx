@@ -20,9 +20,9 @@ export function HomePage() {
         />
         <Container className="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center relative z-10">
           <div className="min-w-0 space-y-lg">
-            <div className="inline-flex items-center gap-xs bg-secondary-container/20 px-sm py-xs rounded-full">
+            <div className="inline-flex items-center gap-xs bg-secondary-fixed px-sm py-xs rounded-full border border-secondary/15">
               <Icon name="verified" className="text-secondary text-sm" />
-              <span className="font-label-md text-label-md text-secondary-container uppercase tracking-wider">
+              <span className="font-label-md text-label-md text-on-secondary-fixed uppercase">
                 Ingeniería de confianza desde 2015
               </span>
             </div>

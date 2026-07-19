@@ -28,7 +28,10 @@ function escapeHtml(value: string): string {
 
 export async function POST(request: Request) {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL ?? SITE.email;
+  const to = (process.env.CONTACT_TO_EMAIL ?? 'jortega@solucionesorba.com,jorge.ortega@solucionesorba.com')
+    .split(',')
+    .map((address) => address.trim())
+    .filter(Boolean);
   const from = process.env.CONTACT_FROM_EMAIL;
 
   if (!apiKey || !from) {
@@ -86,7 +89,8 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       from,
-      to: [to],
+      to,
+      cc: [email],
       reply_to: email,
       subject,
       html,

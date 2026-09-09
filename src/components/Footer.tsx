@@ -96,24 +96,10 @@ export function Footer() {
           <h4 className="font-label-md text-label-md font-bold text-primary uppercase">
             Hablemos
           </h4>
-          <p className="font-caption text-caption text-on-surface-variant">
-            Suscríbete a nuestro boletín técnico.
-          </p>
-          <form className="flex gap-xs" action="#" method="post">
-            <input
-              className="flex-1 bg-white border border-outline px-sm py-xs rounded text-label-md focus:border-secondary outline-none transition-all"
-              placeholder="Correo electrónico"
-              type="email"
-              name="email"
-            />
-            <button
-              type="submit"
-              className="bg-primary text-on-primary px-sm py-xs rounded hover:opacity-80 transition-all"
-              aria-label="Enviar suscripción"
-            >
-              <Icon name="send" className="text-sm" />
-            </button>
-          </form>
+          <p className="font-body-md text-body-md text-on-surface-variant">Cuéntenos qué necesita construir, mejorar o automatizar.</p>
+          <a href={SITE.whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-xs bg-primary text-on-primary px-md py-xs rounded hover:opacity-90 transition-opacity">
+            <Icon name="chat" className="text-sm" /> Escribir por WhatsApp
+          </a>
         </div>
       </div>
 
@@ -123,12 +109,10 @@ export function Footer() {
           Ingeniería de confianza.
         </span>
         <div className="flex gap-lg">
-          <a className="text-on-surface-variant hover:text-primary transition-all" href="#" aria-label="Sitio web">
+          <a className="text-on-surface-variant hover:text-primary transition-all" href="https://solucionesorba.com" aria-label="Sitio web">
             <Icon name="public" />
           </a>
-          <a className="text-on-surface-variant hover:text-primary transition-all" href="#" aria-label="Redes">
-            <Icon name="share" />
-          </a>
+          <a className="text-on-surface-variant hover:text-primary transition-all" href={SITE.whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><Icon name="chat" /></a>
           <a
             className="text-on-surface-variant hover:text-primary transition-all"
             href={`mailto:${SITE.email}`}

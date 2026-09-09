@@ -11,11 +11,11 @@ export function ContactoPage() {
       <div className="lg:col-span-5 space-y-lg">
         <div className="space-y-sm">
           <h1 className="font-display-lg text-display-lg text-primary tracking-tight">
-            Hablemos de tu proyecto
+            Hablemos de su proyecto
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-md">
-            Cuéntanos qué necesitas desarrollar, mejorar o automatizar. Nuestro equipo de
-            ingenieros diseñará la solución técnica que tu negocio requiere.
+            Cuéntenos qué necesita desarrollar, mejorar o automatizar. Revisaremos su solicitud y
+            le responderemos en un plazo máximo de un día hábil.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-md pt-lg">
@@ -23,7 +23,7 @@ export function ContactoPage() {
             <Icon name="mail" className="text-secondary" filled />
             <div>
               <p className="font-label-md text-label-md text-primary">Correo Electrónico</p>
-              <p className="font-body-md text-body-md text-on-surface-variant">{SITE.email}</p>
+              <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary" href={`mailto:${SITE.email}`}>{SITE.email}</a>
             </div>
           </div>
           <div className="flex items-start gap-sm p-md bg-surface-container-low rounded-xl border border-outline-variant">
@@ -31,10 +31,17 @@ export function ContactoPage() {
             <div>
               <p className="font-label-md text-label-md text-primary">Sede Central</p>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Costa Rica, Cartago, El Guarco
+                {SITE.location}
               </p>
             </div>
           </div>
+          <a href={SITE.whatsapp} target="_blank" rel="noreferrer" className="flex items-start gap-sm p-md bg-surface-container-low rounded-xl border border-outline-variant hover:border-secondary transition-colors">
+            <Icon name="chat" className="text-verde" filled />
+            <div>
+              <p className="font-label-md text-label-md text-primary">WhatsApp</p>
+              <p className="font-body-md text-body-md text-on-surface-variant">{SITE.phone}</p>
+            </div>
+          </a>
         </div>
         <div className="relative h-64 w-full rounded-xl overflow-hidden border border-outline-variant">
           <PageImage

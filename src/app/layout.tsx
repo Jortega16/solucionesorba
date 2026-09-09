@@ -21,8 +21,18 @@ export const metadata: Metadata = {
     default: SITE.name,
     template: `%s | ${SITE.name}`,
   },
-  description: 'Soluciones tecnológicas para impulsar tu negocio.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  description:
+    'Desarrollo de software, inteligencia artificial e IoT para automatizar y hacer crecer empresas.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://solucionesorba.com'),
+  openGraph: {
+    type: 'website',
+    locale: 'es_CR',
+    siteName: SITE.name,
+    title: 'Soluciones Orba | Ingeniería de confianza',
+    description: 'Software, inteligencia artificial e IoT para transformar operaciones empresariales.',
+    url: 'https://solucionesorba.com',
+  },
+  robots: { index: true, follow: true },
   icons: {
     icon: '/icon.svg',
     shortcut: '/icon.svg',
@@ -51,6 +61,26 @@ export default function RootLayout({
         className="bg-background text-on-background font-body-md selection:bg-secondary selection:text-white antialiased"
         suppressHydrationWarning
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: SITE.name,
+              url: 'https://solucionesorba.com',
+              email: SITE.email,
+              telephone: SITE.phone,
+              foundingDate: '2015',
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'El Guarco',
+                addressRegion: 'Cartago',
+                addressCountry: 'CR',
+              },
+            }),
+          }}
+        />
         {children}
         <Footer />
       </body>

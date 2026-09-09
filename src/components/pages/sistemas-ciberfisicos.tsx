@@ -71,7 +71,7 @@ export function SistemasCiberfisicosPage() {
                     {item.tags.map((t) => (
                       <span
                         key={t}
-                        className="bg-surface-container px-sm py-1 text-[10px] font-label-md uppercase border border-outline-variant"
+                        className="bg-surface-container px-sm py-1 text-xs font-label-md uppercase border border-outline-variant"
                       >
                         {t}
                       </span>
@@ -86,10 +86,10 @@ export function SistemasCiberfisicosPage() {
 
       <StatsRow
         stats={[
-          { value: '99,9 %', label: 'Disponibilidad' },
-          { value: '< 10 ms', label: 'de respuesta' },
-          { value: 'E2E', label: 'Cifrado' },
-          { value: '24/7', label: 'Monitoreo' },
+          { value: 'IoT', label: 'Sensores conectados' },
+          { value: 'Edge', label: 'Procesamiento local' },
+          { value: 'Web', label: 'Supervisión remota' },
+          { value: 'API', label: 'Integración de sistemas' },
         ]}
       />
     </>

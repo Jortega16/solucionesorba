@@ -17,7 +17,7 @@ export function DesarrolloWebPage() {
             Desarrollo de páginas web <span className="text-secondary">modernas y funcionales</span>
           </>
         }
-        description="Diseñamos y desarrollamos páginas web profesionales, rápidas, seguras y adaptadas a todo tipo de dispositivos para potenciar tu presencia digital."
+        description="Diseñamos y desarrollamos páginas web profesionales, rápidas, seguras y adaptadas a todo tipo de dispositivos para fortalecer su presencia digital."
         image={IMAGES.desarrolloWeb}
         imageAlt="Desarrollo web moderno"
         primaryCta={{ href: '/contacto', label: 'Empezar proyecto', icon: 'arrow_forward' }}

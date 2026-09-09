@@ -4,7 +4,7 @@ import { DEFAULT_LOCALE, LOCALES, localizedPath, type Locale } from '@/lib/i18n'
 import { PAGE_META } from '@/lib/site';
 
 function siteUrl() {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+  return (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://solucionesorba.com').replace(/\/$/, '');
 }
 
 function urlFor(locale: string, path: string) {

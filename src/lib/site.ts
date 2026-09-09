@@ -5,6 +5,9 @@ export const SITE = {
   logoWidth: 900,
   logoHeight: 270,
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'jortega@solucionesorba.com',
+  phone: '+506 8346-9450',
+  whatsapp: 'https://wa.me/50683469450',
+  location: 'El Guarco, Cartago, Costa Rica',
 } as const;
 
 export type NavItem = {
@@ -136,89 +139,89 @@ export const PAGE_META: Record<
   { title: string; description: string; path: string; nav?: 'main' | 'extended' }
 > = {
   inicio: {
-    title: 'Soluciones Orba | Ingeniería de confianza',
+    title: 'Ingeniería de confianza',
     description:
-      'Soluciones tecnológicas para impulsar tu negocio. Desarrollo web, software a medida, IA y sistemas ciberfísicos.',
+      'Desarrollo de software, inteligencia artificial e IoT para automatizar y hacer crecer empresas en Costa Rica y Latinoamérica.',
     path: '/',
     nav: 'main',
   },
   'desarrollo-web': {
-    title: 'Desarrollo Web - Soluciones Orba',
-    description: 'Páginas web modernas, rápidas y seguras para tu presencia digital.',
+    title: 'Desarrollo web',
+    description: 'Páginas web modernas, rápidas y seguras para fortalecer su presencia digital.',
     path: '/desarrollo-web',
     nav: 'main',
   },
   plataformas: {
-    title: 'Plataformas a la Medida | Soluciones Orba',
+    title: 'Plataformas a la medida',
     description: 'Plataformas personalizadas para empresas: portales, herramientas internas y más.',
     path: '/plataformas',
     nav: 'main',
   },
   'inteligencia-artificial': {
-    title: 'Inteligencia Artificial - Soluciones Orba',
-    description: 'Agentes de IA, chatbots y automatización para optimizar tu operación.',
+    title: 'Inteligencia artificial',
+    description: 'Agentes de IA, chatbots y automatización para optimizar su operación.',
     path: '/inteligencia-artificial',
     nav: 'main',
   },
   'ciencia-de-datos': {
-    title: 'Ciencia de Datos - Soluciones Orba',
+    title: 'Ciencia de datos',
     description: 'Analítica y modelos predictivos para mejores decisiones de negocio.',
     path: '/ciencia-de-datos',
     nav: 'main',
   },
   'sistemas-ciberfisicos': {
-    title: 'Sistemas Ciberfísicos - Soluciones Orba',
+    title: 'Sistemas ciberfísicos',
     description: 'Integración de software, hardware, sensores e IoT industrial.',
     path: '/sistemas-ciberfisicos',
     nav: 'main',
   },
   'control-automatizacion': {
-    title: 'Control y Automatización - Soluciones Orba',
+    title: 'Control y automatización',
     description: 'Automatización de procesos, control de variables y monitoreo remoto.',
     path: '/control-automatizacion',
     nav: 'main',
   },
   prototipado: {
-    title: 'Prototipado tecnológico | Soluciones Orba',
+    title: 'Prototipado tecnológico',
     description: 'Prototipos funcionales y pruebas de concepto para validar ideas.',
     path: '/prototipado',
     nav: 'main',
   },
   'plugins-wordpress': {
-    title: 'Plugins WordPress - Soluciones Orba',
+    title: 'Plugins para WordPress',
     description: 'Plugins personalizados para WordPress con rendimiento y escalabilidad.',
     path: '/plugins-wordpress',
     nav: 'extended',
   },
   hosting: {
-    title: 'Hosting - Soluciones Orba',
-    description: 'Hosting confiable para sitios web y plataformas con soporte 24/7.',
+    title: 'Hosting administrado',
+    description: 'Hosting administrado para sitios web y plataformas con soporte especializado.',
     path: '/hosting',
     nav: 'extended',
   },
   soporte: {
-    title: 'Soporte Técnico - Soluciones Orba',
+    title: 'Soporte técnico',
     description: 'Soporte técnico especializado para web, plataformas e infraestructura.',
     path: '/soporte',
     nav: 'extended',
   },
   nosotros: {
-    title: 'Nosotros - Soluciones Orba',
-    description: 'Experiencia tecnológica desde 2015. Conoce al equipo de Soluciones Orba.',
+    title: 'Nosotros',
+    description: 'Experiencia tecnológica desde 2015. Conozca al equipo de Soluciones Orba.',
     path: '/nosotros',
   },
   contacto: {
-    title: 'Contacto - Soluciones Orba',
-    description: 'Hablemos de tu proyecto. Cuéntanos qué necesitas desarrollar o automatizar.',
+    title: 'Contacto',
+    description: 'Cuéntenos qué necesita desarrollar, mejorar o automatizar. Respondemos en un día hábil.',
     path: '/contacto',
   },
   proyectos: {
-    title: 'Proyectos - Soluciones Orba',
+    title: 'Proyectos',
     description: 'Casos de éxito y soluciones desarrolladas para nuestros clientes.',
     path: '/proyectos',
   },
   blog: {
-    title: 'Blog - Soluciones Orba',
+    title: 'Blog',
     description:
       'Artículos sobre desarrollo web, IA, automatización y tecnología para empresas.',
     path: '/blog',

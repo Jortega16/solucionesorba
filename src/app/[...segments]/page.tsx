@@ -39,18 +39,19 @@ function parseSegments(segments: string[]) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { segments } = await params;
   const { locale, slug, postSlug } = parseSegments(segments);
+  const canonical = `/${segments.join('/')}`;
 
   if (slug === 'blog' && postSlug) {
     const post = await getPublishedBlogPost(postSlug, locale);
-    return post ? { title: post.title, description: post.description } : {};
+    return post ? { title: post.title, description: post.description, alternates: { canonical } } : {};
   }
 
   const cmsPage = await getPublishedPage(slug, locale);
-  if (cmsPage) return { title: cmsPage.title, description: cmsPage.description };
+  if (cmsPage) return { title: cmsPage.title, description: cmsPage.description, alternates: { canonical } };
 
   if (isContentPageSlug(slug)) {
     const meta = PAGE_META[slug];
-    return { title: meta.title, description: meta.description };
+    return { title: meta.title, description: meta.description, alternates: { canonical } };
   }
 
   return {};

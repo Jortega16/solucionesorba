@@ -1,7 +1,6 @@
 import { Icon } from '@/components/Icon';
 import { Container } from '@/components/ui/Container';
 import { PageImage } from '@/components/ui/PageImage';
-import { ServiceHero } from '@/components/ui/ServiceHero';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { IMAGES } from '@/lib/images';
@@ -19,8 +18,8 @@ export function HostingPage() {
               Hosting confiable para sitios web y plataformas
             </h1>
             <p className="font-body-lg text-on-surface-variant mb-lg">
-              Ofrecemos hosting de alto rendimiento con administración experta, certificados SSL y
-              soporte técnico 24/7 para mantener su presencia digital siempre en línea.
+              Ofrecemos infraestructura administrada, certificados SSL, respaldos y acompañamiento
+              técnico para mantener sitios web y plataformas estables y protegidos.
             </p>
           </div>
           <PageImage
@@ -36,10 +35,10 @@ export function HostingPage() {
           <SectionHeading title="Nuestros Servicios de Infraestructura" />
           <div className="grid md:grid-cols-2 gap-gutter">
             {[
-              { icon: 'dns', title: 'Hosting web y de plataformas', text: 'SSD NVMe para alto tráfico.' },
-              { icon: 'settings', title: 'Administración de servidores', text: 'Optimización y seguridad.' },
-              { icon: 'lock', title: 'Certificados SSL', text: 'Cifrado de punta a punta.' },
-              { icon: 'support_agent', title: 'Soporte técnico 24/7', text: 'Ingenieros, no bots.' },
+              { icon: 'dns', title: 'Hosting web y de plataformas', text: 'Recursos ajustados al tráfico y las necesidades de cada solución.' },
+              { icon: 'settings', title: 'Administración de servidores', text: 'Configuración, actualizaciones, optimización y seguimiento técnico.' },
+              { icon: 'lock', title: 'SSL, respaldos y seguridad', text: 'Protección y recuperación planificadas según el servicio contratado.' },
+              { icon: 'support_agent', title: 'Soporte especializado', text: 'Atención directa para dudas, incidentes y continuidad operativa.' },
             ].map((s) => (
               <div key={s.title} className="border border-outline-variant p-lg rounded-lg bg-white">
                 <Icon name={s.icon} className="text-secondary mb-sm" />

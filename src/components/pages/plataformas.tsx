@@ -16,7 +16,7 @@ export function PlataformasPage() {
               EFICIENCIA DISEÑADA
             </span>
             <h1 className="font-display-lg text-display-lg text-primary mb-md">
-              Desarrollo de plataformas personalizadas para tu empresa
+              Desarrollo de plataformas personalizadas para su empresa
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-lg">
               Construimos plataformas digitales adaptadas a los procesos, necesidades y objetivos
@@ -45,7 +45,7 @@ export function PlataformasPage() {
       <section className="py-xl bg-background">
         <Container>
           <SectionHeading
-            title="Soluciones que impulsan tu productividad"
+            title="Soluciones que impulsan su productividad"
             subtitle="Arquitectura robusta para desafíos empresariales reales."
           />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
@@ -54,21 +54,21 @@ export function PlataformasPage() {
                 span: 'md:col-span-8',
                 icon: 'dashboard',
                 title: 'Sistemas administrativos',
-                text: 'Control total de tu operación centralizada en una única interfaz intuitiva y escalable.',
+                text: 'Control de su operación desde una interfaz centralizada, intuitiva y escalable.',
                 dark: false,
               },
               {
                 span: 'md:col-span-4',
                 icon: 'group',
                 title: 'Portales de clientes',
-                text: 'Mejora la experiencia de tus clientes con accesos personalizados y seguros.',
+                text: 'Mejore la experiencia de sus clientes con accesos personalizados y seguros.',
                 dark: true,
               },
               {
                 span: 'md:col-span-4',
                 icon: 'settings_applications',
                 title: 'Herramientas internas',
-                text: 'Herramientas específicas para optimizar el flujo de trabajo diario de tus equipos.',
+                text: 'Herramientas específicas para optimizar el flujo de trabajo diario de sus equipos.',
                 dark: false,
               },
             ].map((card) => (
@@ -92,7 +92,7 @@ export function PlataformasPage() {
             <div className="md:col-span-4 bg-secondary text-white p-md flex flex-col justify-center text-center">
               <h3 className="font-headline-md text-headline-md mb-xs">Integraciones API</h3>
               <p className="font-label-md text-label-md opacity-90">
-                Conecta tu ecosistema digital sin fricciones.
+                Conecte su ecosistema digital sin fricciones.
               </p>
               <div className="mt-md font-label-md flex justify-center gap-xs">
                 {['REST', 'GraphQL', 'Webhooks'].map((t) => (

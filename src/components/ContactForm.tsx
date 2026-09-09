@@ -30,6 +30,8 @@ export function ContactForm() {
           email: data.get('email'),
           phone: data.get('phone'),
           projectType: data.get('project-type'),
+          budget: data.get('budget'),
+          startDate: data.get('start-date'),
           message: data.get('message'),
         }),
       });
@@ -56,7 +58,7 @@ export function ContactForm() {
         <Icon name="check_circle" className="text-verde text-5xl" />
         <h2 className="font-headline-md text-headline-md text-primary">Mensaje enviado</h2>
         <p className="font-body-md text-on-surface-variant max-w-md mx-auto">
-          Gracias por contactarnos. Te responderemos pronto a la dirección que indicaste.
+          Gracias por contactarnos. Responderemos en un plazo máximo de un día hábil a la dirección indicada.
         </p>
         <button
           type="button"
@@ -99,7 +101,7 @@ export function ContactForm() {
             className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
             id="name"
             name="name"
-            placeholder="Tu nombre completo"
+            placeholder="Su nombre completo"
             required
             disabled={status === 'loading'}
             type="text"
@@ -142,7 +144,7 @@ export function ContactForm() {
             className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
             id="phone"
             name="phone"
-            placeholder="+52 (55) 0000 0000"
+            placeholder="+506 8000-0000"
             disabled={status === 'loading'}
             type="tel"
           />
@@ -160,7 +162,7 @@ export function ContactForm() {
           disabled={status === 'loading'}
         >
           <option disabled value="">
-            Selecciona una opción
+            Seleccione una opción
           </option>
           <option value="web">Desarrollo web</option>
           <option value="software">Software a medida</option>
@@ -168,6 +170,28 @@ export function ContactForm() {
           <option value="iot">Sistemas ciberfísicos</option>
           <option value="other">Otro / Consultoría</option>
         </select>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
+        <div className="space-y-xs">
+          <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="budget">Presupuesto aproximado</label>
+          <select className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all" id="budget" name="budget" defaultValue="" disabled={status === 'loading'}>
+            <option value="">Por definir</option>
+            <option value="Menos de $2,500">Menos de $2,500</option>
+            <option value="$2,500 a $7,500">$2,500 a $7,500</option>
+            <option value="$7,500 a $20,000">$7,500 a $20,000</option>
+            <option value="Más de $20,000">Más de $20,000</option>
+          </select>
+        </div>
+        <div className="space-y-xs">
+          <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="start-date">Inicio estimado</label>
+          <select className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all" id="start-date" name="start-date" defaultValue="" disabled={status === 'loading'}>
+            <option value="">Por definir</option>
+            <option value="Lo antes posible">Lo antes posible</option>
+            <option value="En 1 a 3 meses">En 1 a 3 meses</option>
+            <option value="En 3 a 6 meses">En 3 a 6 meses</option>
+            <option value="Más adelante">Más adelante</option>
+          </select>
+        </div>
       </div>
       <div className="space-y-xs">
         <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="message">
@@ -177,7 +201,7 @@ export function ContactForm() {
           className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
           id="message"
           name="message"
-          placeholder="Describe brevemente tu necesidad técnica..."
+          placeholder="Describa brevemente su necesidad, objetivo o proceso actual..."
           required
           rows={5}
           disabled={status === 'loading'}

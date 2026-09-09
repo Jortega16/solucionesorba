@@ -27,19 +27,18 @@ export function HomePage() {
               </span>
             </div>
             <h1 className="font-display-lg text-display-lg text-primary leading-tight">
-              Soluciones tecnológicas para impulsar tu negocio
+              Software, inteligencia artificial e IoT para transformar su operación
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-              Desarrollamos soluciones digitales y tecnológicas diseñadas para ayudar a
-              empresas, emprendedores y organizaciones a crecer, automatizar procesos y
-              mejorar su operación.
+              Diseñamos plataformas SaaS, aplicaciones web, automatizaciones con IA y sistemas
+              conectados con hardware. Acompañamos cada proyecto desde la idea hasta su operación.
             </p>
             <div className="flex flex-col sm:flex-row gap-md pt-md">
               <ButtonLink href="/contacto" icon="arrow_forward" className="px-xl py-md">
-                Hablemos de tu proyecto
+                Solicitar una consulta
               </ButtonLink>
               <ButtonLink href="/#servicios" variant="outline" className="px-xl py-md">
-                Nuestros Servicios
+                Ver servicios
               </ButtonLink>
             </div>
           </div>
@@ -61,8 +60,8 @@ export function HomePage() {
       <section id="servicios" className="py-xl bg-white">
         <Container>
           <SectionHeading
-            title="Nuestra Experiencia"
-            subtitle="Combinamos precisión industrial con agilidad digital para entregar resultados robustos."
+            title="Capacidades para resolver retos reales"
+            subtitle="Integramos software, datos e ingeniería para construir soluciones útiles, seguras y preparadas para crecer."
             centered
           />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
@@ -74,9 +73,8 @@ export function HomePage() {
                     Desarrollo web
                   </h3>
                   <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
-                    Creamos experiencias digitales de alto impacto, desde landing pages
-                    corporativas hasta plataformas interactivas complejas con enfoque en
-                    performance.
+                    Creamos sitios corporativos, comercios electrónicos y aplicaciones web rápidas,
+                    accesibles y alineadas con sus procesos de negocio.
                   </p>
                 </div>
                 <div className="mt-xl flex flex-wrap gap-xs">
@@ -100,8 +98,8 @@ export function HomePage() {
                 <Icon name="cloud_done" className="text-on-primary-container text-4xl mb-md" />
                 <h3 className="font-headline-md text-headline-md mb-sm">Software como servicio</h3>
                 <p className="font-body-md text-body-md opacity-80">
-                  Escalabilidad y robustez para tus productos digitales. Diseñamos
-                  infraestructuras preparadas para el crecimiento masivo.
+                  Diseñamos productos digitales multiempresa, portales internos y herramientas
+                  operativas que pueden evolucionar junto con su organización.
                 </p>
               </div>
               <Link
@@ -118,23 +116,12 @@ export function HomePage() {
                 IA y análisis de datos
               </h3>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Transformamos datos crudos en decisiones estratégicas. Implementamos modelos
-                de machine learning personalizados para automatización inteligente.
+                Convertimos documentos, bases de datos y procesos repetitivos en asistentes,
+                automatizaciones y herramientas de análisis que apoyan decisiones reales.
               </p>
-              <div className="mt-lg pt-lg border-t border-outline-variant flex gap-md">
-                <div className="text-center">
-                  <div className="font-headline-md text-primary">99%</div>
-                  <div className="font-caption text-caption uppercase text-on-surface-variant">
-                    Precisión
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="font-headline-md text-primary">24/7</div>
-                  <div className="font-caption text-caption uppercase text-on-surface-variant">
-                    Monitoreo
-                  </div>
-                </div>
-              </div>
+              <Link href="/inteligencia-artificial" className="mt-lg inline-flex items-center gap-xs font-label-md text-secondary hover:text-primary">
+                Conocer soluciones de IA <Icon name="arrow_forward" />
+              </Link>
             </div>
 
             <div className="md:col-span-7 bg-surface border border-outline-variant rounded-xl p-lg relative overflow-hidden group hover:border-secondary transition-all">
@@ -164,12 +151,40 @@ export function HomePage() {
 
       <StatsRow
         stats={[
-          { value: '8+', label: 'Años de Trayectoria' },
-          { value: '150+', label: 'Proyectos Entregados' },
-          { value: '45+', label: 'Clientes Globales' },
-          { value: '10k+', label: 'Horas de Ingeniería' },
+          { value: '11+', label: 'Años de trayectoria' },
+          { value: '4', label: 'Áreas de especialización' },
+          { value: '2', label: 'Países con proyectos' },
+          { value: '1:1', label: 'Acompañamiento técnico' },
         ]}
       />
+
+      <section className="py-xl bg-white">
+        <Container>
+          <SectionHeading
+            title="Una ruta clara, de la necesidad al resultado"
+            subtitle="Trabajamos con comunicación directa y entregables verificables en cada etapa."
+            centered
+          />
+          <div className="grid md:grid-cols-3 gap-gutter">
+            {[
+              ['01', 'Entendemos el reto', 'Revisamos sus procesos, objetivos, restricciones e integraciones necesarias.'],
+              ['02', 'Diseñamos y construimos', 'Definimos una solución viable y avanzamos con demostraciones y validaciones frecuentes.'],
+              ['03', 'Implementamos y acompañamos', 'Ponemos la solución en operación, documentamos y brindamos soporte técnico.'],
+            ].map(([number, title, text]) => (
+              <article key={number} className="border-t-2 border-secondary pt-md">
+                <span className="font-label-md text-secondary">{number}</span>
+                <h3 className="font-headline-md text-primary mt-sm mb-xs">{title}</h3>
+                <p className="font-body-md text-on-surface-variant">{text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="text-center mt-xl">
+            <ButtonLink href="/proyectos" variant="outline" className="px-xl py-md">
+              Ver proyectos realizados
+            </ButtonLink>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

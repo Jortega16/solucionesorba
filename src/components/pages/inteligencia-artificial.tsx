@@ -31,8 +31,8 @@ export function InteligenciaArtificialPage() {
               <ButtonLink href="/contacto" className="px-xl py-md">
                 Solicitar demo
               </ButtonLink>
-              <ButtonLink href="/contacto" variant="outline" className="px-xl py-md">
-                Ver documentación
+              <ButtonLink href="/proyectos" variant="outline" className="px-xl py-md">
+                Ver proyectos
               </ButtonLink>
             </div>
           </div>
@@ -68,8 +68,8 @@ export function InteligenciaArtificialPage() {
               </div>
             </div>
             {[
-              { icon: 'chat_bubble_outline', title: 'Chatbots inteligentes', text: 'Atención al cliente con NLP avanzado 24/7.' },
-              { icon: 'sync_alt', title: 'Automatización de tareas', text: 'Eliminamos cuellos de botella operativos.' },
+              { icon: 'chat_bubble_outline', title: 'Chat con documentos y datos', text: 'Consultas en lenguaje natural sobre documentos, hojas de cálculo y bases de datos.' },
+              { icon: 'sync_alt', title: 'Automatización de procesos', text: 'Integramos IA con sus sistemas para reducir tareas repetitivas y tiempos de respuesta.' },
             ].map((s) => (
               <div
                 key={s.title}
@@ -87,18 +87,18 @@ export function InteligenciaArtificialPage() {
       <StatsRow
         className="py-xl bg-surface-container-lowest"
         stats={[
-          { value: '99.9%', label: 'SLA de disponibilidad' },
-          { value: '24/7', label: 'Monitoreo IA' },
-          { value: '<200ms', label: 'Latencia de Respuesta' },
-          { value: 'AES-256', label: 'Seguridad de Datos' },
+          { value: 'Datos', label: 'Documentos y bases de datos' },
+          { value: 'Agentes', label: 'Ejecución de flujos' },
+          { value: 'APIs', label: 'Integración empresarial' },
+          { value: 'Seguro', label: 'Controles según el proyecto' },
         ]}
       />
 
       <CtaBanner
         dark
-        title="¿Listo para escalar su operación con IA?"
-        description="Nuestros ingenieros están listos para diseñar una solución a medida que transforme su productividad."
-        action={{ href: '/contacto', label: 'Agendar Consultoría Técnica' }}
+        title="¿Quiere identificar dónde la IA puede aportar valor?"
+        description="Evaluamos su proceso y proponemos una solución medible, integrada con sus herramientas actuales."
+        action={{ href: '/contacto', label: 'Solicitar una demostración' }}
       />
     </>
   );

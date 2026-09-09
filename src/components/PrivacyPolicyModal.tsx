@@ -16,19 +16,19 @@ const SECTIONS = [
   },
   {
     title: '2. Datos que recopilamos',
-    body: 'A través del formulario de contacto podemos recopilar: nombre, empresa, correo electrónico, teléfono, tipo de proyecto y el contenido de tu mensaje. También recopilamos datos técnicos básicos de navegación (como dirección IP y tipo de navegador) con fines de seguridad y mejora del servicio.',
+    body: 'A través del formulario de contacto podemos recopilar: nombre, empresa, correo electrónico, teléfono, tipo de proyecto y el contenido de su mensaje. También recopilamos datos técnicos básicos de navegación (como dirección IP y tipo de navegador) con fines de seguridad y mejora del servicio.',
   },
   {
     title: '3. Finalidad del tratamiento',
-    body: 'Utilizamos tus datos para responder solicitudes de información, evaluar proyectos, dar seguimiento comercial y mantener comunicación relacionada con los servicios de Soluciones Orba. No vendemos ni cedemos tus datos a terceros con fines publicitarios.',
+    body: 'Utilizamos sus datos para responder solicitudes de información, evaluar proyectos, dar seguimiento comercial y mantener comunicación relacionada con los servicios de Soluciones Orba. No vendemos ni cedemos sus datos a terceros con fines publicitarios.',
   },
   {
     title: '4. Base legal',
-    body: 'El tratamiento se basa en tu consentimiento al enviar el formulario, en la ejecución de medidas precontractuales cuando solicitas una cotización o propuesta, y en el interés legítimo de atender consultas y proteger la seguridad del sitio.',
+    body: 'El tratamiento se basa en su consentimiento al enviar el formulario, en la ejecución de medidas precontractuales cuando solicita una cotización o propuesta, y en el interés legítimo de atender consultas y proteger la seguridad del sitio.',
   },
   {
     title: '5. Conservación de los datos',
-    body: 'Conservamos tus datos el tiempo necesario para atender tu solicitud y, en su caso, durante la relación comercial. Posteriormente podrán conservarse bloqueados durante los plazos legales aplicables.',
+    body: 'Conservamos sus datos el tiempo necesario para atender su solicitud y, en su caso, durante la relación comercial. Posteriormente podrán conservarse bloqueados durante los plazos legales aplicables.',
   },
   {
     title: '6. Encargados y transferencias',
@@ -36,11 +36,11 @@ const SECTIONS = [
   },
   {
     title: '7. Tus derechos',
-    body: 'Puedes solicitar acceso, rectificación, cancelación u oposición al tratamiento de tus datos, así como revocar tu consentimiento, escribiendo a nuestro correo de contacto. También tienes derecho a presentar una reclamación ante la autoridad de protección de datos competente.',
+    body: 'Puede solicitar acceso, rectificación, cancelación u oposición al tratamiento de sus datos, así como revocar su consentimiento, escribiendo a nuestro correo de contacto. También tiene derecho a presentar una reclamación ante la autoridad de protección de datos competente.',
   },
   {
     title: '8. Seguridad',
-    body: 'Aplicamos medidas técnicas y organizativas razonables para proteger tu información contra acceso no autorizado, pérdida o alteración.',
+    body: 'Aplicamos medidas técnicas y organizativas razonables para proteger su información contra acceso no autorizado, pérdida o alteración.',
   },
   {
     title: '9. Cambios a esta política',
@@ -106,7 +106,7 @@ export function PrivacyPolicyModal({ open, onClose }: PrivacyPolicyModalProps) {
 
         <div className="overflow-y-auto px-lg py-md space-y-md font-body-md text-body-md text-on-surface-variant">
           <p>
-            En <strong className="text-primary">{SITE.name}</strong> respetamos tu privacidad. Esta
+            En <strong className="text-primary">{SITE.name}</strong> respetamos su privacidad. Esta
             política describe cómo tratamos los datos personales cuando visitas nuestro sitio web o
             nos contactas.
           </p>

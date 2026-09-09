@@ -8,8 +8,9 @@ import { PAGE_META } from '@/lib/site';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: PAGE_META.inicio.title,
+  title: { absolute: 'Soluciones Orba | Ingeniería de confianza' },
   description: PAGE_META.inicio.description,
+  alternates: { canonical: '/' },
 };
 
 export default async function Page() {

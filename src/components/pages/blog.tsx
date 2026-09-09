@@ -16,7 +16,7 @@ const PLACEHOLDER_POSTS = [
     date: 'Próximamente',
   },
   {
-    title: 'Sistemas ciberfísicos sin complicar tu operación',
+    title: 'Sistemas ciberfísicos sin complicar su operación',
     category: 'Ingeniería',
     date: 'Próximamente',
   },
@@ -89,7 +89,7 @@ export function BlogPage({
               <p className="font-body-md text-on-surface-variant text-center pt-md">
                 Estamos preparando el primer contenido. Mientras tanto,{' '}
                 <Link href={contactHref} className="text-secondary hover:underline">
-                  cuéntanos qué temas te interesan
+                  cuéntenos qué temas le interesan
                 </Link>
                 .
               </p>

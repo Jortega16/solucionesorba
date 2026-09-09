@@ -29,13 +29,13 @@ export function NosotrosPage() {
             <div className="md:col-span-2 bg-surface-container-lowest p-lg border border-outline-variant rounded-lg">
               <Icon name="verified_user" className="text-secondary text-4xl mb-md" />
               <h3 className="font-headline-md text-headline-md text-primary mb-sm">
-                Fiabilidad Industrial
+                Ingeniería responsable
               </h3>
               <p className="font-body-md text-on-surface-variant">
-                Metodologías rigurosas para garantizar que cada línea de código contribuya a la
+                Diseñamos soluciones con criterios técnicos claros, documentación y atención a la
                 estabilidad de su operación.
               </p>
-              <p className="font-label-md text-primary mt-xl">+8 Años de Innovación</p>
+              <p className="font-label-md text-primary mt-xl">Más de 11 años de trayectoria</p>
             </div>
             <div className="md:col-span-2 relative min-h-[300px] overflow-hidden rounded-lg border border-outline-variant group">
               <PageImage
@@ -51,12 +51,12 @@ export function NosotrosPage() {
             <div className="md:col-span-2 bg-surface-container-highest p-lg border border-outline-variant rounded-lg flex items-center">
               <div className="grid grid-cols-2 gap-md w-full">
                 <div>
-                  <h5 className="font-display-lg text-headline-lg text-primary mb-base">50+</h5>
-                  <p className="font-label-md text-on-surface-variant">Sistemas Desplegados</p>
+                  <h5 className="font-headline-md text-primary mb-base">Ing. Josué Ortega</h5>
+                  <p className="font-label-md text-on-surface-variant">CEO · Dirección tecnológica</p>
                 </div>
                 <div>
-                  <h5 className="font-display-lg text-headline-lg text-primary mb-base">100%</h5>
-                  <p className="font-label-md text-on-surface-variant">Disponibilidad Garantizada</p>
+                  <h5 className="font-headline-md text-primary mb-base">Ing. Jorge Ortega</h5>
+                  <p className="font-label-md text-on-surface-variant">COO · Dirección operativa</p>
                 </div>
               </div>
             </div>

@@ -15,6 +15,8 @@ type ContactPayload = {
   email?: string;
   phone?: string;
   projectType?: string;
+  budget?: string;
+  startDate?: string;
   message?: string;
 };
 
@@ -59,6 +61,8 @@ export async function POST(request: Request) {
   const projectType = body.projectType
     ? (PROJECT_LABELS[body.projectType] ?? body.projectType)
     : '—';
+  const budget = body.budget?.trim() || 'Por definir';
+  const startDate = body.startDate?.trim() || 'Por definir';
 
   if (!name || !email || !message) {
     return NextResponse.json({ error: 'Completa los campos obligatorios.' }, { status: 400 });
@@ -77,6 +81,8 @@ export async function POST(request: Request) {
     <p><strong>Correo:</strong> ${escapeHtml(email)}</p>
     <p><strong>Teléfono:</strong> ${escapeHtml(phone)}</p>
     <p><strong>Tipo de proyecto:</strong> ${escapeHtml(projectType)}</p>
+    <p><strong>Presupuesto aproximado:</strong> ${escapeHtml(budget)}</p>
+    <p><strong>Inicio estimado:</strong> ${escapeHtml(startDate)}</p>
     <p><strong>Mensaje:</strong></p>
     <p>${escapeHtml(message).replaceAll('\n', '<br>')}</p>
   `;

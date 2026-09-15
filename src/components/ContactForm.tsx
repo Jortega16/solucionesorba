@@ -3,14 +3,54 @@
 import { Icon } from '@/components/Icon';
 import { PrivacyPolicyModal } from '@/components/PrivacyPolicyModal';
 import { SITE } from '@/lib/site';
-import { type FormEvent, useState } from 'react';
+import Script from 'next/script';
+import { type FormEvent, useEffect, useRef, useState } from 'react';
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (cb: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 export function ContactForm() {
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [privacyOpen, setPrivacyOpen] = useState(false);
+  const formMountTime = useRef<number>(Date.now());
+
+  useEffect(() => {
+    formMountTime.current = Date.now();
+  }, []);
+
+  async function getRecaptchaToken(): Promise<string> {
+    if (!RECAPTCHA_SITE_KEY || typeof window === 'undefined' || !window.grecaptcha) {
+      return '';
+    }
+    return new Promise<string>((resolve) => {
+      try {
+        window.grecaptcha?.ready(async () => {
+          try {
+            const token = await window.grecaptcha!.execute(RECAPTCHA_SITE_KEY, {
+              action: 'contact_form',
+            });
+            resolve(token);
+          } catch (err) {
+            console.warn('reCAPTCHA execution failed:', err);
+            resolve('');
+          }
+        });
+      } catch {
+        resolve('');
+      }
+    });
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,6 +61,8 @@ export function ContactForm() {
     const data = new FormData(form);
 
     try {
+      const recaptchaToken = await getRecaptchaToken();
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -33,6 +75,10 @@ export function ContactForm() {
           budget: data.get('budget'),
           startDate: data.get('start-date'),
           message: data.get('message'),
+          // Campos anti-spam
+          fax_number: data.get('fax_number'),
+          formLoadedAt: formMountTime.current,
+          recaptchaToken,
         }),
       });
 
@@ -44,6 +90,7 @@ export function ContactForm() {
 
       setStatus('success');
       form.reset();
+      formMountTime.current = Date.now();
     } catch (error) {
       setStatus('error');
       setErrorMessage(
@@ -73,8 +120,38 @@ export function ContactForm() {
 
   return (
     <>
+      {RECAPTCHA_SITE_KEY ? (
+        <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+          strategy="lazyOnload"
+        />
+      ) : null}
+
       <form className="space-y-md" onSubmit={handleSubmit}>
-      {status === 'error' ? (
+        {/* Honeypot anti-spam para bots (invisible para humanos) */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            opacity: 0,
+            pointerEvents: 'none',
+            zIndex: -1,
+            height: 0,
+            overflow: 'hidden',
+          }}
+        >
+          <label htmlFor="fax_number">No completar este campo</label>
+          <input
+            type="text"
+            id="fax_number"
+            name="fax_number"
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+          />
+        </div>
+
+        {status === 'error' ? (
         <div
           role="alert"
           className="rounded-lg border border-rojo/30 bg-error-container px-md py-sm font-body-md text-on-error-container"

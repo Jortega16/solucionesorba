@@ -18,6 +18,9 @@ type ContactPayload = {
   budget?: string;
   startDate?: string;
   message?: string;
+  fax_number?: string;
+  formLoadedAt?: number;
+  recaptchaToken?: string;
 };
 
 function escapeHtml(value: string): string {
@@ -26,6 +29,20 @@ function escapeHtml(value: string): string {
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;');
+}
+
+function isGibberish(str: string): boolean {
+  if (!str) return false;
+  const words = str.trim().split(/\s+/);
+  for (const word of words) {
+    if (word.length >= 14 && /[A-Z]/.test(word) && /[a-z]/.test(word)) {
+      const upperCount = (word.match(/[A-Z]/g) || []).length;
+      if (upperCount >= 4) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 export async function POST(request: Request) {
@@ -53,6 +70,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Datos del formulario inválidos.' }, { status: 400 });
   }
 
+  // 1. Verificación Honeypot (campo señuelo invisible para humanos)
+  if (body.fax_number && body.fax_number.trim().length > 0) {
+    console.warn('[Anti-Spam] Bot detectado por honeypot');
+    return NextResponse.json({ ok: true });
+  }
+
+  // 2. Verificación Time-trap (velocidad de llenado)
+  if (body.formLoadedAt) {
+    const elapsed = Date.now() - Number(body.formLoadedAt);
+    if (!isNaN(elapsed) && elapsed > 0 && elapsed < 2500) {
+      console.warn(`[Anti-Spam] Envío descartado por velocidad no humana (${elapsed}ms)`);
+      return NextResponse.json({ ok: true });
+    }
+  }
+
   const name = body.name?.trim();
   const email = body.email?.trim();
   const message = body.message?.trim();
@@ -70,6 +102,52 @@ export async function POST(request: Request) {
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: 'Correo electrónico inválido.' }, { status: 400 });
+  }
+
+  // 3. Verificación de patrones de texto aleatorio / gibberish de bots
+  if (isGibberish(name) || isGibberish(message)) {
+    console.warn('[Anti-Spam] Patrón de texto aleatorio (gibberish) detectado');
+    return NextResponse.json({ ok: true });
+  }
+
+  // 4. Verificación de Google reCAPTCHA v3
+  const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+  if (recaptchaSecret) {
+    if (!body.recaptchaToken) {
+      console.warn('[Anti-Spam] Token de reCAPTCHA ausente');
+      return NextResponse.json(
+        { error: 'Validación de seguridad requerida. Por favor intenta de nuevo.' },
+        { status: 400 }
+      );
+    }
+
+    try {
+      const verifyRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          secret: recaptchaSecret,
+          response: body.recaptchaToken,
+        }),
+      });
+
+      const verifyData = (await verifyRes.json()) as {
+        success: boolean;
+        score?: number;
+        action?: string;
+        'error-codes'?: string[];
+      };
+
+      if (!verifyData.success || (typeof verifyData.score === 'number' && verifyData.score < 0.5)) {
+        console.warn('[Anti-Spam] reCAPTCHA rechazado:', verifyData);
+        return NextResponse.json(
+          { error: 'Validación de seguridad no superada. Por favor recarga e intenta de nuevo.' },
+          { status: 400 }
+        );
+      }
+    } catch (err) {
+      console.error('[Anti-Spam] Error verificando con Google reCAPTCHA:', err);
+    }
   }
 
   const subject = `Nueva solicitud de contacto — ${name}`;
@@ -96,7 +174,6 @@ export async function POST(request: Request) {
     body: JSON.stringify({
       from,
       to,
-      cc: [email],
       reply_to: email,
       subject,
       html,
@@ -121,3 +198,4 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ ok: true });
 }
+

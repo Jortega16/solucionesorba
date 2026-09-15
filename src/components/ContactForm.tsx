@@ -17,7 +17,8 @@ declare global {
   }
 }
 
-const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const RECAPTCHA_SITE_KEY =
+  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdFd7wtAAAAAPeeWLfccpVO5so_mFUd4dJbsa8B';
 
 export function ContactForm() {
   const [status, setStatus] = useState<FormStatus>('idle');
@@ -30,23 +31,48 @@ export function ContactForm() {
   }, []);
 
   async function getRecaptchaToken(): Promise<string> {
-    if (!RECAPTCHA_SITE_KEY || typeof window === 'undefined' || !window.grecaptcha) {
+    if (!RECAPTCHA_SITE_KEY || typeof window === 'undefined') {
       return '';
     }
+
+    // Esperar a que el script esté disponible (hasta 3 segundos)
+    const waitForGrecaptcha = async (): Promise<boolean> => {
+      for (let i = 0; i < 30; i++) {
+        if (window.grecaptcha && typeof window.grecaptcha.execute === 'function') {
+          return true;
+        }
+        await new Promise((r) => setTimeout(r, 100));
+      }
+      return false;
+    };
+
+    const isReady = await waitForGrecaptcha();
+    if (!isReady || !window.grecaptcha) {
+      console.warn('Google reCAPTCHA no pudo cargarse a tiempo');
+      return '';
+    }
+
     return new Promise<string>((resolve) => {
       try {
-        window.grecaptcha?.ready(async () => {
+        const grecaptcha = window.grecaptcha;
+        if (!grecaptcha) {
+          resolve('');
+          return;
+        }
+
+        grecaptcha.ready(async () => {
           try {
-            const token = await window.grecaptcha!.execute(RECAPTCHA_SITE_KEY, {
+            const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, {
               action: 'contact_form',
             });
-            resolve(token);
+            resolve(token || '');
           } catch (err) {
-            console.warn('reCAPTCHA execution failed:', err);
+            console.warn('reCAPTCHA execution error:', err);
             resolve('');
           }
         });
-      } catch {
+      } catch (err) {
+        console.warn('reCAPTCHA ready error:', err);
         resolve('');
       }
     });
@@ -123,7 +149,7 @@ export function ContactForm() {
       {RECAPTCHA_SITE_KEY ? (
         <Script
           src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
       ) : null}
 

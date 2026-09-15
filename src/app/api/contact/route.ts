@@ -139,11 +139,21 @@ export async function POST(request: Request) {
       };
 
       if (!verifyData.success || (typeof verifyData.score === 'number' && verifyData.score < 0.5)) {
-        console.warn('[Anti-Spam] reCAPTCHA rechazado:', verifyData);
-        return NextResponse.json(
-          { error: 'Validación de seguridad no superada. Por favor recarga e intenta de nuevo.' },
-          { status: 400 }
-        );
+        const isLocalDev =
+          process.env.NODE_ENV !== 'production' ||
+          (process.env.NEXT_PUBLIC_SITE_URL && process.env.NEXT_PUBLIC_SITE_URL.includes('localhost'));
+        const errorCodes = verifyData['error-codes'] || [];
+        const isDevDomainMismatch = isLocalDev && errorCodes.includes('hostname-mismatch');
+
+        if (!isDevDomainMismatch) {
+          console.warn('[Anti-Spam] reCAPTCHA rechazado:', verifyData);
+          return NextResponse.json(
+            { error: 'Validación de seguridad no superada. Por favor recarga e intenta de nuevo.' },
+            { status: 400 }
+          );
+        } else {
+          console.info('[Anti-Spam] Permitido en desarrollo local (hostname-mismatch en localhost)');
+        }
       }
     } catch (err) {
       console.error('[Anti-Spam] Error verificando con Google reCAPTCHA:', err);

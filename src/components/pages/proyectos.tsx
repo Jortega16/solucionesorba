@@ -11,6 +11,15 @@ const filters = ['Todos', 'IA y datos', 'SaaS', 'Desarrollo web', 'Integraciones
 
 const projects = [
   {
+    title: 'Facturación Orba',
+    tag: 'SaaS',
+    description: 'Plataforma de facturación electrónica y gestión empresarial desarrollada por Soluciones Orba. Integra emisión y seguimiento de comprobantes, administración de clientes y productos, inventario, reportes y herramientas para centralizar la operación comercial.',
+    result: 'Facturación electrónica, control de documentos, gestión de inventario y reportes desde una plataforma web.',
+    image: '/projects/facturacion-orba/dashboard-crc-800.webp',
+    href: 'https://facturacionorba.com/home',
+    access: 'Plataforma comercial · Sitio público',
+  },
+  {
     title: 'Sense',
     tag: 'IA y datos',
     description: 'Plataforma de inteligencia artificial privada desarrollada para Neural Coders, que permite consultar el conocimiento empresarial mediante lenguaje natural. Integra documentos, bases de datos y sistemas con respuestas fundamentadas en fuentes verificables, controles de acceso por departamento y trazabilidad.',
@@ -98,7 +107,9 @@ export function ProyectosPage() {
         <Container className="grid md:grid-cols-2 gap-gutter">
           {visibleProjects.map((project) => (
             <article key={project.title} className="flex flex-col border border-outline-variant rounded-xl overflow-hidden bg-white hover:border-secondary hover:shadow-md transition-all">
-              <PageImage src={project.image} alt="" className="w-full h-52 object-cover" />
+              <div className="flex items-center justify-center bg-surface-container-low min-h-52 overflow-hidden">
+                <PageImage src={project.image} alt={`Vista de ${project.title}`} className="w-full h-auto object-contain" />
+              </div>
               <div className="p-lg flex flex-col flex-1">
                 <span className="font-label-md text-secondary uppercase">{project.tag}</span>
                 <h2 className="font-headline-md text-primary mt-xs mb-sm">{project.title}</h2>
@@ -109,6 +120,18 @@ export function ProyectosPage() {
                   </div>
                 )}
                 <p className="font-body-md text-on-surface-variant">{project.description}</p>
+                {project.title === 'Facturación Orba' && (
+                  <div className="mt-md grid grid-cols-2 gap-sm" aria-label="Capturas reales de Facturación Orba">
+                    <figure className="min-w-0 overflow-hidden rounded-lg border border-outline-variant bg-surface-container-low">
+                      <PageImage src="/projects/facturacion-orba/documents-crc-800.webp" alt="Pantalla de documentos de Facturación Orba" className="w-full h-auto object-contain" />
+                      <figcaption className="font-caption text-on-surface-variant px-sm py-xs">Documentos</figcaption>
+                    </figure>
+                    <figure className="min-w-0 overflow-hidden rounded-lg border border-outline-variant bg-surface-container-low">
+                      <PageImage src="/projects/facturacion-orba/reports-crc-800.webp" alt="Pantalla de reportes de Facturación Orba" className="w-full h-auto object-contain" />
+                      <figcaption className="font-caption text-on-surface-variant px-sm py-xs">Reportes</figcaption>
+                    </figure>
+                  </div>
+                )}
                 <div className="mt-md pt-md border-t border-outline-variant">
                   <p className="font-label-md text-primary">Resultado</p>
                   <p className="font-body-md text-on-surface-variant mt-xs">{project.result}</p>

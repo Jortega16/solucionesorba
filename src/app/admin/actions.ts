@@ -19,17 +19,6 @@ function redirectWithDbError(path: string) {
   redirect(`${path}?error=db`);
 }
 
-export async function loginAction(formData: FormData) {
-  const email = value(formData, 'email');
-  const password = value(formData, 'password');
-
-  if (!verifyAdminCredentials(email, password)) {
-    redirect('/admin/login?error=1');
-  }
-
-  await createAdminSession(email);
-  redirect('/admin');
-}
 
 export async function logoutAction() {
   await destroyAdminSession();

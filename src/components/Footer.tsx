@@ -6,7 +6,7 @@ import { SITE } from '@/lib/site';
 export function Footer() {
   return (
     <footer className="bg-surface-container-highest border-t border-outline-variant">
-      <div className="max-w-7xl mx-auto px-margin-desktop py-xl grid grid-cols-1 md:grid-cols-4 gap-gutter">
+      <div className="w-[92%] lg:w-[80%] mx-auto py-xl grid grid-cols-1 md:grid-cols-4 gap-gutter">
         <div className="space-y-md">
           <Link href="/" className="inline-block">
             <Image
@@ -103,7 +103,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-margin-desktop py-md border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-md">
+      <div className="w-[92%] lg:w-[80%] mx-auto py-md border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-md">
         <span className="font-body-md text-body-md text-on-surface-variant opacity-80">
           © {new Date().getFullYear()} Soluciones Orba. Todos los derechos reservados.
           Ingeniería de confianza.

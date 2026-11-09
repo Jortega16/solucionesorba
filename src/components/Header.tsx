@@ -68,7 +68,7 @@ export function Header() {
         scrolled ? 'shadow-sm bg-surface/95 backdrop-blur-md' : 'bg-surface'
       }`}
     >
-      <div className="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full gap-sm">
+      <div className="flex justify-between items-center w-[92%] lg:w-[80%] mx-auto w-full gap-sm">
         <Link href={withLocale('/', locale)} className="flex items-center shrink-0" aria-label={SITE.name}>
           <Image
             src={SITE.logo}
@@ -126,7 +126,7 @@ export function Header() {
 
       {mobileOpen ? (
         <div className="lg:hidden absolute top-20 left-0 right-0 max-h-[calc(100vh-5rem)] overflow-y-auto border-b border-outline-variant bg-surface shadow-lg">
-          <nav className="max-w-7xl mx-auto px-margin-mobile py-sm" aria-label="Móvil">
+          <nav className="w-[92%] mx-auto py-sm" aria-label="Móvil">
             {MAIN_NAV.map((item) => (
               <Link
                 key={item.href}

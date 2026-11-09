@@ -1,7 +1,6 @@
-import type { MetadataRoute } from 'next';
-import { getPublishedSitemapEntries } from '@/lib/cms';
-import { DEFAULT_LOCALE, LOCALES, localizedPath, type Locale } from '@/lib/i18n';
-import { PAGE_META } from '@/lib/site';
+import type { PublicContentPage, PublicBlogPost } from '@/lib/cms';
+
+// existing imports remain
 
 function siteUrl() {
   return (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://solucionesorba.com').replace(/\/$/, '');
@@ -15,7 +14,14 @@ function urlFor(locale: string, path: string) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const cms = await getPublishedSitemapEntries();
+  const cms = await (async () => {
+    try {
+      return await getPublishedSitemapEntries();
+    } catch (e) {
+      console.error('CMS fetch error during build:', e);
+      return { pages: [], posts: [] } as any;
+    }
+  })() as { pages: PublicContentPage[]; posts: PublicBlogPost[] };
   const fallbackPages = Object.values(PAGE_META).flatMap((meta) =>
     LOCALES.map((locale) => ({
       url: urlFor(locale, meta.path),

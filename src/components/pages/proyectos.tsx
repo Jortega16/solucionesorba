@@ -13,20 +13,24 @@ const projects = [
   {
     title: 'Sense',
     tag: 'IA y datos',
-    description: 'Plataforma de consulta inteligente sobre documentos y datos empresariales, desarrollada para facilitar la búsqueda y el análisis de información.',
-    result: 'Chat con información empresarial y procesamiento documental.',
+    description: 'Plataforma de inteligencia artificial privada desarrollada para Neural Coders, que permite consultar el conocimiento empresarial mediante lenguaje natural. Integra documentos, bases de datos y sistemas con respuestas fundamentadas en fuentes verificables, controles de acceso por departamento y trazabilidad.',
+    result: 'Conocimiento corporativo unificado, consultas con evidencia y gobierno de accesos.',
     image: IMAGES.proyectoIa,
-    href: 'https://sense.neuralcoders.com',
-    access: 'Demostración previa coordinación',
+    href: 'https://www.neuralcoders.com/sense/',
+    owner: 'Neural Coders',
+    contribution: 'Desarrollo tecnológico para Neural Coders',
+    access: 'Producto de Neural Coders',
   },
   {
     title: 'Dataizen',
     tag: 'IA y datos',
-    description: 'Plataforma de datos desarrollada para un cliente, orientada a convertir información operativa en análisis útil para la toma de decisiones.',
-    result: 'Centralización y análisis de datos en una experiencia web.',
+    description: 'Plataforma de inteligencia y gobierno de datos desarrollada para Neural Coders. Centraliza fuentes de información y reúne catálogo de datos, calidad, políticas de acceso, dashboards, análisis de procesos e inteligencia artificial para facilitar decisiones empresariales.',
+    result: 'Datos integrados y gobernados, análisis autoservicio e indicadores confiables.',
     image: IMAGES.plataformas,
-    href: 'https://platform.dataizen.com',
-    access: 'Acceso sujeto a autorización del cliente',
+    href: 'https://www.neuralcoders.com/dataizen-en/',
+    owner: 'Neural Coders',
+    contribution: 'Desarrollo tecnológico para Neural Coders',
+    access: 'Producto de Neural Coders',
   },
   {
     title: 'Airwize',
@@ -98,6 +102,12 @@ export function ProyectosPage() {
               <div className="p-lg flex flex-col flex-1">
                 <span className="font-label-md text-secondary uppercase">{project.tag}</span>
                 <h2 className="font-headline-md text-primary mt-xs mb-sm">{project.title}</h2>
+                {project.owner && (
+                  <div className="mb-sm rounded-lg bg-surface-container-low px-md py-sm border border-outline-variant">
+                    <p className="font-label-md text-primary">Propietario: {project.owner}</p>
+                    <p className="font-caption text-on-surface-variant mt-xs">{project.contribution}</p>
+                  </div>
+                )}
                 <p className="font-body-md text-on-surface-variant">{project.description}</p>
                 <div className="mt-md pt-md border-t border-outline-variant">
                   <p className="font-label-md text-primary">Resultado</p>

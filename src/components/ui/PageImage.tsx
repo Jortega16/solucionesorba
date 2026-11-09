@@ -5,9 +5,10 @@ type PageImageProps = {
   alt: string;
   className?: string;
   priority?: boolean;
+  style?: React.CSSProperties;
 };
 
-export function PageImage({ src, alt, className = '', priority = false }: PageImageProps) {
+export function PageImage({ src, alt, className = '', priority = false, style }: PageImageProps) {
   return (
     <Image
       src={src}
@@ -17,7 +18,7 @@ export function PageImage({ src, alt, className = '', priority = false }: PageIm
       priority={priority}
       className={className}
       sizes="(max-width: 768px) 100vw, 50vw"
-      style={{ width: '100%', height: 'auto' }}
+      style={style ?? { width: '100%', height: 'auto' }}
     />
   );
 }

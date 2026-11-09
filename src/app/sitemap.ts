@@ -1,6 +1,8 @@
+import type { MetadataRoute } from 'next';
 import type { PublicContentPage, PublicBlogPost } from '@/lib/cms';
-
-// existing imports remain
+import { getPublishedSitemapEntries } from '@/lib/cms';
+import { DEFAULT_LOCALE, LOCALES, localizedPath, type Locale } from '@/lib/i18n';
+import { PAGE_META } from '@/lib/site';
 
 function siteUrl() {
   return (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://solucionesorba.com').replace(/\/$/, '');

@@ -5,12 +5,12 @@ import { PAGE_META, type PageSlug } from './site';
 
 export type PublicBlogPost = Pick<
   BlogPost,
-  'id' | 'slug' | 'locale' | 'title' | 'description' | 'category' | 'excerpt' | 'content' | 'publishedAt'
+  'id' | 'slug' | 'locale' | 'title' | 'description' | 'category' | 'excerpt' | 'content' | 'publishedAt' | 'updatedAt'
 >;
 
 export type PublicContentPage = Pick<
   ContentPage,
-  'slug' | 'locale' | 'title' | 'description' | 'eyebrow' | 'heroTitle' | 'heroBody' | 'body'
+  'slug' | 'locale' | 'title' | 'description' | 'eyebrow' | 'heroTitle' | 'heroBody' | 'body' | 'updatedAt'
 >;
 
 const INITIAL_PAGE_BODIES = [

@@ -18,3 +18,13 @@ export function localizedPath(locale: Locale, path: string) {
   const normalized = path === '/' ? '' : path;
   return `/${locale}${normalized}`;
 }
+
+export function localeFromPathname(pathname: string): Locale {
+  const segment = pathname.split('/').filter(Boolean)[0];
+  return isLocale(segment) ? segment : DEFAULT_LOCALE;
+}
+
+export function withLocale(href: string, locale: Locale) {
+  if (locale === DEFAULT_LOCALE) return href;
+  return href === '/' ? `/${locale}` : `/${locale}${href}`;
+}

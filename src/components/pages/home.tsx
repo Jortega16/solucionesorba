@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/Icon';
 import { Container } from '@/components/ui/Container';
 import { PageImage } from '@/components/ui/PageImage';
@@ -6,8 +9,14 @@ import { ButtonLink } from '@/components/ui/ButtonLink';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { StatsRow } from '@/components/ui/StatsRow';
 import { IMAGES } from '@/lib/images';
+import { localeFromPathname, withLocale, type Locale } from '@/lib/i18n';
+import { HOME_TRANSLATIONS } from '@/lib/translations/home';
 
-export function HomePage() {
+export function HomePage({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy = HOME_TRANSLATIONS[locale] ?? HOME_TRANSLATIONS.es;
+
   return (
     <>
       <section className="relative min-h-[80vh] flex items-center overflow-hidden bg-surface-container-low">
@@ -23,22 +32,29 @@ export function HomePage() {
             <div className="inline-flex items-center gap-xs bg-secondary-fixed px-sm py-xs rounded-full border border-secondary/15">
               <Icon name="verified" className="text-secondary text-sm" />
               <span className="font-label-md text-label-md text-on-secondary-fixed uppercase">
-                Ingeniería de confianza desde 2015
+                {copy.hero.badge}
               </span>
             </div>
             <h1 className="font-display-lg text-display-lg text-primary leading-tight">
-              Software, inteligencia artificial e IoT para transformar su operación
+              {copy.hero.title}
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-              Diseñamos plataformas SaaS, aplicaciones web, automatizaciones con IA y sistemas
-              conectados con hardware. Acompañamos cada proyecto desde la idea hasta su operación.
+              {copy.hero.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-md pt-md">
-              <ButtonLink href="/contacto" icon="arrow_forward" className="px-xl py-md">
-                Solicitar una consulta
+              <ButtonLink
+                href={withLocale('/contacto', locale)}
+                icon="arrow_forward"
+                className="px-xl py-md"
+              >
+                {copy.hero.primaryCta}
               </ButtonLink>
-              <ButtonLink href="/#servicios" variant="outline" className="px-xl py-md">
-                Ver servicios
+              <ButtonLink
+                href={withLocale('/#servicios', locale)}
+                variant="outline"
+                className="px-xl py-md"
+              >
+                {copy.hero.secondaryCta}
               </ButtonLink>
             </div>
           </div>
@@ -46,7 +62,7 @@ export function HomePage() {
             <div className="bg-white p-lg rounded-xl border border-outline-variant shadow-lg relative z-20 overflow-hidden">
               <PageImage
                 src={IMAGES.homeHero}
-                alt="Soluciones digitales empresariales"
+                alt={copy.hero.imageAlt}
                 className="rounded-lg w-full h-auto"
                 priority
               />
@@ -60,8 +76,8 @@ export function HomePage() {
       <section id="servicios" className="py-xl bg-white">
         <Container>
           <SectionHeading
-            title="Capacidades para resolver retos reales"
-            subtitle="Integramos software, datos e ingeniería para construir soluciones útiles, seguras y preparadas para crecer."
+            title={copy.capacities.title}
+            subtitle={copy.capacities.subtitle}
             centered
           />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
@@ -69,16 +85,18 @@ export function HomePage() {
               <div className="relative z-10 flex flex-col h-full justify-between">
                 <div>
                   <Icon name="terminal" className="text-secondary text-4xl mb-md" />
+                  <span className="font-label-md text-secondary uppercase tracking-wider block mb-xs">
+                    {copy.capacities.cards.digital.category}
+                  </span>
                   <h3 className="font-headline-md text-headline-md text-primary mb-sm">
-                    Desarrollo web
+                    {copy.capacities.cards.digital.title}
                   </h3>
                   <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
-                    Creamos sitios corporativos, comercios electrónicos y aplicaciones web rápidas,
-                    accesibles y alineadas con sus procesos de negocio.
+                    {copy.capacities.cards.digital.description}
                   </p>
                 </div>
                 <div className="mt-xl flex flex-wrap gap-xs">
-                  {['React', 'Arquitectura en la nube', 'SEO optimizado'].map((tag) => (
+                  {copy.capacities.cards.digital.features.map((tag) => (
                     <span
                       key={tag}
                       className="bg-surface-container-high px-sm py-1 rounded text-label-md font-label-md"
@@ -86,6 +104,14 @@ export function HomePage() {
                       {tag}
                     </span>
                   ))}
+                </div>
+                <div className="pt-md">
+                  <Link
+                    href={withLocale('/desarrollo-web', locale)}
+                    className="inline-flex items-center gap-xs font-label-md text-secondary hover:text-primary transition-colors"
+                  >
+                    {copy.capacities.cards.digital.cta} <Icon name="arrow_forward" />
+                  </Link>
                 </div>
               </div>
               <div className="absolute right-0 bottom-0 w-1/3 opacity-20 group-hover:opacity-40 transition-opacity">
@@ -96,49 +122,75 @@ export function HomePage() {
             <div className="md:col-span-4 bg-primary text-on-primary rounded-xl p-lg flex flex-col justify-between hover:scale-[1.02] transition-transform">
               <div>
                 <Icon name="cloud_done" className="text-on-primary-container text-4xl mb-md" />
-                <h3 className="font-headline-md text-headline-md mb-sm">Software como servicio</h3>
-                <p className="font-body-md text-body-md opacity-80">
-                  Diseñamos productos digitales multiempresa, portales internos y herramientas
-                  operativas que pueden evolucionar junto con su organización.
+                <span className="font-label-md text-secondary-fixed uppercase tracking-wider block mb-xs">
+                  {copy.capacities.cards.digital.category}
+                </span>
+                <h3 className="font-headline-md text-headline-md mb-sm text-white">
+                  {locale === 'es'
+                    ? 'Software como servicio'
+                    : locale === 'en'
+                    ? 'Software as a Service'
+                    : 'Software como Serviço'}
+                </h3>
+                <p className="font-body-md text-body-md opacity-80 text-primary-fixed-dim">
+                  {locale === 'es'
+                    ? 'Diseñamos productos digitales multiempresa, portales internos y herramientas operativas que evolucionan con su organización.'
+                    : locale === 'en'
+                    ? 'We engineer multi-tenant SaaS products, internal portals, and operational platforms built to scale with your organization.'
+                    : 'Projetamos produtos SaaS multitenant, portais internos e plataformas operacionais que evoluem com a sua organização.'}
                 </p>
               </div>
               <Link
-                href="/proyectos"
-                className="inline-flex items-center gap-xs font-label-md text-label-md mt-xl hover:translate-x-2 transition-transform"
+                href={withLocale('/proyectos', locale)}
+                className="inline-flex items-center gap-xs font-label-md text-label-md mt-xl text-white hover:text-secondary-fixed hover:translate-x-2 transition-all"
               >
-                Ver casos de éxito <Icon name="chevron_right" />
+                {locale === 'es'
+                  ? 'Ver casos de éxito'
+                  : locale === 'en'
+                  ? 'View case studies'
+                  : 'Ver casos de sucesso'}{' '}
+                <Icon name="chevron_right" />
               </Link>
             </div>
 
-            <div className="md:col-span-5 bg-surface border border-outline-variant rounded-xl p-lg hover:border-secondary transition-all">
-              <Icon name="insights" className="text-secondary text-4xl mb-md" />
-              <h3 className="font-headline-md text-headline-md text-primary mb-sm">
-                IA y análisis de datos
-              </h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Convertimos documentos, bases de datos y procesos repetitivos en asistentes,
-                automatizaciones y herramientas de análisis que apoyan decisiones reales.
-              </p>
-              <Link href="/inteligencia-artificial" className="mt-lg inline-flex items-center gap-xs font-label-md text-secondary hover:text-primary">
-                Conocer soluciones de IA <Icon name="arrow_forward" />
+            <div className="md:col-span-5 bg-surface border border-outline-variant rounded-xl p-lg hover:border-secondary transition-all flex flex-col justify-between">
+              <div>
+                <Icon name="insights" className="text-secondary text-4xl mb-md" />
+                <span className="font-label-md text-secondary uppercase tracking-wider block mb-xs">
+                  {copy.capacities.cards.ai.category}
+                </span>
+                <h3 className="font-headline-md text-headline-md text-primary mb-sm">
+                  {copy.capacities.cards.ai.title}
+                </h3>
+                <p className="font-body-md text-body-md text-on-surface-variant">
+                  {copy.capacities.cards.ai.description}
+                </p>
+              </div>
+              <Link
+                href={withLocale('/inteligencia-artificial', locale)}
+                className="mt-lg inline-flex items-center gap-xs font-label-md text-secondary hover:text-primary transition-colors"
+              >
+                {copy.capacities.cards.ai.cta} <Icon name="arrow_forward" />
               </Link>
             </div>
 
-            <div className="md:col-span-7 bg-surface border border-outline-variant rounded-xl p-lg relative overflow-hidden group hover:border-secondary transition-all">
+            <div className="md:col-span-7 bg-surface border border-outline-variant rounded-xl p-lg relative overflow-hidden group hover:border-secondary transition-all flex flex-col justify-between">
               <div className="relative z-10">
                 <Icon name="precision_manufacturing" className="text-secondary text-4xl mb-md" />
+                <span className="font-label-md text-secondary uppercase tracking-wider block mb-xs">
+                  {copy.capacities.cards.cyberphysical.category}
+                </span>
                 <h3 className="font-headline-md text-headline-md text-primary mb-sm">
-                  Sistemas ciberfísicos
+                  {copy.capacities.cards.cyberphysical.title}
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant max-w-lg">
-                  Conectamos el mundo físico y el digital. Integración de IoT, sistemas
-                  embebidos y control industrial para la Industria 4.0.
+                  {copy.capacities.cards.cyberphysical.description}
                 </p>
                 <Link
-                  href="/sistemas-ciberfisicos"
+                  href={withLocale('/sistemas-ciberfisicos', locale)}
                   className="mt-lg border border-primary px-lg py-xs font-label-md text-label-md rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors inline-block"
                 >
-                  Explorar hardware
+                  {copy.capacities.cards.cyberphysical.cta}
                 </Link>
               </div>
               <div className="absolute -right-10 -bottom-10 opacity-5">
@@ -149,38 +201,35 @@ export function HomePage() {
         </Container>
       </section>
 
-      <StatsRow
-        stats={[
-          { value: '11+', label: 'Años de trayectoria' },
-          { value: '4', label: 'Áreas de especialización' },
-          { value: '2', label: 'Países con proyectos' },
-          { value: '1:1', label: 'Acompañamiento técnico' },
-        ]}
-      />
+      <StatsRow stats={copy.stats} />
 
       <section className="py-xl bg-white">
         <Container>
           <SectionHeading
-            title="Una ruta clara, de la necesidad al resultado"
-            subtitle="Trabajamos con comunicación directa y entregables verificables en cada etapa."
+            title={copy.process.title}
+            subtitle={copy.process.subtitle}
             centered
           />
           <div className="grid md:grid-cols-3 gap-gutter">
-            {[
-              ['01', 'Entendemos el reto', 'Revisamos sus procesos, objetivos, restricciones e integraciones necesarias.'],
-              ['02', 'Diseñamos y construimos', 'Definimos una solución viable y avanzamos con demostraciones y validaciones frecuentes.'],
-              ['03', 'Implementamos y acompañamos', 'Ponemos la solución en operación, documentamos y brindamos soporte técnico.'],
-            ].map(([number, title, text]) => (
-              <article key={number} className="border-t-2 border-secondary pt-md">
-                <span className="font-label-md text-secondary">{number}</span>
-                <h3 className="font-headline-md text-primary mt-sm mb-xs">{title}</h3>
-                <p className="font-body-md text-on-surface-variant">{text}</p>
+            {copy.process.steps.map((item) => (
+              <article key={item.step} className="border-t-2 border-secondary pt-md">
+                <span className="font-label-md text-secondary">{item.step}</span>
+                <h3 className="font-headline-md text-primary mt-sm mb-xs">{item.title}</h3>
+                <p className="font-body-md text-on-surface-variant">{item.description}</p>
               </article>
             ))}
           </div>
           <div className="text-center mt-xl">
-            <ButtonLink href="/proyectos" variant="outline" className="px-xl py-md">
-              Ver proyectos realizados
+            <ButtonLink
+              href={withLocale('/proyectos', locale)}
+              variant="outline"
+              className="px-xl py-md"
+            >
+              {locale === 'es'
+                ? 'Ver proyectos realizados'
+                : locale === 'en'
+                ? 'View completed projects'
+                : 'Ver projetos realizados'}
             </ButtonLink>
           </div>
         </Container>

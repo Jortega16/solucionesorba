@@ -1,27 +1,35 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
 import { PageImage } from '@/components/ui/PageImage';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { IMAGES } from '@/lib/images';
+import { localeFromPathname, withLocale, type Locale } from '@/lib/i18n';
+import { SERVICES_TRANSLATIONS } from '@/lib/translations/services';
 
-export function SoportePage() {
+export function SoportePage({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy = SERVICES_TRANSLATIONS[locale]?.soporte ?? SERVICES_TRANSLATIONS.es.soporte;
+
   return (
     <>
       <section className="relative py-xl bg-surface-container-low overflow-hidden">
         <Container className="grid lg:grid-cols-2 gap-xl items-center">
           <div>
             <h1 className="font-display-lg text-display-lg text-on-surface mb-md">
-              Soporte técnico especializado
+              {copy.title}
             </h1>
             <p className="font-body-lg text-on-surface-variant">
-              Mantenimiento, actualizaciones y resolución de incidencias para sitios web,
-              plataformas e infraestructura crítica de su negocio.
+              {copy.description}
             </p>
           </div>
           <div className="relative h-80 rounded-lg overflow-hidden border border-outline-variant">
             <PageImage
               src={IMAGES.soporte}
-              alt="Soporte técnico"
+              alt={copy.title}
               className="w-full h-full object-cover grayscale opacity-80"
             />
           </div>
@@ -30,19 +38,12 @@ export function SoportePage() {
 
       <section className="py-xl">
         <Container>
-          <SectionHeading title="Servicios de Mantenimiento" />
+          <SectionHeading title={copy.sectionTitle} />
           <div className="grid md:grid-cols-2 gap-gutter">
-            {[
-              'Soporte web y de plataformas',
-              'Mantenimiento preventivo y correctivo',
-              'Actualizaciones de seguridad',
-              'Resolución de incidencias',
-            ].map((title) => (
-              <div key={title} className="bg-white border border-outline-variant p-lg rounded-lg">
-                <h3 className="font-headline-md text-primary mb-sm">{title}</h3>
-                <p className="font-body-md text-on-surface-variant">
-                  Respuesta rápida y documentación clara de cada intervención.
-                </p>
+            {copy.features.map((item) => (
+              <div key={item.title} className="bg-white border border-outline-variant p-lg rounded-lg">
+                <h3 className="font-headline-md text-primary mb-sm">{item.title}</h3>
+                <p className="font-body-md text-on-surface-variant">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -50,9 +51,9 @@ export function SoportePage() {
       </section>
 
       <CtaBanner
-        title="¿Necesita asistencia técnica inmediata?"
-        description="Nuestro equipo de ingenieros está disponible para incidentes críticos y soporte planificado."
-        action={{ href: '/contacto', label: 'Abrir ticket de soporte' }}
+        title={copy.ctaTitle}
+        description={copy.ctaDesc}
+        action={{ href: withLocale('/contacto', locale), label: copy.ctaButton }}
       />
     </>
   );

@@ -25,6 +25,19 @@ export function localeFromPathname(pathname: string): Locale {
 }
 
 export function withLocale(href: string, locale: Locale) {
-  if (locale === DEFAULT_LOCALE) return href;
-  return href === '/' ? `/${locale}` : `/${locale}${href}`;
+  if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return href;
+
+  let cleanHref = href;
+  for (const loc of LOCALES) {
+    if (cleanHref === `/${loc}`) {
+      cleanHref = '/';
+      break;
+    } else if (cleanHref.startsWith(`/${loc}/`)) {
+      cleanHref = cleanHref.slice(loc.length + 1);
+      break;
+    }
+  }
+
+  if (locale === DEFAULT_LOCALE) return cleanHref;
+  return cleanHref === '/' ? `/${locale}` : `/${locale}${cleanHref}`;
 }

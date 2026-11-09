@@ -1,44 +1,60 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/Icon';
 import { ContactForm } from '@/components/ContactForm';
 import { Container } from '@/components/ui/Container';
 import { PageImage } from '@/components/ui/PageImage';
 import { SITE } from '@/lib/site';
 import { IMAGES } from '@/lib/images';
+import { localeFromPathname, type Locale } from '@/lib/i18n';
+import { CONTACTO_TRANSLATIONS } from '@/lib/translations/contacto';
 
-export function ContactoPage() {
+export function ContactoPage({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy = CONTACTO_TRANSLATIONS[locale] ?? CONTACTO_TRANSLATIONS.es;
+
   return (
     <Container className="py-xl grid grid-cols-1 lg:grid-cols-12 gap-xl items-start">
       <div className="lg:col-span-5 space-y-lg">
         <div className="space-y-sm">
           <h1 className="font-display-lg text-display-lg text-primary tracking-tight">
-            Hablemos de su proyecto
+            {copy.heroTitle}
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-md">
-            Cuéntenos qué necesita desarrollar, mejorar o automatizar. Revisaremos su solicitud y
-            le responderemos en un plazo máximo de un día hábil.
+            {copy.heroDescription}
           </p>
         </div>
         <div className="grid grid-cols-1 gap-md pt-lg">
           <div className="flex items-start gap-sm p-md bg-surface-container-low rounded-xl border border-outline-variant">
             <Icon name="mail" className="text-secondary" filled />
             <div>
-              <p className="font-label-md text-label-md text-primary">Correo Electrónico</p>
-              <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              <p className="font-label-md text-label-md text-primary">{copy.cards.emailTitle}</p>
+              <a
+                className="font-body-md text-body-md text-on-surface-variant hover:text-secondary"
+                href={`mailto:${SITE.email}`}
+              >
+                {SITE.email}
+              </a>
             </div>
           </div>
           <div className="flex items-start gap-sm p-md bg-surface-container-low rounded-xl border border-outline-variant">
             <Icon name="location_on" className="text-secondary" filled />
             <div>
-              <p className="font-label-md text-label-md text-primary">Sede Central</p>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                {SITE.location}
-              </p>
+              <p className="font-label-md text-label-md text-primary">{copy.cards.locationTitle}</p>
+              <p className="font-body-md text-body-md text-on-surface-variant">{SITE.location}</p>
             </div>
           </div>
-          <a href={SITE.whatsapp} target="_blank" rel="noreferrer" className="flex items-start gap-sm p-md bg-surface-container-low rounded-xl border border-outline-variant hover:border-secondary transition-colors">
+          <a
+            href={SITE.whatsapp}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-start gap-sm p-md bg-surface-container-low rounded-xl border border-outline-variant hover:border-secondary transition-colors"
+          >
             <Icon name="chat" className="text-verde" filled />
             <div>
-              <p className="font-label-md text-label-md text-primary">WhatsApp</p>
+              <p className="font-label-md text-label-md text-primary">{copy.cards.whatsappTitle}</p>
               <p className="font-body-md text-body-md text-on-surface-variant">{SITE.phone}</p>
             </div>
           </a>
@@ -53,7 +69,7 @@ export function ContactoPage() {
         </div>
       </div>
       <div className="lg:col-span-7 bg-surface-container-lowest p-lg md:p-xl border border-outline-variant rounded-xl shadow-sm">
-        <ContactForm />
+        <ContactForm locale={locale} />
       </div>
     </Container>
   );

@@ -4,24 +4,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Icon } from '@/components/Icon';
-import { DEFAULT_LOCALE, LOCALES, type Locale } from '@/lib/i18n';
-import { SERVICE_PATHS, SERVICES_MENU } from '@/lib/site';
-
-function localeFromPathname(pathname: string): Locale {
-  const segment = pathname.split('/')[1];
-  return (LOCALES as readonly string[]).includes(segment) ? (segment as Locale) : DEFAULT_LOCALE;
-}
+import { localeFromPathname, withLocale, LOCALES, type Locale } from '@/lib/i18n';
+import { SERVICE_PATHS } from '@/lib/site';
+import { LOCALIZED_SERVICES_MENU, HEADER_COPY } from '@/lib/translations/common';
 
 function stripLocale(pathname: string) {
-  const segment = pathname.split('/')[1];
+  const segment = pathname.split('/').filter(Boolean)[0];
   return (LOCALES as readonly string[]).includes(segment)
     ? pathname.replace(`/${segment}`, '') || '/'
     : pathname;
-}
-
-function withLocale(href: string, locale: Locale) {
-  if (locale === DEFAULT_LOCALE) return href;
-  return href === '/' ? `/${locale}` : `/${locale}${href}`;
 }
 
 function isServicePath(pathname: string) {
@@ -33,6 +24,7 @@ export function ServicesMenu({ className = '' }: { className?: string }) {
   const pathname = usePathname();
   const locale = localeFromPathname(pathname);
   const activePathname = stripLocale(pathname);
+  const copy = HEADER_COPY[locale];
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -76,7 +68,7 @@ export function ServicesMenu({ className = '' }: { className?: string }) {
             : 'text-on-surface-variant hover:text-primary'
         }`}
       >
-        Servicios
+        {copy.servicesButton}
         <Icon
           name="expand_more"
           className={`text-lg transition-transform ${open ? 'rotate-180' : ''}`}
@@ -91,10 +83,10 @@ export function ServicesMenu({ className = '' }: { className?: string }) {
           className="absolute left-0 top-full z-50 mt-0 w-[min(100vw-2rem,42rem)] rounded-xl border border-outline-variant bg-surface-container-lowest shadow-lg"
         >
           <div className="grid sm:grid-cols-2 gap-0 p-sm">
-            {SERVICES_MENU.map((group) => (
-              <div key={group.title} className="p-sm">
+            {LOCALIZED_SERVICES_MENU.map((group) => (
+              <div key={group.items[0]?.href} className="p-sm">
                 <p className="font-label-md text-label-md text-secondary uppercase tracking-wider mb-sm px-xs">
-                  {group.title}
+                  {group.title[locale]}
                 </p>
                 <ul className="space-y-1">
                   {group.items.map((item) => (
@@ -109,11 +101,11 @@ export function ServicesMenu({ className = '' }: { className?: string }) {
                         }`}
                       >
                         <span className="font-label-md text-label-md font-bold block">
-                          {item.label}
+                          {item.label[locale]}
                         </span>
                         {item.description ? (
                           <span className="font-caption text-caption text-on-surface-variant block mt-0.5">
-                            {item.description}
+                            {item.description[locale]}
                           </span>
                         ) : null}
                       </Link>
@@ -129,7 +121,7 @@ export function ServicesMenu({ className = '' }: { className?: string }) {
               role="menuitem"
               className="font-label-md text-label-md text-secondary hover:underline inline-flex items-center gap-1"
             >
-              Ver resumen en inicio
+              {copy.servicesOverview}
               <Icon name="arrow_forward" className="text-sm" />
             </Link>
           </div>
@@ -149,6 +141,7 @@ export function ServicesMenuMobile({
   const pathname = usePathname();
   const locale = localeFromPathname(pathname);
   const activePathname = stripLocale(pathname);
+  const copy = HEADER_COPY[locale];
   const [expanded, setExpanded] = useState(true);
 
   if (!open) return null;
@@ -160,7 +153,7 @@ export function ServicesMenuMobile({
         onClick={() => setExpanded((value) => !value)}
         className="w-full flex items-center justify-between font-label-md text-label-md text-primary font-bold px-sm py-xs"
       >
-        Servicios
+        {copy.servicesButton}
         <Icon
           name="expand_more"
           className={`text-lg transition-transform ${expanded ? 'rotate-180' : ''}`}
@@ -169,10 +162,10 @@ export function ServicesMenuMobile({
 
       {expanded ? (
         <div className="mt-sm space-y-md px-sm">
-          {SERVICES_MENU.map((group) => (
-            <div key={group.title}>
+          {LOCALIZED_SERVICES_MENU.map((group) => (
+            <div key={group.items[0]?.href}>
               <p className="font-caption text-caption text-secondary uppercase tracking-wider mb-xs">
-                {group.title}
+                {group.title[locale]}
               </p>
               <ul className="space-y-1">
                 {group.items.map((item) => (
@@ -186,7 +179,7 @@ export function ServicesMenuMobile({
                           : 'text-on-surface-variant hover:text-primary'
                       }`}
                     >
-                      {item.label}
+                      {item.label[locale]}
                     </Link>
                   </li>
                 ))}
@@ -198,7 +191,7 @@ export function ServicesMenuMobile({
             onClick={onNavigate}
             className="font-label-md text-label-md text-secondary inline-flex items-center gap-1"
           >
-            Ver resumen en inicio
+            {copy.servicesOverview}
             <Icon name="arrow_forward" className="text-sm" />
           </Link>
         </div>

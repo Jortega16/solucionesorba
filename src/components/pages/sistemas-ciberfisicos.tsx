@@ -1,38 +1,46 @@
+'use client';
+
 import Link from 'next/link';
-import { Icon } from '@/components/Icon';
+import { usePathname } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
 import { PageImage } from '@/components/ui/PageImage';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { StatsRow } from '@/components/ui/StatsRow';
 import { IMAGES } from '@/lib/images';
+import { localeFromPathname, withLocale, type Locale } from '@/lib/i18n';
+import { SERVICES_TRANSLATIONS } from '@/lib/translations/services';
 
-export function SistemasCiberfisicosPage() {
+export function SistemasCiberfisicosPage({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy =
+    SERVICES_TRANSLATIONS[locale]?.sistemasCiberfisicos ??
+    SERVICES_TRANSLATIONS.es.sistemasCiberfisicos;
+
   return (
     <>
       <section className="relative bg-surface-container-low py-xl">
         <Container className="grid md:grid-cols-12 gap-gutter items-center">
           <div className="md:col-span-7">
             <span className="font-label-md text-label-md text-secondary mb-xs block">
-              SOLUCIONES DE INGENIERÍA AVANZADA
+              {copy.badge}
             </span>
             <h1 className="font-display-lg text-display-lg text-primary mb-md leading-tight">
-              Sistemas ciberfísicos para conectar el mundo digital con el físico
+              {copy.title}
             </h1>
             <p className="font-body-lg text-on-surface-variant mb-lg max-w-2xl">
-              Desarrollamos sistemas ciberfísicos que integran software, hardware, sensores,
-              dispositivos electrónicos y comunicación de datos para transformar la operatividad
-              industrial.
+              {copy.description}
             </p>
             <div className="flex gap-sm">
-              <ButtonLink href="/contacto" className="px-lg py-sm uppercase tracking-wider">
-                Explorar capacidades
+              <ButtonLink href={withLocale('/contacto', locale)} className="px-lg py-sm uppercase tracking-wider">
+                {copy.primaryCta}
               </ButtonLink>
               <Link
-                href="/proyectos"
+                href={withLocale('/proyectos', locale)}
                 className="border border-primary text-primary px-lg py-sm font-label-md font-bold uppercase tracking-wider hover:bg-surface-container-low transition-colors inline-flex items-center"
               >
-                Ver casos de éxito
+                {copy.secondaryCta}
               </Link>
             </div>
           </div>
@@ -43,8 +51,12 @@ export function SistemasCiberfisicosPage() {
               className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
             <div className="absolute bottom-md left-md bg-primary text-on-primary p-md">
-              <p className="font-label-md text-label-md mb-xs">ESTADO</p>
-              <p className="font-headline-md text-headline-md">CONECTADO</p>
+              <p className="font-label-md text-label-md mb-xs">
+                {locale === 'es' ? 'ESTADO' : locale === 'en' ? 'STATUS' : 'STATUS'}
+              </p>
+              <p className="font-headline-md text-headline-md">
+                {locale === 'es' ? 'CONECTADO' : locale === 'en' ? 'CONNECTED' : 'CONECTADO'}
+              </p>
             </div>
           </div>
         </Container>
@@ -52,45 +64,76 @@ export function SistemasCiberfisicosPage() {
 
       <section className="py-xl">
         <Container>
-          <SectionHeading title="Nuestros Servicios de CPS" subtitle="Integración total hardware-software." />
+          <SectionHeading
+            title={copy.sectionTitle}
+            subtitle={
+              locale === 'es'
+                ? 'Integración total hardware-software.'
+                : locale === 'en'
+                ? 'Full hardware-software integration.'
+                : 'Integração total hardware-software.'
+            }
+          />
           <div className="grid md:grid-cols-2 gap-gutter">
-            {[
-              { title: 'Integración software/hardware', text: 'Firmware, drivers y sistemas embebidos.', tags: ['Firmware', 'Drivers', 'RTOS'] },
-              { title: 'Sensores', text: 'Captura de datos del mundo físico.', tags: ['Lidar', 'Térmico', 'Vibración'] },
-              { title: 'Monitoreo y analítica en el borde', text: 'Dashboards y alertas predictivas en tiempo real.' },
-              { title: 'IoT industrial (IIoT)', text: 'Protocolos y conectividad para plantas industriales.' },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="bg-surface border border-outline-variant p-lg rounded-lg hover:border-secondary transition-all"
-              >
-                <h3 className="font-headline-md text-primary mb-sm">{item.title}</h3>
-                <p className="font-body-md text-on-surface-variant mb-md">{item.text}</p>
-                {item.tags ? (
-                  <div className="flex flex-wrap gap-xs">
-                    {item.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="bg-surface-container px-sm py-1 text-xs font-label-md uppercase border border-outline-variant"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
+            <div className="bg-surface border border-outline-variant p-lg rounded-lg hover:border-secondary transition-all">
+              <h3 className="font-headline-md text-primary mb-sm">{copy.cards.telemetryTitle}</h3>
+              <p className="font-body-md text-on-surface-variant mb-md">{copy.cards.telemetryDesc}</p>
+              <div className="flex flex-wrap gap-xs">
+                {['Firmware', 'Drivers', 'RTOS'].map((t) => (
+                  <span
+                    key={t}
+                    className="bg-surface-container px-sm py-1 text-xs font-label-md uppercase border border-outline-variant"
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
-            ))}
+            </div>
+            <div className="bg-surface border border-outline-variant p-lg rounded-lg hover:border-secondary transition-all">
+              <h3 className="font-headline-md text-primary mb-sm">{copy.cards.iotTitle}</h3>
+              <p className="font-body-md text-on-surface-variant mb-md">{copy.cards.iotDesc}</p>
+              <div className="flex flex-wrap gap-xs">
+                {['MQTT', 'HTTP', 'Modbus', 'CAN'].map((t) => (
+                  <span
+                    key={t}
+                    className="bg-surface-container px-sm py-1 text-xs font-label-md uppercase border border-outline-variant"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="md:col-span-2 bg-surface border border-outline-variant p-lg rounded-lg hover:border-secondary transition-all">
+              <h3 className="font-headline-md text-primary mb-sm">{copy.cards.scadaTitle}</h3>
+              <p className="font-body-md text-on-surface-variant mb-md">{copy.cards.scadaDesc}</p>
+            </div>
           </div>
         </Container>
       </section>
 
       <StatsRow
-        stats={[
-          { value: 'IoT', label: 'Sensores conectados' },
-          { value: 'Edge', label: 'Procesamiento local' },
-          { value: 'Web', label: 'Supervisión remota' },
-          { value: 'API', label: 'Integración de sistemas' },
-        ]}
+        stats={
+          locale === 'es'
+            ? [
+                { value: 'IoT', label: 'Sensores conectados' },
+                { value: 'Edge', label: 'Procesamiento local' },
+                { value: 'Web', label: 'Supervisión remota' },
+                { value: 'API', label: 'Integración de sistemas' },
+              ]
+            : locale === 'en'
+            ? [
+                { value: 'IoT', label: 'Connected sensors' },
+                { value: 'Edge', label: 'Edge computing' },
+                { value: 'Web', label: 'Remote supervision' },
+                { value: 'API', label: 'Systems integration' },
+              ]
+            : [
+                { value: 'IoT', label: 'Sensores conectados' },
+                { value: 'Edge', label: 'Processamento local' },
+                { value: 'Web', label: 'Supervisão remota' },
+                { value: 'API', label: 'Integração de sistemas' },
+              ]
+        }
       />
     </>
   );

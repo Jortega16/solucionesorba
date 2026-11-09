@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
 import type { PublicBlogPost } from '@/lib/cms';
-import type { Locale } from '@/lib/i18n';
+import { withLocale, type Locale } from '@/lib/i18n';
+import { BLOG_TRANSLATIONS } from '@/lib/translations/blog';
 
 function renderContent(content: string) {
   return content
@@ -26,14 +27,15 @@ function renderContent(content: string) {
 }
 
 export function BlogPostPage({ post, locale }: { post: PublicBlogPost; locale: Locale }) {
-  const blogHref = locale === 'es' ? '/blog' : `/${locale}/blog`;
+  const blogHref = withLocale('/blog', locale);
+  const copy = BLOG_TRANSLATIONS[locale] ?? BLOG_TRANSLATIONS.es;
 
   return (
     <>
       <section className="py-xl md:py-32 border-b border-outline-variant bg-surface-container-low">
         <Container>
           <Link href={blogHref} className="font-label-md text-label-md text-secondary hover:underline">
-            Blog
+            {copy.backToBlog}
           </Link>
           <span className="font-label-md text-label-md text-secondary tracking-widest uppercase mt-md mb-sm block">
             {post.category}

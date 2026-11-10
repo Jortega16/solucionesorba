@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/Icon';
 import { Container } from '@/components/ui/Container';
@@ -12,6 +13,18 @@ export function NosotrosPage({ locale: propLocale }: { locale?: Locale }) {
   const pathname = usePathname();
   const locale = propLocale ?? localeFromPathname(pathname);
   const copy = NOSOTROS_TRANSLATIONS[locale] ?? NOSOTROS_TRANSLATIONS.es;
+
+  const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const quotes = copy.quotes;
+
+  useEffect(() => {
+    if (isPaused || quotes.length <= 1) return;
+    const timer = setInterval(() => {
+      setActiveQuoteIndex((prev) => (prev + 1) % quotes.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [isPaused, quotes.length]);
 
   return (
     <>
@@ -96,15 +109,58 @@ export function NosotrosPage({ locale: propLocale }: { locale?: Locale }) {
         </Container>
       </section>
 
-      <section className="py-xl bg-white">
+      {/* Quote Slider */}
+      <section className="py-xl bg-white" aria-roledescription="carousel" aria-label="Filosofía y lemas de Soluciones Orba">
         <Container className="text-center">
-          <div className="inline-block border-y border-outline-variant py-xl max-w-4xl">
-            <h2 className="font-headline-lg text-headline-lg text-primary mb-md italic">
-              &ldquo;{copy.quote.text}&rdquo;
-            </h2>
-            <p className="font-label-md text-label-md text-secondary tracking-[0.2em] uppercase">
-              {copy.quote.author}
-            </p>
+          <div
+            className="relative inline-block border-y border-outline-variant py-xl w-full max-w-4xl px-8 md:px-16"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveQuoteIndex((prev) => (prev - 1 + quotes.length) % quotes.length)}
+              className="absolute left-0 md:left-2 top-1/2 -translate-y-1/2 p-2 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors"
+              aria-label={locale === 'es' ? 'Lema anterior' : locale === 'en' ? 'Previous quote' : 'Lema anterior'}
+            >
+              <Icon name="chevron_left" className="text-2xl" />
+            </button>
+
+            <div className="min-h-[140px] md:min-h-[120px] flex flex-col justify-center transition-all duration-500 ease-in-out">
+              <h2 className="font-headline-lg text-headline-lg text-primary mb-md italic">
+                &ldquo;{quotes[activeQuoteIndex].text}&rdquo;
+              </h2>
+              <p className="font-label-md text-label-md text-secondary tracking-[0.2em] uppercase">
+                {quotes[activeQuoteIndex].author}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setActiveQuoteIndex((prev) => (prev + 1) % quotes.length)}
+              className="absolute right-0 md:right-2 top-1/2 -translate-y-1/2 p-2 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors"
+              aria-label={locale === 'es' ? 'Siguiente lema' : locale === 'en' ? 'Next quote' : 'Próximo lema'}
+            >
+              <Icon name="chevron_right" className="text-2xl" />
+            </button>
+
+            {/* Indicator dots */}
+            <div className="flex items-center justify-center gap-2 mt-md">
+              {quotes.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveQuoteIndex(idx)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    activeQuoteIndex === idx
+                      ? 'w-8 bg-secondary'
+                      : 'w-2.5 bg-outline-variant hover:bg-on-surface-variant'
+                  }`}
+                  aria-label={`${locale === 'es' ? 'Ver lema' : locale === 'en' ? 'View quote' : 'Ver lema'} ${idx + 1}`}
+                  aria-current={activeQuoteIndex === idx ? 'true' : undefined}
+                />
+              ))}
+            </div>
           </div>
         </Container>
       </section>

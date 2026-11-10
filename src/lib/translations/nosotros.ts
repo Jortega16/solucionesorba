@@ -1,5 +1,10 @@
 import type { Locale } from '../i18n';
 
+export interface QuoteItem {
+  text: string;
+  author: string;
+}
+
 export interface NosotrosTranslation {
   eyebrow: string;
   heroTitle: string;
@@ -14,10 +19,7 @@ export interface NosotrosTranslation {
     supportTitle: string;
     supportDescription: string;
   };
-  quote: {
-    text: string;
-    author: string;
-  };
+  quotes: QuoteItem[];
 }
 
 export const NOSOTROS_TRANSLATIONS: Record<Locale, NosotrosTranslation> = {
@@ -39,10 +41,16 @@ export const NOSOTROS_TRANSLATIONS: Record<Locale, NosotrosTranslation> = {
       supportDescription:
         'No nos limitamos a entregar código: nos involucramos en el mantenimiento, la evolución y el rendimiento de cada sistema.',
     },
-    quote: {
-      text: 'Creemos en la ingeniería honesta: software bien construido, datos transparentes y tecnología que realmente solucione problemas.',
-      author: '— Equipo de Soluciones Orba',
-    },
+    quotes: [
+      {
+        text: 'Creemos en la ingeniería honesta: software bien construido, datos transparentes y tecnología que realmente solucione problemas.',
+        author: '— Equipo de Soluciones Orba',
+      },
+      {
+        text: 'No creemos en soluciones genéricas para problemas específicos.',
+        author: 'Filosofía Orba',
+      },
+    ],
   },
   en: {
     eyebrow: 'Track Record',
@@ -62,10 +70,16 @@ export const NOSOTROS_TRANSLATIONS: Record<Locale, NosotrosTranslation> = {
       supportDescription:
         'We go far beyond delivering code: we remain actively involved in maintaining, scaling, and optimizing every system.',
     },
-    quote: {
-      text: 'We believe in honest engineering: cleanly constructed software, verifiable data, and technology that truly solves real problems.',
-      author: '— The Soluciones Orba Team',
-    },
+    quotes: [
+      {
+        text: 'We believe in honest engineering: cleanly constructed software, verifiable data, and technology that truly solves real problems.',
+        author: '— The Soluciones Orba Team',
+      },
+      {
+        text: 'We do not believe in generic solutions for specific problems.',
+        author: 'Orba Philosophy',
+      },
+    ],
   },
   pt: {
     eyebrow: 'Trajetória',
@@ -85,10 +99,15 @@ export const NOSOTROS_TRANSLATIONS: Record<Locale, NosotrosTranslation> = {
       supportDescription:
         'Não nos limitamos a entregar código: envolvemo-nos na manutenção, evolução contínua e performance de cada sistema.',
     },
-    quote: {
-      text: 'Acreditamos em uma engenharia honesta: software bem estruturado, dados transparentes e tecnologia que realmente resolve problemas.',
-      author: '— Equipe Soluciones Orba',
-    },
+    quotes: [
+      {
+        text: 'Acreditamos em uma engenharia honesta: software bem estruturado, dados transparentes e tecnologia que realmente resolve problemas.',
+        author: '— Equipe Soluciones Orba',
+      },
+      {
+        text: 'Não acreditamos em soluções genéricas para problemas específicos.',
+        author: 'Filosofia Orba',
+      },
+    ],
   },
 };
-

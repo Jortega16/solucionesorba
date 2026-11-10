@@ -6,7 +6,7 @@ export function AdminChrome({ children }: { children: ReactNode }) {
   return (
     <main className="min-h-screen bg-surface text-on-surface">
       <header className="border-b border-outline-variant bg-surface-container-lowest">
-        <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop h-20 flex items-center justify-between gap-md">
+        <div className="w-[92%] lg:w-[80%] mx-auto h-20 flex items-center justify-between gap-md">
           <Link href="/admin" className="font-headline-md text-headline-md text-primary">
             Backoffice
           </Link>
@@ -28,7 +28,7 @@ export function AdminChrome({ children }: { children: ReactNode }) {
           </nav>
         </div>
       </header>
-      <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+      <div className="w-[92%] lg:w-[80%] mx-auto py-xl">
         {children}
       </div>
     </main>

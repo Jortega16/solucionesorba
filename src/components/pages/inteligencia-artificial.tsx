@@ -1,3 +1,6 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/Icon';
 import { Container } from '@/components/ui/Container';
 import { PageImage } from '@/components/ui/PageImage';
@@ -6,8 +9,16 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { StatsRow } from '@/components/ui/StatsRow';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { IMAGES } from '@/lib/images';
+import { localeFromPathname, withLocale, type Locale } from '@/lib/i18n';
+import { SERVICES_TRANSLATIONS } from '@/lib/translations/services';
 
-export function InteligenciaArtificialPage() {
+export function InteligenciaArtificialPage({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy =
+    SERVICES_TRANSLATIONS[locale]?.inteligenciaArtificial ??
+    SERVICES_TRANSLATIONS.es.inteligenciaArtificial;
+
   return (
     <>
       <section className="relative min-h-[716px] flex items-center overflow-hidden bg-surface-container-lowest">
@@ -16,23 +27,21 @@ export function InteligenciaArtificialPage() {
             <div className="inline-flex items-center gap-xs bg-secondary-container px-sm py-xs rounded-full">
               <Icon name="neurology" className="text-on-secondary-container text-sm" />
               <span className="font-label-md text-label-md text-on-secondary-container">
-                Inteligencia Artificial
+                {copy.badge}
               </span>
             </div>
             <h1 className="font-display-lg text-display-lg text-primary max-w-xl">
-              Agentes de inteligencia artificial para automatizar procesos
+              {copy.title}
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
-              Implementamos soluciones de inteligencia artificial que ayudan a automatizar
-              tareas, mejorar la atención al cliente, procesar información y optimizar operaciones
-              internas.
+              {copy.description}
             </p>
             <div className="flex flex-wrap gap-sm pt-md">
-              <ButtonLink href="/contacto" className="px-xl py-md">
-                Solicitar demo
+              <ButtonLink href={withLocale('/contacto', locale)} className="px-xl py-md">
+                {copy.primaryCta}
               </ButtonLink>
-              <ButtonLink href="/proyectos" variant="outline" className="px-xl py-md">
-                Ver proyectos
+              <ButtonLink href={withLocale('/proyectos', locale)} variant="outline" className="px-xl py-md">
+                {copy.secondaryCta}
               </ButtonLink>
             </div>
           </div>
@@ -48,57 +57,82 @@ export function InteligenciaArtificialPage() {
 
       <section className="py-xl bg-surface">
         <Container>
-          <SectionHeading title="Nuestros Servicios de IA" accent centered />
+          <SectionHeading title={copy.sectionTitle} accent centered />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
             <div className="md:col-span-2 border border-outline-variant bg-white p-lg hover:border-secondary hover:shadow-md transition-all">
               <div className="flex flex-col md:flex-row gap-lg">
                 <div className="flex-1 space-y-md">
                   <Icon name="robot_2" className="text-secondary text-[40px]" />
-                  <h3 className="font-headline-md text-headline-md text-primary">Agentes de IA</h3>
+                  <h3 className="font-headline-md text-headline-md text-primary">
+                    {copy.cards.agentsTitle}
+                  </h3>
                   <p className="font-body-md text-on-surface-variant">
-                    Desarrollamos agentes autónomos capaces de razonar y ejecutar flujos de trabajo
-                    complejos, integrándose con sus herramientas actuales.
+                    {copy.cards.agentsDesc}
                   </p>
                 </div>
                 <PageImage
                   src={IMAGES.iaAgents}
-                  alt="Agentes de IA"
+                  alt={copy.cards.agentsTitle}
                   className="w-full h-48 object-cover rounded shadow-inner"
                 />
               </div>
             </div>
-            {[
-              { icon: 'chat_bubble_outline', title: 'Chat con documentos y datos', text: 'Consultas en lenguaje natural sobre documentos, hojas de cálculo y bases de datos.' },
-              { icon: 'sync_alt', title: 'Automatización de procesos', text: 'Integramos IA con sus sistemas para reducir tareas repetitivas y tiempos de respuesta.' },
-            ].map((s) => (
-              <div
-                key={s.title}
-                className="border border-outline-variant bg-white p-lg hover:border-secondary hover:shadow-md transition-all"
-              >
-                <Icon name={s.icon} className="text-secondary text-[40px] mb-md" />
-                <h3 className="font-headline-md text-headline-md text-primary mb-sm">{s.title}</h3>
-                <p className="font-body-md text-on-surface-variant">{s.text}</p>
-              </div>
-            ))}
+            <div className="border border-outline-variant bg-white p-lg hover:border-secondary hover:shadow-md transition-all">
+              <Icon name="chat_bubble_outline" className="text-secondary text-[40px] mb-md" />
+              <h3 className="font-headline-md text-headline-md text-primary mb-sm">
+                {copy.cards.chatbotsTitle}
+              </h3>
+              <p className="font-body-md text-on-surface-variant">{copy.cards.chatbotsDesc}</p>
+            </div>
+            <div className="border border-outline-variant bg-white p-lg hover:border-secondary hover:shadow-md transition-all">
+              <Icon name="description" className="text-secondary text-[40px] mb-md" />
+              <h3 className="font-headline-md text-headline-md text-primary mb-sm">
+                {copy.cards.nlpTitle}
+              </h3>
+              <p className="font-body-md text-on-surface-variant">{copy.cards.nlpDesc}</p>
+            </div>
+            <div className="md:col-span-2 border border-outline-variant bg-white p-lg hover:border-secondary hover:shadow-md transition-all">
+              <Icon name="sync_alt" className="text-secondary text-[40px] mb-md" />
+              <h3 className="font-headline-md text-headline-md text-primary mb-sm">
+                {copy.cards.integrationTitle}
+              </h3>
+              <p className="font-body-md text-on-surface-variant">{copy.cards.integrationDesc}</p>
+            </div>
           </div>
         </Container>
       </section>
 
       <StatsRow
         className="py-xl bg-surface-container-lowest"
-        stats={[
-          { value: 'Datos', label: 'Documentos y bases de datos' },
-          { value: 'Agentes', label: 'Ejecución de flujos' },
-          { value: 'APIs', label: 'Integración empresarial' },
-          { value: 'Seguro', label: 'Controles según el proyecto' },
-        ]}
+        stats={
+          locale === 'es'
+            ? [
+                { value: 'Datos', label: 'Documentos y bases de datos' },
+                { value: 'Agentes', label: 'Ejecución de flujos' },
+                { value: 'APIs', label: 'Integración empresarial' },
+                { value: 'Seguro', label: 'Controles según el proyecto' },
+              ]
+            : locale === 'en'
+            ? [
+                { value: 'Data', label: 'Documents and enterprise databases' },
+                { value: 'Agents', label: 'Autonomous multi-step execution' },
+                { value: 'APIs', label: 'Seamless enterprise integration' },
+                { value: 'Secure', label: 'Audited role-based governance' },
+              ]
+            : [
+                { value: 'Dados', label: 'Documentos e bancos de dados' },
+                { value: 'Agentes', label: 'Execução autônoma de fluxos' },
+                { value: 'APIs', label: 'Integração corporativa' },
+                { value: 'Seguro', label: 'Governança e controle de acesso' },
+              ]
+        }
       />
 
       <CtaBanner
         dark
-        title="¿Quiere identificar dónde la IA puede aportar valor?"
-        description="Evaluamos su proceso y proponemos una solución medible, integrada con sus herramientas actuales."
-        action={{ href: '/contacto', label: 'Solicitar una demostración' }}
+        title={copy.ctaTitle}
+        description={copy.ctaDesc}
+        action={{ href: withLocale('/contacto', locale), label: copy.ctaButton }}
       />
     </>
   );

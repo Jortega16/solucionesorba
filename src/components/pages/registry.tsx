@@ -1,9 +1,10 @@
 import type { ComponentType } from 'react';
 import type { PageSlug } from '@/lib/site';
+import type { Locale } from '@/lib/i18n';
 
 export type ContentPageSlug = Exclude<PageSlug, 'inicio'>;
 
-type PageLoader = () => Promise<{ default: ComponentType } | Record<string, ComponentType>>;
+type PageLoader = () => Promise<{ default: ComponentType<{ locale?: Locale }> } | Record<string, ComponentType<{ locale?: Locale }>>>;
 
 export const PAGE_LOADERS: Record<ContentPageSlug, PageLoader> = {
   'desarrollo-web': () =>
@@ -36,7 +37,7 @@ export function isContentPageSlug(slug: string): slug is ContentPageSlug {
   return slug in PAGE_LOADERS;
 }
 
-export async function loadPageComponent(slug: ContentPageSlug): Promise<ComponentType> {
+export async function loadPageComponent(slug: ContentPageSlug): Promise<ComponentType<{ locale?: Locale }>> {
   const mod = await PAGE_LOADERS[slug]();
   return mod.default;
 }

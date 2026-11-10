@@ -1,31 +1,38 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
 import { ServiceHero } from '@/components/ui/ServiceHero';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { IMAGES } from '@/lib/images';
+import { localeFromPathname, withLocale, type Locale } from '@/lib/i18n';
+import { SERVICES_TRANSLATIONS } from '@/lib/translations/services';
 
-export function PrototipadoPage() {
+export function PrototipadoPage({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy =
+    SERVICES_TRANSLATIONS[locale]?.prototipado ??
+    SERVICES_TRANSLATIONS.es.prototipado;
+
   return (
     <>
       <ServiceHero
-        badge={{ icon: 'science', text: 'Centro de innovación' }}
-        title="Prototipado tecnológico para validar ideas"
-        description="Convertimos ideas en prototipos funcionales que permiten validar conceptos, probar tecnologías y evaluar soluciones antes de llevarlas a producción."
+        badge={{ icon: 'science', text: copy.badge }}
+        title={copy.title}
+        description={copy.description}
         image={IMAGES.prototipo}
-        imageAlt="Prototipado tecnológico"
-        primaryCta={{ href: '/contacto', label: 'Solicitar consultoría I+D', icon: 'arrow_forward' }}
-        secondaryCta={{ href: '/proyectos', label: 'Ver casos de éxito' }}
+        imageAlt={copy.badge}
+        primaryCta={{ href: withLocale('/contacto', locale), label: copy.primaryCta, icon: 'arrow_forward' }}
+        secondaryCta={{ href: withLocale('/proyectos', locale), label: copy.secondaryCta }}
       />
 
       <section className="py-xl">
         <Container>
-          <SectionHeading title="Nuestros Servicios de I+D" />
+          <SectionHeading title={copy.sectionTitle} />
           <div className="grid md:grid-cols-3 gap-gutter">
-            {[
-              { title: 'Prototipos funcionales', text: 'Versiones operativas para validar mecánica, electrónica y UX.' },
-              { title: 'Prueba de concepto (POC)', text: 'Validación rápida de viabilidad técnica y de negocio.' },
-              { title: 'Sistemas embebidos', text: 'Módulos IoT y firmware para productos conectados.' },
-            ].map((s) => (
+            {copy.items.map((s) => (
               <div
                 key={s.title}
                 className="bg-surface-container-lowest border border-outline-variant p-lg rounded-lg"
@@ -39,9 +46,9 @@ export function PrototipadoPage() {
       </section>
 
       <CtaBanner
-        title="¿Listo para prototipar su próxima innovación?"
-        description="Reduzca el riesgo de su inversión tecnológica con un prototipo funcional diseñado por expertos en ingeniería."
-        action={{ href: '/contacto', label: 'Solicitar Consultoría R&D' }}
+        title={copy.ctaTitle}
+        description={copy.ctaDesc}
+        action={{ href: withLocale('/contacto', locale), label: copy.ctaButton }}
       />
     </>
   );

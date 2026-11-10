@@ -1,36 +1,26 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import type { PublicBlogPost } from '@/lib/cms';
-import type { Locale } from '@/lib/i18n';
-
-const PLACEHOLDER_POSTS = [
-  {
-    title: 'Cómo elegir entre desarrollo web y software a medida',
-    category: 'Desarrollo digital',
-    date: 'Próximamente',
-  },
-  {
-    title: 'IA en la industria: casos prácticos para pymes',
-    category: 'IA y datos',
-    date: 'Próximamente',
-  },
-  {
-    title: 'Sistemas ciberfísicos sin complicar su operación',
-    category: 'Ingeniería',
-    date: 'Próximamente',
-  },
-];
+import { localeFromPathname, withLocale, type Locale } from '@/lib/i18n';
+import { BLOG_TRANSLATIONS } from '@/lib/translations/blog';
 
 export function BlogPage({
   posts = [],
-  locale = 'es',
+  locale: propLocale,
 }: {
   posts?: PublicBlogPost[];
   locale?: Locale;
 }) {
-  const contactHref = locale === 'es' ? '/contacto' : `/${locale}/contacto`;
-  const blogPrefix = locale === 'es' ? '/blog' : `/${locale}/blog`;
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy = BLOG_TRANSLATIONS[locale] ?? BLOG_TRANSLATIONS.es;
+  const contactHref = withLocale('/contacto', locale);
+  const blogPrefix = withLocale('/blog', locale);
+
   const visiblePosts =
     posts.length > 0
       ? posts.map((post) => ({
@@ -38,24 +28,27 @@ export function BlogPage({
           category: post.category,
           date: post.publishedAt
             ? new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(post.publishedAt)
-            : 'Publicado',
+            : copy.publishedDate,
           href: `${blogPrefix}/${post.slug}`,
         }))
-      : PLACEHOLDER_POSTS.map((post) => ({ ...post, href: undefined }));
+      : copy.placeholderPosts.map((post) => ({
+          ...post,
+          date: copy.upcomingDate,
+          href: undefined,
+        }));
 
   return (
     <>
       <section className="py-xl md:py-32 border-b border-outline-variant bg-surface-container-low">
         <Container>
           <span className="font-label-md text-label-md text-secondary tracking-widest uppercase mb-sm block">
-            Blog
+            {copy.eyebrow}
           </span>
           <h1 className="font-display-lg text-display-lg text-primary mb-md leading-tight max-w-3xl">
-            Ideas, guías y novedades tecnológicas
+            {copy.heroTitle}
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-            Artículos sobre desarrollo, automatización, inteligencia artificial y transformación
-            digital para empresas y equipos técnicos.
+            {copy.heroDescription}
           </p>
         </Container>
       </section>
@@ -87,14 +80,14 @@ export function BlogPage({
           {posts.length === 0 ? (
             <>
               <p className="font-body-md text-on-surface-variant text-center pt-md">
-                Estamos preparando el primer contenido. Mientras tanto,{' '}
+                {copy.emptyNoticePrefix}
                 <Link href={contactHref} className="text-secondary hover:underline">
-                  cuéntenos qué temas le interesan
+                  {copy.emptyNoticeLink}
                 </Link>
                 .
               </p>
               <div className="text-center pt-sm">
-                <ButtonLink href={contactHref}>Suscribirme a novedades</ButtonLink>
+                <ButtonLink href={contactHref}>{copy.subscribeButton}</ButtonLink>
               </div>
             </>
           ) : null}

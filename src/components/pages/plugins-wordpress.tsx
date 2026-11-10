@@ -1,38 +1,43 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/Icon';
 import { Container } from '@/components/ui/Container';
-import { PageImage } from '@/components/ui/PageImage';
 import { ServiceHero } from '@/components/ui/ServiceHero';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { IMAGES } from '@/lib/images';
+import { localeFromPathname, withLocale, type Locale } from '@/lib/i18n';
+import { SERVICES_TRANSLATIONS } from '@/lib/translations/services';
 
-export function PluginsWordpressPage() {
+export function PluginsWordpressPage({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy =
+    SERVICES_TRANSLATIONS[locale]?.pluginsWordpress ??
+    SERVICES_TRANSLATIONS.es.pluginsWordpress;
+
   return (
     <>
       <ServiceHero
-        badge={{ icon: 'settings_ethernet', text: 'Arquitectura WordPress' }}
-        title="Desarrollo de plugins personalizados para WordPress"
-        description="Desarrollamos plugins personalizados para WordPress que permiten ampliar las funcionalidades de sitios web, tiendas en línea y plataformas digitales con enfoque en rendimiento y escalabilidad."
+        badge={{ icon: 'settings_ethernet', text: copy.badge }}
+        title={copy.title}
+        description={copy.description}
         image={IMAGES.wordpress}
-        imageAlt="Desarrollo de plugins WordPress"
-        primaryCta={{ href: '/contacto', label: 'Cotizar plugin', icon: 'arrow_forward' }}
+        imageAlt={copy.badge}
+        primaryCta={{ href: withLocale('/contacto', locale), label: copy.primaryCta, icon: 'arrow_forward' }}
       />
 
       <section className="py-xl">
         <Container>
-          <SectionHeading title="Nuestras Soluciones de Ingeniería" />
+          <SectionHeading title={copy.sectionTitle} />
           <div className="grid md:grid-cols-2 gap-gutter">
-            {[
-              'Plugins personalizados',
-              'Integraciones API',
-              'Funciones WooCommerce',
-              'Pasarelas de pago',
-            ].map((title) => (
-              <div key={title} className="border border-outline-variant p-lg bg-white rounded-lg">
+            {copy.items.map((item) => (
+              <div key={item.title} className="border border-outline-variant p-lg bg-white rounded-lg">
                 <Icon name="check_circle" className="text-secondary mb-sm" />
-                <h3 className="font-headline-md text-primary">{title}</h3>
+                <h3 className="font-headline-md text-primary">{item.title}</h3>
                 <p className="font-body-md text-on-surface-variant mt-sm">
-                  Código optimizado siguiendo WordPress Coding Standards.
+                  {item.desc}
                 </p>
               </div>
             ))}
@@ -41,9 +46,9 @@ export function PluginsWordpressPage() {
       </section>
 
       <CtaBanner
-        title="Soluciones Orientadas a Resultados"
-        description="Auditamos su ecosistema actual para integrar el nuevo plugin sin fricciones ni conflictos."
-        action={{ href: '/contacto', label: 'Hablar con un ingeniero' }}
+        title={copy.ctaTitle}
+        description={copy.ctaDesc}
+        action={{ href: withLocale('/contacto', locale), label: copy.ctaButton }}
       />
     </>
   );

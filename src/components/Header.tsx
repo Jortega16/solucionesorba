@@ -6,30 +6,27 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/Icon';
 import { ServicesMenu, ServicesMenuMobile } from '@/components/ServicesMenu';
-import { DEFAULT_LOCALE, LOCALES, type Locale } from '@/lib/i18n';
-import { MAIN_NAV, NAV_AFTER_SERVICES, SITE, type NavItem } from '@/lib/site';
-
-function localeFromPathname(pathname: string): Locale {
-  const segment = pathname.split('/')[1];
-  return (LOCALES as readonly string[]).includes(segment) ? (segment as Locale) : DEFAULT_LOCALE;
-}
+import { localeFromPathname, withLocale, LOCALES, type Locale } from '@/lib/i18n';
+import { SITE } from '@/lib/site';
+import {
+  NAV_ITEMS_MAIN,
+  NAV_ITEMS_AFTER_SERVICES,
+  HEADER_COPY,
+  type LocalizedNavItem,
+} from '@/lib/translations/common';
 
 function stripLocale(pathname: string) {
-  const segment = pathname.split('/')[1];
+  const segment = pathname.split('/').filter(Boolean)[0];
   if (!(LOCALES as readonly string[]).includes(segment)) return pathname;
   const stripped = pathname.replace(`/${segment}`, '') || '/';
   return stripped;
-}
-
-function withLocale(href: string, locale: Locale) {
-  if (locale === DEFAULT_LOCALE) return href;
-  return href === '/' ? `/${locale}` : `/${locale}${href}`;
 }
 
 export function Header() {
   const pathname = usePathname();
   const locale = localeFromPathname(pathname);
   const activePathname = stripLocale(pathname);
+  const copy = HEADER_COPY[locale];
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -51,7 +48,7 @@ export function Header() {
     };
   }, [mobileOpen]);
 
-  const isActive = (item: NavItem) =>
+  const isActive = (item: LocalizedNavItem) =>
     item.match?.some((m) => (m === '/' ? activePathname === '/' : activePathname.startsWith(m))) ??
     activePathname === item.href;
 
@@ -68,7 +65,7 @@ export function Header() {
         scrolled ? 'shadow-sm bg-surface/95 backdrop-blur-md' : 'bg-surface'
       }`}
     >
-      <div className="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full gap-sm">
+      <div className="flex justify-between items-center w-[92%] lg:w-[80%] mx-auto w-full gap-sm">
         <Link href={withLocale('/', locale)} className="flex items-center shrink-0" aria-label={SITE.name}>
           <Image
             src={SITE.logo}
@@ -81,15 +78,15 @@ export function Header() {
         </Link>
 
         <nav className="hidden lg:flex items-center gap-lg" aria-label="Principal">
-          {MAIN_NAV.map((item) => (
+          {NAV_ITEMS_MAIN.map((item) => (
             <Link key={item.href} href={withLocale(item.href, locale)} className={navLinkClass(isActive(item))}>
-              {item.label}
+              {item.label[locale]}
             </Link>
           ))}
           <ServicesMenu />
-          {NAV_AFTER_SERVICES.map((item) => (
+          {NAV_ITEMS_AFTER_SERVICES.map((item) => (
             <Link key={item.href} href={withLocale(item.href, locale)} className={navLinkClass(isActive(item))}>
-              {item.label}
+              {item.label[locale]}
             </Link>
           ))}
         </nav>
@@ -99,7 +96,7 @@ export function Header() {
             href={withLocale('/contacto', locale)}
             className="bg-primary text-on-primary px-lg py-xs font-label-md text-label-md font-bold rounded-lg hover:opacity-90 active:scale-95 transition-all"
           >
-            Contacto
+            {copy.contactButton}
           </Link>
           <div className="hidden md:flex items-center gap-xs font-label-md text-label-md">
             {LOCALES.map((item) => (
@@ -116,7 +113,7 @@ export function Header() {
             type="button"
             className="lg:hidden p-xs text-primary"
             aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-label={mobileOpen ? copy.closeMenuAria : copy.openMenuAria}
             onClick={() => setMobileOpen((value) => !value)}
           >
             <Icon name={mobileOpen ? 'close' : 'menu'} className="text-2xl" />
@@ -126,8 +123,8 @@ export function Header() {
 
       {mobileOpen ? (
         <div className="lg:hidden absolute top-20 left-0 right-0 max-h-[calc(100vh-5rem)] overflow-y-auto border-b border-outline-variant bg-surface shadow-lg">
-          <nav className="max-w-7xl mx-auto px-margin-mobile py-sm" aria-label="Móvil">
-            {MAIN_NAV.map((item) => (
+          <nav className="w-[92%] mx-auto py-sm" aria-label={copy.mobileNavAria}>
+            {NAV_ITEMS_MAIN.map((item) => (
               <Link
                 key={item.href}
                 href={withLocale(item.href, locale)}
@@ -135,11 +132,11 @@ export function Header() {
                   isActive(item) ? 'text-secondary font-bold' : 'text-on-surface-variant'
                 }`}
               >
-                {item.label}
+                {item.label[locale]}
               </Link>
             ))}
             <ServicesMenuMobile open onNavigate={() => setMobileOpen(false)} />
-            {NAV_AFTER_SERVICES.map((item) => (
+            {NAV_ITEMS_AFTER_SERVICES.map((item) => (
               <Link
                 key={item.href}
                 href={withLocale(item.href, locale)}
@@ -147,7 +144,7 @@ export function Header() {
                   isActive(item) ? 'text-secondary font-bold' : 'text-on-surface-variant'
                 }`}
               >
-                {item.label}
+                {item.label[locale]}
               </Link>
             ))}
             <div className="flex gap-sm py-sm font-label-md text-label-md">

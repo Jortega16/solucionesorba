@@ -14,6 +14,7 @@ import {
 } from '@/lib/cms';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/lib/i18n';
 import { PAGE_META } from '@/lib/site';
+import { LOCALIZED_PAGE_META } from '@/lib/translations/meta';
 
 export const dynamic = 'force-dynamic';
 
@@ -38,7 +39,7 @@ function parseSegments(segments: string[]) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { segments } = await params;
-  const { locale, slug, postSlug } = parseSegments(segments);
+  const { locale, slug, postSlug, path } = parseSegments(segments);
   const canonical = `/${segments.join('/')}`;
 
   if (slug === 'blog' && postSlug) {
@@ -47,11 +48,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const cmsPage = await getPublishedPage(slug, locale);
-  if (cmsPage) return { title: cmsPage.title, description: cmsPage.description, alternates: { canonical } };
+  if (hasEditableCmsContent(cmsPage)) return { title: cmsPage.title, description: cmsPage.description, alternates: { canonical } };
 
-  if (isContentPageSlug(slug)) {
-    const meta = PAGE_META[slug];
-    return { title: meta.title, description: meta.description, alternates: { canonical } };
+  const targetSlug = path.length === 0 ? 'inicio' : slug;
+  if (targetSlug in LOCALIZED_PAGE_META) {
+    const meta = LOCALIZED_PAGE_META[targetSlug as keyof typeof LOCALIZED_PAGE_META]?.[locale] ?? PAGE_META[targetSlug as keyof typeof PAGE_META];
+    if (meta) {
+      return { title: meta.title, description: meta.description, alternates: { canonical } };
+    }
   }
 
   return {};
@@ -65,7 +69,7 @@ export default async function DynamicPage({ params }: Props) {
     const cmsPage = await getPublishedPage('inicio', locale);
     return (
       <SiteShell>
-        {hasEditableCmsContent(cmsPage) ? <CmsContentPage page={cmsPage} /> : <HomePage />}
+        {hasEditableCmsContent(cmsPage) ? <CmsContentPage page={cmsPage} /> : <HomePage locale={locale} />}
       </SiteShell>
     );
   }
@@ -103,7 +107,7 @@ export default async function DynamicPage({ params }: Props) {
   const Page = await loadPageComponent(slug);
   return (
     <SiteShell mainClassName={slug === 'contacto' ? 'pt-32 pb-xl' : 'pt-20'}>
-      <Page />
+      <Page locale={locale} />
     </SiteShell>
   );
 }

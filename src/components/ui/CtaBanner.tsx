@@ -50,7 +50,7 @@ export function CtaBanner({
 
   return (
     <section className={className}>
-      <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+      <div className="w-[92%] lg:w-[80%] mx-auto">
         {inner}
         {children}
       </div>

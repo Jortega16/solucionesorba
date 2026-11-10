@@ -31,4 +31,5 @@ export const IMAGES = {
     'https://lh3.googleusercontent.com/aida-public/AB6AXuCrhoZwWzk8EMBn5kCq97Yt5tlS_1du7nItHHWqRD0PNqdEf9hqafiDXvgtzAqAvYgLPL6w6lu4f1Q4eaKUxUfAbp867Wkgl_wlAFMR-gG9t62FwcH1zd58y999cNgfJG58ErZDD-D4xWop5l8xn--E01A25kQ3wjzJN0w5me-Wi23wBQP0nYX6n5NNooACbVB7zUcvcSpXWI6r_86VAmSXOr4pF1cPvNMOOupYI0oMA4NbPLGkSg4k-xRFvyE1yZntptNToJkK2D4',
   proyectoIa:
     'https://lh3.googleusercontent.com/aida-public/AB6AXuAY8bq5-tRCkddo3tqFU2H-oPVT8P7_bpDZ9_c5Sipp1Sor0EAREM6xL4Sfqr7afiDJfn6ESVydeQ3rKpE1tXoNvgFOejaENsYI3KdJy9VR1cg9ShBYbebVAJIW5PP9WCcSthmXpt-Mn8joeoTvSleZCvk9e3EbeT7t3P_SGvgDqQfDU3sbeQJncX1yFvdH7zr_t6j1pn1i_x10JvTbZ6Ol2xuoz-NtBKp0qjz243pywRI9lnV1hV-TlAxOGJ_QZ8H0b8uKhxBBLvg',
+  facturacionOrba: '/projects/facturacion-orba/dashboard-crc-800.webp',
 } as const;

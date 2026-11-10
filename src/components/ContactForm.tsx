@@ -3,6 +3,9 @@
 import { Icon } from '@/components/Icon';
 import { PrivacyPolicyModal } from '@/components/PrivacyPolicyModal';
 import { SITE } from '@/lib/site';
+import { localeFromPathname, type Locale } from '@/lib/i18n';
+import { CONTACTO_TRANSLATIONS } from '@/lib/translations/contacto';
+import { usePathname } from 'next/navigation';
 import Script from 'next/script';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 
@@ -20,7 +23,11 @@ declare global {
 const RECAPTCHA_SITE_KEY =
   process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdFd7wtAAAAAPeeWLfccpVO5so_mFUd4dJbsa8B';
 
-export function ContactForm() {
+export function ContactForm({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  const locale = propLocale ?? localeFromPathname(pathname);
+  const copy = CONTACTO_TRANSLATIONS[locale]?.form ?? CONTACTO_TRANSLATIONS.es.form;
+
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [privacyOpen, setPrivacyOpen] = useState(false);
@@ -111,7 +118,7 @@ export function ContactForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error ?? 'No se pudo enviar el mensaje.');
+        throw new Error(result.error ?? copy.errorDefault);
       }
 
       setStatus('success');
@@ -120,7 +127,7 @@ export function ContactForm() {
     } catch (error) {
       setStatus('error');
       setErrorMessage(
-        error instanceof Error ? error.message : 'No se pudo enviar el mensaje.'
+        error instanceof Error ? error.message : copy.errorDefault
       );
     }
   }
@@ -129,16 +136,16 @@ export function ContactForm() {
     return (
       <div className="text-center py-xl space-y-md">
         <Icon name="check_circle" className="text-verde text-5xl" />
-        <h2 className="font-headline-md text-headline-md text-primary">Mensaje enviado</h2>
+        <h2 className="font-headline-md text-headline-md text-primary">{copy.successTitle}</h2>
         <p className="font-body-md text-on-surface-variant max-w-md mx-auto">
-          Gracias por contactarnos. Responderemos en un plazo máximo de un día hábil a la dirección indicada.
+          {copy.successMessage}
         </p>
         <button
           type="button"
           onClick={() => setStatus('idle')}
           className="font-label-md text-label-md text-secondary hover:underline"
         >
-          Enviar otro mensaje
+          {copy.sendAnother}
         </button>
       </div>
     );
@@ -198,13 +205,13 @@ export function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
         <div className="space-y-xs">
           <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="name">
-            Nombre
+            {copy.nameLabel}
           </label>
           <input
             className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
             id="name"
             name="name"
-            placeholder="Su nombre completo"
+            placeholder={copy.namePlaceholder}
             required
             disabled={status === 'loading'}
             type="text"
@@ -212,13 +219,13 @@ export function ContactForm() {
         </div>
         <div className="space-y-xs">
           <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="company">
-            Empresa
+            {copy.companyLabel}
           </label>
           <input
             className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
             id="company"
             name="company"
-            placeholder="Nombre de la empresa"
+            placeholder={copy.companyPlaceholder}
             disabled={status === 'loading'}
             type="text"
           />
@@ -227,13 +234,13 @@ export function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
         <div className="space-y-xs">
           <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="email">
-            Correo
+            {copy.emailLabel}
           </label>
           <input
             className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
             id="email"
             name="email"
-            placeholder="correo@ejemplo.com"
+            placeholder={copy.emailPlaceholder}
             required
             disabled={status === 'loading'}
             type="email"
@@ -241,13 +248,13 @@ export function ContactForm() {
         </div>
         <div className="space-y-xs">
           <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="phone">
-            Teléfono
+            {copy.phoneLabel}
           </label>
           <input
             className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
             id="phone"
             name="phone"
-            placeholder="+506 8000-0000"
+            placeholder={copy.phonePlaceholder}
             disabled={status === 'loading'}
             type="tel"
           />
@@ -255,7 +262,7 @@ export function ContactForm() {
       </div>
       <div className="space-y-xs">
         <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="project-type">
-          Tipo de proyecto
+          {copy.projectTypeLabel}
         </label>
         <select
           className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
@@ -265,46 +272,48 @@ export function ContactForm() {
           disabled={status === 'loading'}
         >
           <option disabled value="">
-            Seleccione una opción
+            {copy.projectTypePlaceholder}
           </option>
-          <option value="web">Desarrollo web</option>
-          <option value="software">Software a medida</option>
-          <option value="ai">IA y análisis de datos</option>
-          <option value="iot">Sistemas ciberfísicos</option>
-          <option value="other">Otro / Consultoría</option>
+          <option value="web">{copy.projectTypes.web}</option>
+          <option value="software">{copy.projectTypes.software}</option>
+          <option value="ai">{copy.projectTypes.ai}</option>
+          <option value="iot">{copy.projectTypes.iot}</option>
+          <option value="other">{copy.projectTypes.other}</option>
         </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
         <div className="space-y-xs">
-          <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="budget">Presupuesto aproximado</label>
+          <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="budget">
+            {copy.budgetLabel}
+          </label>
           <select className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all" id="budget" name="budget" defaultValue="" disabled={status === 'loading'}>
-            <option value="">Por definir</option>
-            <option value="Menos de $2,500">Menos de $2,500</option>
-            <option value="$2,500 a $7,500">$2,500 a $7,500</option>
-            <option value="$7,500 a $20,000">$7,500 a $20,000</option>
-            <option value="Más de $20,000">Más de $20,000</option>
+            <option value="">{copy.budgetTbd}</option>
+            {copy.budgetTiers.map((tier) => (
+              <option key={tier} value={tier}>{tier}</option>
+            ))}
           </select>
         </div>
         <div className="space-y-xs">
-          <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="start-date">Inicio estimado</label>
+          <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="start-date">
+            {copy.startDateLabel}
+          </label>
           <select className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all" id="start-date" name="start-date" defaultValue="" disabled={status === 'loading'}>
-            <option value="">Por definir</option>
-            <option value="Lo antes posible">Lo antes posible</option>
-            <option value="En 1 a 3 meses">En 1 a 3 meses</option>
-            <option value="En 3 a 6 meses">En 3 a 6 meses</option>
-            <option value="Más adelante">Más adelante</option>
+            <option value="">{copy.startDateTbd}</option>
+            {copy.startDateOptions.map((opt) => (
+              <option key={opt} value={opt}>{opt}</option>
+            ))}
           </select>
         </div>
       </div>
       <div className="space-y-xs">
         <label className="font-label-md text-label-md text-on-surface-variant" htmlFor="message">
-          Mensaje
+          {copy.messageLabel}
         </label>
         <textarea
           className="w-full bg-surface border border-outline rounded-lg px-md py-sm font-body-md text-body-md input-focus-ring transition-all"
           id="message"
           name="message"
-          placeholder="Describa brevemente su necesidad, objetivo o proceso actual..."
+          placeholder={copy.messagePlaceholder}
           required
           rows={5}
           disabled={status === 'loading'}
@@ -320,15 +329,15 @@ export function ContactForm() {
           type="checkbox"
         />
         <label className="font-caption text-caption text-on-surface-variant" htmlFor="terms">
-          Acepto la{' '}
+          {copy.termsPrefix}
           <button
             type="button"
             onClick={() => setPrivacyOpen(true)}
             className="text-secondary underline hover:text-primary transition-colors"
           >
-            Política de Privacidad
-          </button>{' '}
-          y el tratamiento de mis datos.
+            {copy.privacyLink}
+          </button>
+          {copy.termsSuffix}
         </label>
       </div>
       <button
@@ -336,7 +345,7 @@ export function ContactForm() {
         type="submit"
         disabled={status === 'loading'}
       >
-        {status === 'loading' ? 'Enviando…' : 'Enviar solicitud'}
+        {status === 'loading' ? copy.submitting : copy.submit}
         <Icon name={status === 'loading' ? 'hourglass_empty' : 'send'} />
       </button>
       </form>

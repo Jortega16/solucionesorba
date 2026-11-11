@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/Icon';
 import { Container } from '@/components/ui/Container';
@@ -8,6 +8,7 @@ import { PageImage } from '@/components/ui/PageImage';
 import { IMAGES } from '@/lib/images';
 import { localeFromPathname, type Locale } from '@/lib/i18n';
 import { NOSOTROS_TRANSLATIONS } from '@/lib/translations/nosotros';
+import { isHolidaySeason } from '@/lib/theme/season';
 
 export function NosotrosPage({ locale: propLocale }: { locale?: Locale }) {
   const pathname = usePathname();
@@ -16,7 +17,26 @@ export function NosotrosPage({ locale: propLocale }: { locale?: Locale }) {
 
   const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const quotes = copy.quotes;
+
+  const isHoliday = isHolidaySeason();
+  const quotes = useMemo(() => {
+    if (!isHoliday) return copy.quotes;
+    const holidayQuote = {
+      es: {
+        text: 'Agradecemos su confianza durante este año. ¡Les deseamos felices fiestas y un próspero año nuevo lleno de proyectos exitosos!',
+        author: '🎄 Saludos de Fin de Año · Soluciones Orba',
+      },
+      en: {
+        text: 'Thank you for your partnership and trust throughout this year. Wishing you happy holidays and a prosperous New Year!',
+        author: '🎄 Season’s Greetings · Soluciones Orba',
+      },
+      pt: {
+        text: 'Agradecemos pela parceria e confiança neste ano. Desejamos a todos boas festas e um próspero Ano Novo com grandes conquistas!',
+        author: '🎄 Boas Festas · Soluciones Orba',
+      },
+    }[locale];
+    return [...copy.quotes, holidayQuote];
+  }, [copy.quotes, isHoliday, locale]);
 
   useEffect(() => {
     if (isPaused || quotes.length <= 1) return;

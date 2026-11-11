@@ -9,6 +9,19 @@
   --color-amarillo: #f59e0b;
 }
 
+/* ==========================================================================
+   Tema de Temporada Navideña (Activado con data-season="christmas")
+   ========================================================================== */
+:root[data-season='christmas'],
+[data-season='christmas'] {
+  --color-secondary: var(--color-rojo);
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fee2e2;
+  --color-on-secondary-container: #991b1b;
+  --color-secondary-fixed: #fee2e2;
+  --color-on-secondary-fixed: #991b1b;
+}
+
 @theme {
   --color-background: #f8fafc;
   --color-on-background: var(--color-negro);

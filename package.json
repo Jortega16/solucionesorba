@@ -5,7 +5,7 @@
     "clean": "rm -rf .next node_modules/.cache",
     "dev": "next dev",
     "dev:reset": "(lsof -ti :3000 | xargs kill -9 2>/dev/null || true) && npm run clean && next dev",
-    "build": "next build",
+    "build": "node scripts/validate-editorial-posts.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "build:static": "node scripts/build-site.mjs",

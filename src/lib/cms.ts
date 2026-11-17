@@ -2,6 +2,7 @@ import type { BlogPost, ContentPage } from '@prisma/client';
 import { prisma, withDb } from './db';
 import { DEFAULT_LOCALE, LOCALES, type Locale } from './i18n';
 import { PAGE_META, type PageSlug } from './site';
+import { getEditorialPosts, mergePublishedPosts } from './editorial-posts';
 
 export type PublicBlogPost = Pick<
   BlogPost,
@@ -34,37 +35,41 @@ export async function getPublishedPage(slug: string, locale: Locale = DEFAULT_LO
 }
 
 export async function getPublishedBlogPosts(locale: Locale = DEFAULT_LOCALE) {
-  return withDb(
+  const posts = await withDb(
     () =>
       prisma.blogPost.findMany({
-        where: { locale, status: 'PUBLISHED' },
+        where: { locale },
         orderBy: [{ publishedAt: 'desc' }, { updatedAt: 'desc' }],
       }),
     []
   );
+  return mergePublishedPosts(posts).filter((post) => post.locale === locale);
 }
 
 export async function getPublishedBlogPost(slug: string, locale: Locale = DEFAULT_LOCALE) {
-  return withDb(
+  const post = await withDb(
     () =>
       prisma.blogPost.findFirst({
-        where: { slug, locale, status: 'PUBLISHED' },
+        where: { slug, locale },
       }),
     null
   );
+  if (post) return post.status === 'PUBLISHED' ? post : null;
+  return getEditorialPosts().find((entry) => entry.slug === slug && entry.locale === locale) ?? null;
 }
 
 export async function getPublishedSitemapEntries() {
-  return withDb(
+  const result = await withDb(
     async () => {
       const [pages, posts] = await Promise.all([
         prisma.contentPage.findMany({ where: { status: 'PUBLISHED' } }),
-        prisma.blogPost.findMany({ where: { status: 'PUBLISHED' } }),
+        prisma.blogPost.findMany(),
       ]);
       return { pages, posts };
     },
     { pages: [], posts: [] as BlogPost[] }
   );
+  return { ...result, posts: mergePublishedPosts(result.posts) };
 }
 
 export async function ensureDefaultContentPages() {

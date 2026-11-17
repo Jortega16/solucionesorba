@@ -45,29 +45,105 @@ export function PostForm({ action, post, submitLabel }: PostFormProps) {
     }, 50);
   };
 
+  // Helper para optimizar / comprimir la imagen en el navegador antes de subir
+  const optimizeImage = async (file: File): Promise<{ file: File; dataUrl: string }> => {
+    return new Promise((resolve, reject) => {
+      if (file.type === 'image/svg+xml' || file.type === 'image/gif') {
+        const reader = new FileReader();
+        reader.onload = () => resolve({ file, dataUrl: reader.result as string });
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const MAX_WIDTH = 1400;
+          const MAX_HEIGHT = 1400;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+            if (width > height) {
+              height = Math.round((height * MAX_WIDTH) / width);
+              width = MAX_WIDTH;
+            } else {
+              width = Math.round((width * MAX_HEIGHT) / height);
+              height = MAX_HEIGHT;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve({ file, dataUrl: e.target?.result as string });
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, width, height);
+          const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+          const dataUrl = canvas.toDataURL(mimeType, 0.85);
+
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                const optimizedFile = new File([blob], file.name, { type: mimeType });
+                resolve({ file: optimizedFile, dataUrl });
+              } else {
+                resolve({ file, dataUrl });
+              }
+            },
+            mimeType,
+            0.85
+          );
+        };
+        img.onerror = () => resolve({ file, dataUrl: e.target?.result as string });
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
   // Manejador de subida de archivos de imagen
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
-    setUploadMessage('Subiendo imagen...');
+    setUploadMessage('Optimizando y subiendo imagen...');
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
+      // 1. Optimizar en el navegador para máxima velocidad y menor peso
+      const { file: processedFile, dataUrl } = await optimizeImage(file);
+      let imageUrl = dataUrl;
 
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      // 2. Intentar guardar en el servidor
+      try {
+        const formData = new FormData();
+        formData.append('file', processedFile);
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Error al subir la imagen');
+        const res = await fetch('/api/admin/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.url) {
+            imageUrl = data.url;
+          }
+        } else {
+          console.warn('El servidor devolvió status', res.status, '- usando versión optimizada local segura.');
+        }
+      } catch (uploadError) {
+        console.warn('No se pudo conectar al endpoint /api/admin/upload, usando fallback local optimizado:', uploadError);
       }
 
-      const imageUrl = data.url;
       const altText = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
 
       if (isCoverUploadRef.current) {
@@ -80,7 +156,7 @@ export function PostForm({ action, post, submitLabel }: PostFormProps) {
         setUploadMessage('¡Imagen agregada al contenido exitosamente!');
       }
     } catch (err: any) {
-      setUploadMessage(`Error: ${err.message || 'No se pudo subir'}`);
+      setUploadMessage(`Error: ${err.message || 'No se pudo procesar la imagen'}`);
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';

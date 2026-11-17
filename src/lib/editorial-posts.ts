@@ -10,6 +10,7 @@ export interface EditorialPost {
   excerpt: string;
   content: string;
   status: string;
+  publicationMode?: string;
   publishedAt: string;
   updatedAt: string;
   sourceUrls: string[];

@@ -21,7 +21,8 @@ for (const post of posts) {
   const key = `${post.locale}:${post.slug}`;
   assert.ok(!slugs.has(key), `Duplicate slug: ${key}`);
   slugs.add(key);
-  if (post.status === 'PUBLISHED') {
+  assert.ok(post.publicationMode === undefined || ['scheduled', 'manual'].includes(post.publicationMode), 'Invalid publication mode');
+  if (post.status === 'PUBLISHED' && post.publicationMode !== 'manual') {
     const day = `${post.locale}:${localDate.format(new Date(post.publishedAt))}`;
     assert.ok(!days.has(day), `More than one editorial article for ${day}`);
     days.add(day);

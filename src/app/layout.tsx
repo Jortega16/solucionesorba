@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 // Font imports removed; using Google Fonts via <link>
 import Script from 'next/script';
 import { Footer } from '@/components/Footer';
+import { Snowfall } from '@/components/seasonal/Snowfall';
+import { isHolidaySeason } from '@/lib/theme/season';
 import { SITE } from '@/lib/site';
 import './globals.css';
 
@@ -40,10 +42,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isHoliday = isHolidaySeason();
+
   return (
     <html
       lang="es"
-
+      data-season={isHoliday ? 'christmas' : undefined}
       suppressHydrationWarning
     >
       <head>
@@ -64,6 +68,7 @@ export default function RootLayout({
         className="bg-background text-on-background font-body-md selection:bg-secondary selection:text-white antialiased"
         suppressHydrationWarning
       >
+        {isHoliday && <Snowfall />}
         {GA_MEASUREMENT_ID ? (
           <>
             <Script

@@ -6,6 +6,9 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/Icon';
 import { ServicesMenu, ServicesMenuMobile } from '@/components/ServicesMenu';
+import { HolidayBanner } from '@/components/seasonal/HolidayBanner';
+import { SantaHat } from '@/components/seasonal/SantaHat';
+import { isHolidaySeason } from '@/lib/theme/season';
 import { localeFromPathname, withLocale, LOCALES, type Locale } from '@/lib/i18n';
 import { SITE } from '@/lib/site';
 import {
@@ -59,23 +62,34 @@ export function Header() {
         : 'text-on-surface-variant hover:text-primary'
     }`;
 
+  const isHoliday = isHolidaySeason();
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 border-b border-outline-variant h-20 flex items-center transition-shadow ${
-        scrolled ? 'shadow-sm bg-surface/95 backdrop-blur-md' : 'bg-surface'
-      }`}
-    >
-      <div className="flex justify-between items-center w-[92%] lg:w-[80%] mx-auto w-full gap-sm">
-        <Link href={withLocale('/', locale)} className="flex items-center shrink-0" aria-label={SITE.name}>
-          <Image
-            src={SITE.logo}
-            alt={SITE.name}
-            width={SITE.logoWidth}
-            height={SITE.logoHeight}
-            className="h-10 w-auto object-contain md:h-14"
-            priority
-          />
-        </Link>
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {isHoliday && <HolidayBanner />}
+      <div
+        className={`border-b border-outline-variant h-20 flex items-center transition-shadow ${
+          scrolled ? 'shadow-sm bg-surface/95 backdrop-blur-md' : 'bg-surface'
+        }`}
+      >
+        <div className="flex justify-between items-center w-[92%] lg:w-[80%] mx-auto w-full gap-sm">
+          <Link
+            href={withLocale('/', locale)}
+            className="relative flex items-center shrink-0 group"
+            aria-label={SITE.name}
+          >
+            <Image
+              src={SITE.logo}
+              alt={SITE.name}
+              width={SITE.logoWidth}
+              height={SITE.logoHeight}
+              className="h-10 w-auto object-contain md:h-14"
+              priority
+            />
+            {isHoliday && (
+              <SantaHat className="absolute -top-1.5 -right-0.5 md:-top-2 md:-right-1 w-6 h-6 md:w-7 md:h-7 -rotate-12 pointer-events-none drop-shadow-sm transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110" />
+            )}
+          </Link>
 
         <nav className="hidden lg:flex items-center gap-lg" aria-label="Principal">
           {NAV_ITEMS_MAIN.map((item) => (
@@ -120,6 +134,7 @@ export function Header() {
           </button>
         </div>
       </div>
+    </div>
 
       {mobileOpen ? (
         <div className="lg:hidden absolute top-20 left-0 right-0 max-h-[calc(100vh-5rem)] overflow-y-auto border-b border-outline-variant bg-surface shadow-lg">

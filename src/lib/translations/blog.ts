@@ -10,6 +10,11 @@ export interface BlogTranslation {
   upcomingDate: string;
   publishedDate: string;
   backToBlog: string;
+  filterByTopic: string;
+  allTopics: string;
+  articleSingular: string;
+  articlePlural: string;
+  readArticle: string;
   placeholderPosts: { title: string; category: string }[];
 }
 
@@ -25,6 +30,11 @@ export const BLOG_TRANSLATIONS: Record<Locale, BlogTranslation> = {
     upcomingDate: 'Próximamente',
     publishedDate: 'Publicado',
     backToBlog: '← Volver al blog',
+    filterByTopic: 'Filtrar por tema',
+    allTopics: 'Todos los temas',
+    articleSingular: 'artículo',
+    articlePlural: 'artículos',
+    readArticle: 'Leer artículo',
     placeholderPosts: [
       {
         title: 'Cómo elegir entre desarrollo web y software a medida',
@@ -51,6 +61,11 @@ export const BLOG_TRANSLATIONS: Record<Locale, BlogTranslation> = {
     upcomingDate: 'Coming soon',
     publishedDate: 'Published',
     backToBlog: '← Back to blog',
+    filterByTopic: 'Filter by topic',
+    allTopics: 'All topics',
+    articleSingular: 'article',
+    articlePlural: 'articles',
+    readArticle: 'Read article',
     placeholderPosts: [
       {
         title: 'Choosing between custom web development and packaged SaaS',
@@ -77,6 +92,11 @@ export const BLOG_TRANSLATIONS: Record<Locale, BlogTranslation> = {
     upcomingDate: 'Em breve',
     publishedDate: 'Publicado',
     backToBlog: '← Voltar ao blog',
+    filterByTopic: 'Filtrar por tema',
+    allTopics: 'Todos os temas',
+    articleSingular: 'artigo',
+    articlePlural: 'artigos',
+    readArticle: 'Ler artigo',
     placeholderPosts: [
       {
         title: 'Como escolher entre desenvolvimento web e software sob medida',
